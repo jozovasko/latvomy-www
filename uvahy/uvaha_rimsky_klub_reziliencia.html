@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LATVOMY | Úvahy: Medze rastu, Systémová dynamika a Reziliencia</title>
+  <style>
+    :root {
+      --bg-color: #f5f7fa;
+      --text-color: #1e293b;
+      --link-color: #0284c7;
+      --container-bg: #ffffff;
+      --card-bg: #f8fafc;
+      --border-color: #cbd5e1;
+      --muted-text: #64748b;
+      --accent-1: #0284c7;
+      --accent-2: #d97706;
+      --accent-3: #059669;
+      --callout-bg: #f1f5f9;
+      --table-header: #e2e8f0;
+      --quote-border: #94a3b8;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #0b111a;
+      --text-color: #e2e8f0;
+      --link-color: #38bdf8;
+      --container-bg: #131c2a;
+      --card-bg: #1a2638;
+      --border-color: #2e3e56;
+      --muted-text: #94a3b8;
+      --accent-1: #38bdf8;
+      --accent-2: #fbbf24;
+      --accent-3: #34d399;
+      --callout-bg: #1c2738;
+      --table-header: #24334a;
+      --quote-border: #475569;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.7;
+      margin: 0;
+      padding: 15px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 20px auto;
+      background: var(--container-bg);
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      min-height: 90vh;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        margin: 40px auto;
+        padding: 45px;
+      }
+    }
+
+    /* Top navigation bar in LATVOMY standard */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .nav-back {
+      color: var(--link-color);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-back:hover {
+      text-decoration: underline;
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn {
+      background: var(--container-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85em;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover, .btn.active-lang {
+      background: var(--border-color);
+    }
+
+    /* Header styling */
+    .header {
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      margin: 0 0 10px 0;
+      font-size: 1.85em;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+    }
+
+    .subtitle {
+      color: var(--muted-text);
+      font-size: 1.05em;
+      font-style: italic;
+    }
+
+    .article-meta {
+      font-size: 0.85em;
+      color: var(--muted-text);
+      margin-top: 10px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* 3-Layer Navigation */
+    .layer-selector {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .layer-btn {
+      background: var(--card-bg);
+      border: 2px solid var(--border-color);
+      color: var(--text-color);
+      padding: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .layer-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .layer-btn .layer-title {
+      font-weight: 700;
+      font-size: 1.05em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .layer-btn .layer-sub {
+      font-size: 0.85em;
+      color: var(--muted-text);
+    }
+
+    .layer-btn.active-1 {
+      border-color: var(--accent-1);
+      background: rgba(2, 132, 199, 0.08);
+    }
+    .layer-btn.active-2 {
+      border-color: var(--accent-2);
+      background: rgba(217, 119, 6, 0.08);
+    }
+    .layer-btn.active-3 {
+      border-color: var(--accent-3);
+      background: rgba(5, 150, 105, 0.08);
+    }
+
+    /* Content Card */
+    .layer-content {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .badge {
+      display: inline-block;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+
+    .badge-1 { background: rgba(2, 132, 199, 0.15); color: var(--accent-1); }
+    .badge-2 { background: rgba(217, 119, 6, 0.15); color: var(--accent-2); }
+    .badge-3 { background: rgba(5, 150, 105, 0.15); color: var(--accent-3); }
+
+    h2 {
+      font-size: 1.5em;
+      margin-bottom: 18px;
+      line-height: 1.35;
+    }
+
+    h3 {
+      font-size: 1.2em;
+      margin: 24px 0 10px 0;
+      color: var(--text-color);
+    }
+
+    p {
+      margin-bottom: 16px;
+    }
+
+    ul, ol {
+      margin-left: 24px;
+      margin-bottom: 20px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    /* Callout Boxes */
+    .callout {
+      background: var(--callout-bg);
+      border-left: 4px solid var(--accent-1);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+      font-size: 0.98em;
+    }
+
+    .callout-2 { border-left-color: var(--accent-2); }
+    .callout-3 { border-left-color: var(--accent-3); }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92em;
+    }
+
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--table-header);
+      font-weight: 700;
+    }
+
+    /* Vector SVG Charts */
+    .svg-chart-box {
+      background: var(--container-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 25px 0;
+      text-align: center;
+    }
+
+    .svg-chart-box svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .chart-caption {
+      font-size: 0.85em;
+      color: var(--muted-text);
+      margin-top: 10px;
+      font-style: italic;
+    }
+
+    /* Source Links */
+    .sources-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+
+    .sources-section h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 1.1em;
+    }
+
+    .sources-list {
+      list-style-type: none;
+      margin-left: 0;
+      padding-left: 0;
+    }
+
+    .sources-list li {
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--border-color);
+      font-size: 0.9em;
+    }
+
+    .sources-list li:last-child {
+      border-bottom: none;
+    }
+
+    /* Footer & Transcript */
+    footer {
+      border-top: 2px solid var(--border-color);
+      padding-top: 25px;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: var(--muted-text);
+    }
+
+    .footer-quote {
+      font-style: italic;
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--muted-text);
+    }
+
+    .dialogue-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .dialogue-box details summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--link-color);
+      font-size: 1.05em;
+      padding: 6px 0;
+    }
+
+    .dialogue-content {
+      margin-top: 15px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 15px;
+      font-size: 0.92em;
+      line-height: 1.6;
+    }
+
+    .chat-msg {
+      margin-bottom: 18px;
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
+
+    .chat-msg.user {
+      background: rgba(2, 132, 199, 0.08);
+      border-left: 4px solid var(--accent-1);
+    }
+
+    .chat-msg.gemini {
+      background: var(--callout-bg);
+      border-left: 4px solid var(--accent-3);
+    }
+
+    .chat-speaker {
+      font-weight: 800;
+      margin-bottom: 6px;
+      font-size: 0.88em;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Language switching rules */
+    .lang-content { display: none; }
+    html[lang="sk"] .lang-content[data-lang="sk"] { display: block; }
+    html[lang="en"] .lang-content[data-lang="en"] { display: block; }
+    html[lang="hu"] .lang-content[data-lang="hu"] { display: block; }
+
+    html[lang="sk"] span.lang-content[data-lang="sk"] { display: inline; }
+    html[lang="en"] span.lang-content[data-lang="en"] { display: inline; }
+    html[lang="hu"] span.lang-content[data-lang="hu"] { display: inline; }
+
+    /* Interactive layer visibility */
+    .layer-pane { display: none; }
+    .layer-pane.active-pane { display: block; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- TOP NAV -->
+  <div class="top-nav">
+    <a href="../" class="nav-back">
+      <span class="lang-content" data-lang="sk">&larr; Návrat na prehľad úvah (latvomy.info/uvahy/)</span>
+      <span class="lang-content" data-lang="en">&larr; Return to thoughts index (latvomy.info/uvahy/)</span>
+      <span class="lang-content" data-lang="hu">&larr; Vissza a gondolatokhoz (latvomy.info/uvahy/)</span>
+    </a>
+    <div class="controls">
+      <button class="btn active-lang" onclick="setLanguage('sk')" id="btn-sk">SK</button>
+      <button class="btn" onclick="setLanguage('en')" id="btn-en">EN</button>
+      <button class="btn" onclick="setLanguage('hu')" id="btn-hu">HU</button>
+      <button class="btn" id="theme-toggle" onclick="toggleTheme()" title="Prepnúť svetlý/tmavý režim">🌙</button>
+    </div>
+  </div>
+
+  <!-- ARTICLE HEADER -->
+  <header class="header">
+    <h1>
+      <span class="lang-content" data-lang="sk">Medze rastu, systémová dynamika a architektúra prežitia</span>
+      <span class="lang-content" data-lang="en">The Limits to Growth, System Dynamics, and the Architecture of Resilience</span>
+      <span class="lang-content" data-lang="hu">A növekedés határai, rendszerdinamika és a reziliencia architektúrája</span>
+    </h1>
+    <div class="subtitle">
+      <span class="lang-content" data-lang="sk">Od globálnych spätných väzieb Rímskeho klubu k deterministickej lokálnej sebestačnosti</span>
+      <span class="lang-content" data-lang="en">From Club of Rome global feedback loops to deterministic local self-reliance</span>
+      <span class="lang-content" data-lang="hu">A Római Klub globális visszacsatolásaitól a determinisztikus helyi önellátásig</span>
+    </div>
+    <div class="article-meta">
+      <span><strong>Dátum:</strong> 2. október 2026</span>
+      <span><strong>Kategória:</strong> Systémové inžinierstvo / Biofyzikálna ekonómia</span>
+      <span><strong>SSoT Index:</strong> [[000_Master_Index]] &rarr; [[Uvaha_20261002_Rimsky_Klub]]</span>
+    </div>
+  </header>
+
+  <!-- LAYER CONTROLS -->
+  <nav class="layer-selector">
+    <button class="layer-btn active-1" id="tab-layer-1" onclick="switchLayer(1)">
+      <div class="layer-title">
+        <span>🌱 1. Úroveň: Bežný čitateľ</span>
+      </div>
+      <div class="layer-sub">
+        <span class="lang-content" data-lang="sk">Prečo svet prestáva fungovať podľa starých pravidiel?</span>
+        <span class="lang-content" data-lang="en">Why the world is ceasing to function by old rules?</span>
+        <span class="lang-content" data-lang="hu">Miért nem működik tovább a világ a régi szabályok szerint?</span>
+      </div>
+    </button>
+    <button class="layer-btn" id="tab-layer-2" onclick="switchLayer(2)">
+      <div class="layer-title">
+        <span>🔬 2. Úroveň: Hĺbavý analytik</span>
+      </div>
+      <div class="layer-sub">
+        <span class="lang-content" data-lang="sk">Systémová dynamika, EROEI, AI a Jevonsov paradox</span>
+        <span class="lang-content" data-lang="en">System dynamics, EROEI, AI, and Jevons' paradox</span>
+        <span class="lang-content" data-lang="hu">Rendszerdinamika, EROEI, MI és Jevons-paradoxon</span>
+      </div>
+    </button>
+    <button class="layer-btn" id="tab-layer-3" onclick="switchLayer(3)">
+      <div class="layer-title">
+        <span>🛠️ 3. Úroveň: Prebudený staviteľ</span>
+      </div>
+      <div class="layer-sub">
+        <span class="lang-content" data-lang="sk">Deterministická akcia: Lokálne ostrovy reziliencie</span>
+        <span class="lang-content" data-lang="en">Deterministic action: Local islands of resilience</span>
+        <span class="lang-content" data-lang="hu">Determinisztikus cselekvés: Helyi reziliencia-szigetek</span>
+      </div>
+    </button>
+  </nav>
+
+  <!-- ==================== PANE 1: BEŽNÝ ČITATEĽ ==================== -->
+  <section id="pane-layer-1" class="layer-pane active-pane">
+    <div class="layer-content">
+      <span class="badge badge-1">1. Úroveň / Level 1 / 1. Szint</span>
+
+      <!-- SK -->
+      <div class="lang-content" data-lang="sk">
+        <h2>Prečo svet prestáva fungovať tak, ako sme boli zvyknutí?</h2>
+        <p>V roku 1972 prestížna medzinárodná skupina vedcov a ekonómov – <strong>Rímsky klub</strong> – uverejnila prelomovú správu s názvom <em>Medze rastu</em>. Tím z prestížnej univerzity MIT v nej pomocou počítačového modelu simuloval budúcnosť ľudskej civilizácie. Ich hlavný záver bol matematicky aj logicky nepriestrelný:</p>
+        
+        <div class="callout">
+          <strong>Základné pravidlo reality:</strong> Nekonečný materiálny rast na konečnej planéte je fyzikálne nemožný.
+        </div>
+
+        <h3>Čo sa deje práve teraz?</h3>
+        <ul>
+          <li><strong>Žiadna veštba, ale fyzikálne limity:</strong> Zdroje sa neminú zo dňa na deň ako mávnutím čarovného prútika. Namiesto toho čelíme javu, kedy odpad, znečistenie a škody na stabilite počasia rastú rýchlejšie, než ich biosféra dokáže regenerovať.</li>
+          <li><strong>Zisk má prednosť pred službou životu:</strong> Súčasné ekonomické motory sú nastavené na maximalizáciu krátkodobého finančného zisku pre úzku skupinu oligarchov. Namiesto služby verejnému dobru a zachovaniu ekosystémov sa „vyjedá podstata“ planéty – orná pôda, spodné vody a stabilná klíma.</li>
+          <li><strong>Nečakajte filmovú apokalypsu za jedno popoludnie:</strong> Kolaps nevyzerá ako výbuch sopky v Hollywoode. Prejavuje sa ako postupný <em>„dlhý zostup“</em> (polykríza) – rastúca drahota základných potrieb, čoraz častejšie výpadky sietí, suchá striedané lokálnymi záplavami a strata sociálnych istôt.</li>
+        </ul>
+      </div>
+
+      <!-- EN -->
+      <div class="lang-content" data-lang="en">
+        <h2>Why is the world ceasing to function as we were used to?</h2>
+        <p>In 1972, a distinguished international assembly of scientists and thinkers—the <strong>Club of Rome</strong>—published the landmark report <em>The Limits to Growth</em>. An MIT research team used computer models to simulate the global trajectory of human civilization. Their fundamental conclusion was indisputable:</p>
+
+        <div class="callout">
+          <strong>Fundamental Law of Reality:</strong> Infinite physical and economic growth on a finite planet is physically impossible.
+        </div>
+
+        <h3>What is unfolding right now?</h3>
+        <ul>
+          <li><strong>Not prophecy, but bio-physics:</strong> Resources do not vanish overnight. Instead, industrial waste, greenhouse gas emissions, and ecosystem degradation accumulate faster than the Earth can absorb and regenerate them.</li>
+          <li><strong>Profit prioritized over service to life:</strong> Contemporary economic architecture rewards short-term extraction for global oligarchs rather than genuine service to human flourishing and ecological integrity.</li>
+          <li><strong>No one-day Hollywood apocalypse:</strong> Civilizational decline does not happen in a single afternoon. It takes the form of a <em>"long descent"</em> (polycrisis)—gradual degradation of public infrastructure, recurring supply chain fractures, inflationary pressures on basics, and climatic extremes.</li>
+        </ul>
+      </div>
+
+      <!-- HU -->
+      <div class="lang-content" data-lang="hu">
+        <h2>Miért nem működik a világ úgy, ahogyan megszoktuk?</h2>
+        <p>1972-ben a <strong>Római Klub</strong> nevű nemzetközi tudós- és közgazdászcsoport közzétette korszakalkotó jelentését, <em>A növekedés határai</em> címmel. Az MIT kutatócsoportja számítógépes modellekkel elemezte a földi civilizáció pályáját. Fő megállapításuk kikezdhetetlen:</p>
+
+        <div class="callout">
+          <strong>A valóság alaptörvénye:</strong> A végtelen anyagi növekedés egy véges bolygón fizikailag lehetetlen.
+        </div>
+
+        <h3>Mi történik napjainkban?</h3>
+        <ul>
+          <li><strong>Nem jóslat, hanem biofizika:</strong> Az erőforrások nem egyik napról a másikra fogynak el. A hulladék, a szennyezés és az éghajlati károk gyorsabban halmozódnak fel, mint ahogyan a természet képes lenne azokat semlegesíteni.</li>
+          <li><strong>A profit megelőzi a közjó szolgálatát:</strong> A mai gazdasági gépezet a szűk elit rövid távú gazdagodását jutalmazza a bioszféra épségének megőrzése helyett.</li>
+          <li><strong>Nem egyetlen délután alatt bekövetkező hollywoodi összeomlás:</strong> Ez egy <em>„hosszú leereszkedés”</em> (polikrízis) – infrastruktúra romlása, növekvő árak, ellátási zavarok és klíma-anomáliák formájában.</li>
+        </ul>
+      </div>
+
+      <!-- SVG CHART 1: World3 curves -->
+      <div class="svg-chart-box">
+        <svg viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100%" height="100%" fill="var(--container-bg)" rx="8"/>
+          <!-- Grid lines -->
+          <line x1="80" y1="50" x2="740" y2="50" stroke="var(--border-color)" stroke-dasharray="4"/>
+          <line x1="80" y1="120" x2="740" y2="120" stroke="var(--border-color)" stroke-dasharray="4"/>
+          <line x1="80" y1="190" x2="740" y2="190" stroke="var(--border-color)" stroke-dasharray="4"/>
+          <line x1="80" y1="260" x2="740" y2="260" stroke="var(--border-color)" stroke-dasharray="4"/>
+          <line x1="80" y1="330" x2="740" y2="330" stroke="var(--text-color)" stroke-width="2"/>
+          <line x1="80" y1="50" x2="80" y2="330" stroke="var(--text-color)" stroke-width="2"/>
+
+          <!-- Timeline labels -->
+          <text x="80" y="355" fill="var(--muted-text)" font-size="12" text-anchor="middle">1970</text>
+          <text x="245" y="355" fill="var(--muted-text)" font-size="12" text-anchor="middle">2000</text>
+          <text x="410" y="355" fill="var(--muted-text)" font-size="12" text-anchor="middle" font-weight="bold">2020-2026</text>
+          <text x="575" y="355" fill="var(--muted-text)" font-size="12" text-anchor="middle">2050</text>
+          <text x="740" y="355" fill="var(--muted-text)" font-size="12" text-anchor="middle">2100</text>
+
+          <!-- Current Window Highlight -->
+          <rect x="375" y="50" width="85" height="280" fill="rgba(217, 119, 6, 0.12)" stroke="var(--accent-2)" stroke-dasharray="3"/>
+          <text x="417" y="42" fill="var(--accent-2)" font-size="11" font-weight="bold" text-anchor="middle">INFLEXNÝ ZLOM</text>
+
+          <!-- Non-renewable resources curve (declining steadily) -->
+          <path d="M 80,70 C 220,80 380,150 550,250 C 650,290 740,310 740,310" fill="none" stroke="#ef4444" stroke-width="3.5"/>
+          <text x="180" y="85" fill="#ef4444" font-size="12" font-weight="bold">Neobnoviteľné zdroje</text>
+
+          <!-- Food per capita (peaks around 2020-2030) -->
+          <path d="M 80,260 C 220,180 360,110 440,110 C 520,110 600,200 740,290" fill="none" stroke="#10b981" stroke-width="3"/>
+          <text x="270" y="160" fill="#10b981" font-size="12" font-weight="bold">Potraviny na osobu</text>
+
+          <!-- Industrial output (peaks around 2020-2025) -->
+          <path d="M 80,290 C 240,230 360,90 420,90 C 490,90 580,220 740,310" fill="none" stroke="#0284c7" stroke-width="3"/>
+          <text x="320" y="80" fill="#0284c7" font-size="12" font-weight="bold">Priemyselná produkcia</text>
+
+          <!-- Population (peaks slightly later, around 2035-2045) -->
+          <path d="M 80,270 C 240,210 380,140 480,120 C 560,120 640,160 740,230" fill="none" stroke="#a855f7" stroke-width="3"/>
+          <text x="500" y="105" fill="#a855f7" font-size="12" font-weight="bold">Populácia</text>
+
+          <!-- Pollution (exponential rise peaking later) -->
+          <path d="M 80,325 C 260,320 380,280 470,180 C 540,80 620,70 740,240" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="5"/>
+          <text x="610" y="65" fill="#f59e0b" font-size="12" font-weight="bold">Kumulácia znečistenia</text>
+        </svg>
+        <div class="chart-caption">
+          Vektorová syntéza štandardného scenára World3 (Business-as-Usual). Zvýraznené pásmo (2020 – 2035) označuje kulmináciu systémových kriviek pred ich poklesom.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PANE 2: HĹBAVÝ ANALYTIK ==================== -->
+  <section id="pane-layer-2" class="layer-pane">
+    <div class="layer-content">
+      <span class="badge badge-2">2. Úroveň / Level 2 / 2. Szint</span>
+
+      <!-- SK -->
+      <div class="lang-content" data-lang="sk">
+        <h2>Systémová dynamika, EROEI, správanie elít a Jevonsov paradox</h2>
+        <p>Nezávislé revízie dát po 30, 40 a 50 rokoch (<strong>Graham Turner</strong> z austrálskeho inštitútu CSIRO v rokoch 2008 a 2014; <strong>Gaya Herrington</strong> pre KPMG a Harvard v rokoch 2020 a 2021) dospeli k totožnému záveru: reálny stav globálneho hospodárstva sa s vysokou štatistickou zhodou drží scenára <strong>Business-as-Usual (BAU)</strong> a jeho modifikácie <strong>BAU2</strong> (zdvojnásobené zdroje).</p>
+
+        <h3>1. EROEI: Termodynamika ťažby nepustí</h3>
+        <p>Ekonomické modely často kalkulujú s tým, že pokiaľ je na trhu dopyt, suroviny sa vždy nájdu. Fyzika však pracuje s veličinou <strong>EROEI</strong> (<em>Energy Return on Energy Invested</em> – energetická návratnosť vloženej energie):</p>
+        <ul>
+          <li>Na začiatku 20. storočia stačilo investovať 1 barel ropy, aby sa vyťažilo 100 barelov (EROEI 100:1).</li>
+          <li>V súčasnosti sa EROEI konvenčných polí prepadlo k pomerom 15:1 a pri nekonvenčných zdrojoch (ropné piesky, frakovanie) na 5:1 až 3:1.</li>
+          <li>To znamená, že obrovská a stále rastúca časť hospodárskeho výkonu, energie a kapitálu musí byť reinvestovaná len do samotného udržania toku surovín, čo vyhladováva poľnohospodárstvo, školstvo a sociálnu sféru.</li>
+        </ul>
+
+        <h3>2. Vývoj AI a Jevonsov paradox</h3>
+        <p>Všeobecná viera, že umelá inteligencia (AI / AGI) zachráni ekosystémy prostredníctvom optimalizácie, naráža na <strong>Jevonsov paradox</strong>. Vyššia energetická a logistická efektivita zlacňuje procesy, čo v trhovom prostredí nevedie k poklesu, ale naopak k <em>masívnemu nárastu celkovej spotreby</em>.</p>
+        <p>AI akceleruje výpočtový a hardvérový hlad (gigawatty energie pre dátové centrá, enormná spotreba chladiacej vody, dopyt po medi a vzácnych zeminách) a v rukách fosílnych konglomerátov slúži v prvom rade na rýchlejšie objavovanie nových ložísk ropy pod morským dnom.</p>
+
+        <h3>3. Správanie oligarchov: „Survival of the Richest“</h3>
+        <p>Douglas Rushkoff poukazuje na to, že globálni technologickí a finanční magnáti si varovania Rímskeho klubu plne uvedomujú. Namiesto reformy systému však volia <strong>stratégiu úniku</strong>: nákup rozsiahlych pozemkov na Novom Zélande, stavba luxusných podzemných bunkrov, privátne bezpečnostné armády a fantazmagorické úniky do vesmíru. Z ich pohľadu ide o väzňovu dilemu – kto by chcel dobrovoľne znížiť vlastnú kumuláciu kapitálu, okamžite prehrá s bezohľadnou konkurenciou.</p>
+      </div>
+
+      <!-- EN -->
+      <div class="lang-content" data-lang="en">
+        <h2>System Dynamics, EROEI, Elite Behavior, and Jevons' Paradox</h2>
+        <p>Independent empirical reviews spanning decades (<strong>Graham Turner</strong> at CSIRO in 2008 &amp; 2014; <strong>Gaya Herrington</strong> for KPMG &amp; Harvard in 2020 &amp; 2021) confirmed that real historical data track the <strong>Business-as-Usual (BAU)</strong> and <strong>BAU2</strong> trajectories with astonishing fidelity.</p>
+
+        <h3>1. EROEI: The Thermodynamics of Extraction</h3>
+        <p>Mainstream economics assumes price signals can replace physical limits. However, physics is governed by <strong>EROEI</strong> (<em>Energy Return on Energy Invested</em>):</p>
+        <ul>
+          <li>Early 20th-century oil yielded an EROEI exceeding 100:1.</li>
+          <li>Modern unconventional plays (tar sands, tight oil, deep-sea) plummet towards 5:1 or 3:1.</li>
+          <li>Consequently, society must divert a compounding fraction of total output merely to sustain energy supplies, leaving diminishing net energy for healthcare, education, and social infrastructure.</li>
+        </ul>
+
+        <h3>2. AI Acceleration and Jevons' Paradox</h3>
+        <p>Rather than mitigating collapse, unconstrained AI deployment acts as a physical force multiplier. Operating under <strong>Jevons' paradox</strong>, thermodynamic efficiencies lower marginal costs, triggering an exponential surge in resource throughput. Data centers consume gigawatts of baseload power and millions of liters of fresh water, while LLMs are aggressively utilized by energy giants to accelerate frontier fossil fuel exploration.</p>
+      </div>
+
+      <!-- HU -->
+      <div class="lang-content" data-lang="hu">
+        <h2>Rendszerdinamika, EROEI, az elitek viselkedése és a Jevons-paradoxon</h2>
+        <p>Független empirikus felülvizsgálatok (<strong>Graham Turner</strong> 2008/2014, <strong>Gaya Herrington</strong> 2020/2021) megerősítették, hogy a globális gazdaság fejlődése szinte tökéletesen követi a <strong>Business-as-Usual (BAU)</strong> pályát.</p>
+
+        <h3>1. EROEI és a termodinamikai csapda</h3>
+        <p>A gazdasági növekedést a nettó energia határozza meg (<strong>EROEI</strong> – a befektetett energiára jutó energiahozam). Míg régen 1 hordó olaj befektetésével 100 hordót nyertek ki, ma a nehezen hozzáférhető forrásoknál ez a szám 5:1 alá esett. A rendszer önmagát éli fel.</p>
+
+        <h3>2. A mesterséges intelligencia (MI) és a szuper-fogyasztás</h3>
+        <p>A technológiai hatékonyság a <strong>Jevons-paradoxon</strong> miatt nem csökkenti, hanem növeli az aggregált fogyasztást. Az MI masszív szerverközpontjai gigawattos energiát, rengeteg vizet és rezet emésztenek fel.</p>
+      </div>
+
+      <!-- SVG CHART 2: EROEI Cliff -->
+      <div class="svg-chart-box">
+        <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100%" height="100%" fill="var(--container-bg)" rx="8"/>
+          <!-- Grid -->
+          <line x1="80" y1="40" x2="740" y2="40" stroke="var(--border-color)" stroke-dasharray="4"/>
+          <line x1="80" y1="110" x2="740" y2="110" stroke="var(--border-color)" stroke-dasharray="4"/>
+          <line x1="80" y1="180" x2="740" y2="180" stroke="var(--border-color)" stroke-dasharray="4"/>
+          <line x1="80" y1="250" x2="740" y2="250" stroke="var(--text-color)" stroke-width="2"/>
+          <line x1="80" y1="40" x2="80" y2="250" stroke="var(--text-color)" stroke-width="2"/>
+
+          <!-- Axis Labels -->
+          <text x="75" y="275" fill="var(--muted-text)" font-size="12" text-anchor="middle">1:1</text>
+          <text x="212" y="275" fill="var(--muted-text)" font-size="12" text-anchor="middle">5:1 (Kritická hranica)</text>
+          <text x="400" y="275" fill="var(--muted-text)" font-size="12" text-anchor="middle">15:1</text>
+          <text x="570" y="275" fill="var(--muted-text)" font-size="12" text-anchor="middle">50:1</text>
+          <text x="730" y="275" fill="var(--muted-text)" font-size="12" text-anchor="middle">100:1</text>
+
+          <text x="70" y="30" fill="var(--muted-text)" font-size="11">Dostupná čistá energia spoločnosti (%)</text>
+
+          <!-- Net Energy Cliff Curve -->
+          <!-- y = 250 - (1 - 1/x) * 210 -->
+          <path d="M 80,250 C 130,240 180,210 230,100 C 280,65 400,50 740,42" fill="none" stroke="#ef4444" stroke-width="4"/>
+
+          <!-- Critical Zone Box -->
+          <rect x="80" y="40" width="132" height="210" fill="rgba(239, 68, 68, 0.12)" stroke="#ef4444" stroke-dasharray="3"/>
+          <text x="146" y="160" fill="#ef4444" font-size="11" font-weight="bold" text-anchor="middle">ÚTES ČISTEJ ENERGIE</text>
+          <text x="146" y="178" fill="var(--muted-text)" font-size="10" text-anchor="middle">(Rozpad civilizačných služieb)</text>
+
+          <!-- Dot for current unconventional oil -->
+          <circle cx="212" cy="110" r="6" fill="#f59e0b"/>
+          <text x="225" y="105" fill="#f59e0b" font-size="11" font-weight="bold">Súčasný stav (Bridlice / Piesky)</text>
+
+          <!-- Dot for early oil -->
+          <circle cx="730" cy="43" r="6" fill="#10b981"/>
+          <text x="690" y="65" fill="#10b981" font-size="11" font-weight="bold">Ropa r. 1930 (100:1)</text>
+        </svg>
+        <div class="chart-caption">
+          „Útes čistej energie“ (Net Energy Cliff). Keď EROEI klesne pod pomer 5:1 až 10:1, moderná infraštruktúra prichádza o prebytok energie potrebný na zdravotníctvo, vedu a vzdelávanie.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PANE 3: PREBUDENÝ STAVITEĽ ==================== -->
+  <section id="pane-layer-3" class="layer-pane">
+    <div class="layer-content">
+      <span class="badge badge-3">3. Úroveň / Level 3 / 3. Szint</span>
+
+      <!-- SK -->
+      <div class="lang-content" data-lang="sk">
+        <h2>Deterministická akcia: Budovanie ostrovov lokálnej reziliencie</h2>
+        <p>Prestaňte očakávať, že centralizované elity opravia systém, ktorého rozpad sami živia. Odpoveďou na globálnu polykrízu nie je bezmocný nihilizmus, ale **inžinierska lokálna rekonfigurácia**. Cieľom je vytvoriť robustné, deterministicky overiteľné mikrosystémy schopné prežiť a dôstojne fungovať aj pri výpadku globálnych reťazcov.</p>
+
+        <div class="callout callout-3">
+          <strong>Architektonická axióma:</strong> Odolnosť systému nerastie jeho zložitosťou, ale schopnosťou uzatvárať základné cykly (voda, energia, pôda, poznanie) na čo najnižšej organizačnej úrovni.
+        </div>
+
+        <h3>1. Voda ako Single Source of Truth (SSoT)</h3>
+        <ul>
+          <li><strong>Gravitačná prevaha:</strong> Zber dažďovej vody z pevných plôch do kaskádových nádrží. Žiadne elektronické ventily tam, kde postačí fyzika a prepadové potrubie.</li>
+          <li><strong>Zotrvačné a mechanické čerpanie:</strong> Nasadenie bezmotorových a nízkootáčkových mechanizmov – napr. <em>Wirtzovo špirálové čerpadlo</em> poháňané tokom vody, alebo hydraulické trkače (vodné barany) s nulovou spotrebou externej elektriny.</li>
+          <li><strong>Priame solárne prečerpávanie:</strong> Dvojica fotovoltický panel &rarr; DC čerpadlo bez batérie; voda sa akumuluje na najvyššom bode pozemku počas slnečného dňa, distribúcia v noci prebieha gravitačne.</li>
+        </ul>
+
+        <h3>2. Hardvérová a nástrojová sebestačnosť</h3>
+        <ul>
+          <li><strong>Lokálna dielňa a parametrický CAD:</strong> Náhradné diely sa nenakupujú z medzinárodných eshopov; modelujú sa v otvorenom prostredí (FreeCAD, OpenSCAD) a vyrábajú lokálne na 3D tlačiarňach (FDM/PETG/ABS).</li>
+          <li><strong>Mikrokontroléry bez cloudu:</strong> Automatizácia záhrady, meranie hladín a vetranie skleníkov postavené na deterministickom kóde pre Raspberry Pi Pico (RP2040) alebo ESP32 bežiacich v izolovanej lokálnej sieti.</li>
+          <li><strong>Otvorené dátové trezory:</strong> Udržiavanie technickej dokumentácie, schém, skrípt a knižníc znalostí vo formáte Markdown a PDF na lokálnych offline serveroch (Proxmox/Samba/Syncthing) s pravidelným fyzickým zálohovaním.</li>
+        </ul>
+
+        <h3>3. Regeneratívna pôda a sociálna bunka</h3>
+        <ul>
+          <li><strong>Permakultúrne zónovanie:</strong> Zóna 0 (obydlie), Zóna 1 (bylinky a denná zelenina pri vchode), Zóna 2 (koreňová zelenina, hydina, drobný ovocný sad), Zóna 3 (hlavné plodiny), Zóna 4/5 (divočina, zádrž vody v krajine).</li>
+          <li><strong>Komunitná výmena:</strong> Bunker s guľometom je mŕtva slepá ulička. Skutočná bezpečnosť spočíva v sieťovaní s overenými remeselníkmi, mechanikmi, lekármi a pestovateľmi v okruhu 15 kilometrov.</li>
+          <li><strong>Didaktika a prenos remesla:</strong> Vyučovanie detí a vnúčat manuálnym zručnostiam, logike, konštrukcii a pestovaniu potravín.</li>
+        </ul>
+      </div>
+
+      <!-- EN -->
+      <div class="lang-content" data-lang="en">
+        <h2>Deterministic Action: Constructing Local Islands of Resilience</h2>
+        <p>Awaiting enlightenment from centralized elites is futile. The rational response to systemic polycrisis is <strong>local micro-engineering</strong>. We build autonomous nodes founded on thermodynamics, open-source technology, and closed-loop ecology.</p>
+
+        <h3>1. Water as the Single Source of Truth</h3>
+        <ul>
+          <li><strong>Gravity Drainage &amp; Rainwater Cascades:</strong> Eliminate single points of failure. Gravity does not require firmware updates or cloud connectivity.</li>
+          <li><strong>Mechanical and Inertial Pumping:</strong> Deploying stream-powered Wirtz spiral pumps and hydraulic rams with zero continuous energy input.</li>
+          <li><strong>Direct Solar Pumping:</strong> PV-to-DC setups filling elevated holding reservoirs during peak sun for gravity-fed drip irrigation.</li>
+        </ul>
+
+        <h3>2. Tool and Hardware Sovereignty</h3>
+        <ul>
+          <li><strong>Parametric CAD &amp; Local Fabrication:</strong> Replacement parts engineered locally in FreeCAD/OpenSCAD and produced via 3D printing.</li>
+          <li><strong>Air-Gapped Microcontrollers:</strong> Automation running on deterministic firmware (ESP32, RP2040) independent of external cloud ecosystems.</li>
+        </ul>
+      </div>
+
+      <!-- HU -->
+      <div class="lang-content" data-lang="hu">
+        <h2>Determinisztikus cselekvés: Helyi reziliencia-szigetek építése</h2>
+        <p>Hiábavaló arra várni, hogy a központi elit megjavítsa a rendszert. A válasz a <strong>helyi mikromérnöki munka és önellátás</strong>:</p>
+
+        <h3>1. Vízgazdálkodás és gravitáció</h3>
+        <ul>
+          <li><strong>Esővízgyűjtés és gravitációs tárolás:</strong> A gravitációhoz nincs szükség felhőszolgáltatásra vagy áramra.</li>
+          <li><strong>Mechanikus szivattyúzás:</strong> Wirtz-spirálszivattyúk és hidraulikus kosok alkalmazása.</li>
+        </ul>
+
+        <h3>2. Hardveres és technológiai függetlenség</h3>
+        <ul>
+          <li><strong>Helyi gyártás:</strong> Nyílt forráskódú CAD (FreeCAD) és 3D nyomtatás alkatrész-utánpótláshoz.</li>
+          <li><strong>Offline mikrokontrollerek:</strong> ESP32 és RP2040 vezérlők külső internetkapcsolat nélkül.</li>
+        </ul>
+      </div>
+
+      <!-- SVG CHART 3: Local Island Blueprint -->
+      <div class="svg-chart-box">
+        <svg viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100%" height="100%" fill="var(--container-bg)" rx="8"/>
+
+          <!-- Central Title -->
+          <text x="400" y="35" fill="var(--text-color)" font-size="14" font-weight="bold" text-anchor="middle">ARCHITEKTÚRA LOKÁLNEJ REZILIENCIE (DETERMINISTICKÁ SLUČKA)</text>
+
+          <!-- Node 1: Slnko / Energia -->
+          <rect x="50" y="80" width="180" height="90" rx="8" fill="var(--card-bg)" stroke="var(--accent-2)" stroke-width="2"/>
+          <text x="140" y="110" fill="var(--accent-2)" font-size="13" font-weight="bold" text-anchor="middle">1. PRIAMA ENERGIA</text>
+          <text x="140" y="132" fill="var(--text-color)" font-size="11" text-anchor="middle">Off-grid FVE + LiFePO4</text>
+          <text x="140" y="150" fill="var(--muted-text)" font-size="10" text-anchor="middle">Bez externej cloudovej väzby</text>
+
+          <!-- Node 2: Voda / Hydrológia -->
+          <rect x="310" y="80" width="180" height="90" rx="8" fill="var(--card-bg)" stroke="var(--accent-1)" stroke-width="2"/>
+          <text x="400" y="110" fill="var(--accent-1)" font-size="13" font-weight="bold" text-anchor="middle">2. VODNÝ MANIFEST</text>
+          <text x="400" y="132" fill="var(--text-color)" font-size="11" text-anchor="middle">Gravitácia + Dažďové kaskády</text>
+          <text x="400" y="150" fill="var(--muted-text)" font-size="10" text-anchor="middle">Wirtzovo špirálové čerpadlo</text>
+
+          <!-- Node 3: Pôda / Potraviny -->
+          <rect x="570" y="80" width="180" height="90" rx="8" fill="var(--card-bg)" stroke="var(--accent-3)" stroke-width="2"/>
+          <text x="660" y="110" fill="var(--accent-3)" font-size="13" font-weight="bold" text-anchor="middle">3. PÔDA A BIOMASA</text>
+          <text x="660" y="132" fill="var(--text-color)" font-size="11" text-anchor="middle">Permakultúrne zónovanie</text>
+          <text x="660" y="150" fill="var(--muted-text)" font-size="10" text-anchor="middle">Regenerácia pôdneho humusu</text>
+
+          <!-- Connecting Arrows (Top Row) -->
+          <line x1="230" y1="125" x2="310" y2="125" stroke="var(--accent-1)" stroke-width="2" marker-end="url(#arrow)"/>
+          <line x1="490" y1="125" x2="570" y2="125" stroke="var(--accent-3)" stroke-width="2" marker-end="url(#arrow)"/>
+
+          <!-- Node 4: Dielňa / Nástroje -->
+          <rect x="180" y="220" width="180" height="90" rx="8" fill="var(--card-bg)" stroke="#8b5cf6" stroke-width="2"/>
+          <text x="270" y="250" fill="#8b5cf6" font-size="13" font-weight="bold" text-anchor="middle">4. DIELŇA &amp; OPRAVY</text>
+          <text x="270" y="272" fill="var(--text-color)" font-size="11" text-anchor="middle">FreeCAD / 3D tlač (PETG)</text>
+          <text x="270" y="290" fill="var(--muted-text)" font-size="10" text-anchor="middle">RP2040 / ESP32 autonómia</text>
+
+          <!-- Node 5: Komunita / Didaktika -->
+          <rect x="440" y="220" width="180" height="90" rx="8" fill="var(--card-bg)" stroke="#ec4899" stroke-width="2"/>
+          <text x="530" y="250" fill="#ec4899" font-size="13" font-weight="bold" text-anchor="middle">5. DIDAKTIKA &amp; SIEŤ</text>
+          <text x="530" y="272" fill="var(--text-color)" font-size="11" text-anchor="middle">Odovzdávanie vedomostí</text>
+          <text x="530" y="290" fill="var(--muted-text)" font-size="10" text-anchor="middle">Susedská dôvera &amp; výmena</text>
+
+          <!-- Connecting lines (Bottom Loop) -->
+          <line x1="660" y1="170" x2="660" y2="265" stroke="var(--border-color)" stroke-width="2"/>
+          <line x1="660" y1="265" x2="620" y2="265" stroke="#ec4899" stroke-width="2"/>
+
+          <line x1="440" y1="265" x2="360" y2="265" stroke="#8b5cf6" stroke-width="2"/>
+
+          <line x1="180" y1="265" x2="140" y2="265" stroke="var(--border-color)" stroke-width="2"/>
+          <line x1="140" y1="265" x2="140" y2="170" stroke="var(--accent-2)" stroke-width="2"/>
+        </svg>
+        <div class="chart-caption">
+          Deterministický uzavretý diagram lokálnej sebestačnosti: integrácia energie, vody, pôdnej biomasy, opravárenskej dielne a komunitného odovzdávania zručností.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SOURCES & REFERENCES ==================== -->
+  <section class="sources-section">
+    <h3>
+      <span class="lang-content" data-lang="sk">📚 Literatúra a kľúčové zdroje</span>
+      <span class="lang-content" data-lang="en">📚 Primary Literature and Sources</span>
+      <span class="lang-content" data-lang="hu">📚 Források és alapvető irodalom</span>
+    </h3>
+    <ul class="sources-list">
+      <li>
+        <strong>Meadows, D. H., Meadows, D. L., Randers, J., &amp; Behrens, W. W. (1972):</strong>
+        <em>The Limits to Growth.</em> Universe Books, New York. (Pôvodná správa Rímskeho klubu a model World3).
+        [<a href="https://archive.org/details/the-limits-to-growth" target="_blank" rel="noopener">Internet Archive / Celé dielo (Open Access)</a>]
+      </li>
+      <li>
+        <strong>Turner, Graham (2008, 2014):</strong>
+        <em>A Comparison of The Limits to Growth with 30 and 40 Years of Reality.</em> CSIRO / Melbourne Sustainable Society Institute.
+        [<a href="https://doi.org/10.1016/j.gloenvcha.2008.05.001" target="_blank" rel="noopener">DOI: 10.1016/j.gloenvcha.2008.05.001 (Elsevier / ScienceDirect)</a>]
+      </li>
+      <li>
+        <strong>Herrington, Gaya (2020, 2021):</strong>
+        <em>Update to limits to growth: Comparing the World3 model with empirical data.</em> Journal of Industrial Ecology, Harvard University / KPMG.
+        [<a href="https://doi.org/10.1111/jiec.13084" target="_blank" rel="noopener">DOI: 10.1111/jiec.13084</a>]
+      </li>
+      <li>
+        <strong>Dixson-Declève, S., Gaffney, O., Ghosh, J., Randers, J., Rockström, J., &amp; Stoknes, P. E. (2022):</strong>
+        <em>Earth for All: A Survival Guide for Humanity.</em> New Society Publishers.
+        [<a href="https://earth4all.life/" target="_blank" rel="noopener">Earth4All.life</a>]
+      </li>
+      <li>
+        <strong>Stockholm Resilience Centre (2009 – 2023):</strong>
+        <em>Planetary Boundaries Framework.</em> Výskum prekročenia 6 z 9 bezpečných hraníc biosféry.
+        [<a href="https://www.stockholmresilience.org/research/planetary-boundaries.html" target="_blank" rel="noopener">Stockholm Resilience Centre</a>]
+      </li>
+      <li>
+        <strong>Tainter, Joseph A. (1988):</strong>
+        <em>The Collapse of Complex Societies.</em> Cambridge University Press. (Analýza klesajúcej návratnosti investícií do civilizačnej komplexity).
+      </li>
+      <li>
+        <strong>Rushkoff, Douglas (2022):</strong>
+        <em>Survival of the Richest: Escape Fantasies of the Tech Billionaires.</em> W. W. Norton &amp; Company.
+      </li>
+    </ul>
+  </section>
+
+  <!-- ==================== VIDEO ARCHIVES & SEARCH GUIDE ==================== -->
+  <section class="sources-section" style="margin-top: 20px;">
+    <details>
+      <summary style="cursor: pointer; font-weight: 700; color: var(--link-color); font-size: 1.05em; padding: 4px 0;">
+        <span class="lang-content" data-lang="sk">🎥 Video archívy a overené prednášky autorov (rozkliknúť)</span>
+        <span class="lang-content" data-lang="en">🎥 Video Archives & Verified Author Lectures (expand)</span>
+        <span class="lang-content" data-lang="hu">🎥 Videóarchívumok és a szerzők előadásai (kattintson ide)</span>
+      </summary>
+      <div style="margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 15px; font-size: 0.92em; line-height: 1.65;">
+        
+        <!-- SK -->
+        <div class="lang-content" data-lang="sk">
+          <p>Priame konkrétne URL videí na platformách tretích strán často podliehajú zmenám štruktúry. Nižšie sú uvedené priame vstupy do oficiálnych inštitucionálnych archívov a predpripravené overené vyhľadávacie dotazy:</p>
+          <ul style="margin-left: 20px; margin-bottom: 15px;">
+            <li>
+              <strong>Oficiálny video archív Donelly Meadows:</strong><br>
+              Nadácia <em>The Academy for Systems Change</em> archivuje didaktické vystúpenia a prednášky o spätnoväzbových slučkách:
+              [<a href="https://donellameadows.org/systems-resources/" target="_blank" rel="noopener">Donella Meadows Systems Resources</a>] | 
+              [<a href="https://www.youtube.com/@academyforsystemschange" target="_blank" rel="noopener">YouTube: Academy for Systems Change</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>Oficiálny archív The Club of Rome:</strong><br>
+              Konferencie, retrospektívy a vystúpenia k iniciatíve Earth4All:
+              [<a href="https://www.youtube.com/@ClubofRome" target="_blank" rel="noopener">YouTube: The Club of Rome Official</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>Dennis Meadows – Prednáška k 40. výročiu (Smithsonian Institution / UZH):</strong><br>
+              Rozbor toho, prečo udržateľný rozvoj zlyhal a prečo je nevyhnutný prechod na rezilienciu a manažovaný ústup:
+              [<a href="https://www.youtube.com/results?search_query=Dennis+Meadows+Smithsonian+Limits+to+Growth" target="_blank" rel="noopener">Otvoriť overené vyhľadávanie na YouTube</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>Dennis Meadows – Rozhovor k 50. výročiu (2022):</strong><br>
+              <em>„It is too late for sustainable development“</em> – otvorená bilancia polstoročnej zotrvačnosti:
+              [<a href="https://www.youtube.com/results?search_query=Dennis+Meadows+50th+Anniversary+Limits+to+Growth+2022" target="_blank" rel="noopener">Otvoriť overené vyhľadávanie na YouTube</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>Donella Meadows – Univerzitná prednáška (Dartmouth College):</strong><br>
+              Princípy systémovej dynamiky a identifikácia pákových bodov v spoločnosti:
+              [<a href="https://www.youtube.com/results?search_query=Donella+Meadows+Systems+Thinking+lecture" target="_blank" rel="noopener">Otvoriť overené vyhľadávanie na YouTube</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>Dokumentárny film „Last Call“ (2013, réžia Enrico Cerasuolo):</strong><br>
+              Celovečerný film s unikátnymi 16 mm archívnymi zábermi zo sálových počítačov MIT z roku 1972 a reflexiami tvorcov:
+              [<a href="https://www.lastcallthefilm.org/" target="_blank" rel="noopener">Oficiálna stránka projektu Last Call</a>] | 
+              [<a href="https://www.youtube.com/results?search_query=Last+Call+2013+Limits+to+Growth+documentary" target="_blank" rel="noopener">Vyhľadať film na YouTube</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>Jørgen Randers – Prognóza 2052 (Cambridge University):</strong><br>
+              Modelovanie zlyhania trhových cyklov pri dlhodobom plánovaní:
+              [<a href="https://www.youtube.com/results?search_query=Jorgen+Randers+2052+Cambridge+lecture" target="_blank" rel="noopener">Otvoriť overené vyhľadávanie na YouTube</a>]
+            </li>
+          </ul>
+        </div>
+
+        <!-- EN -->
+        <div class="lang-content" data-lang="en">
+          <p>Direct URLs to third-party videos frequently break. Below are permanent entries to official institutional archives and pre-configured search queries:</p>
+          <ul style="margin-left: 20px; margin-bottom: 15px;">
+            <li>
+              <strong>Donella Meadows Official Video Archive:</strong><br>
+              Curated by <em>The Academy for Systems Change</em>:
+              [<a href="https://donellameadows.org/systems-resources/" target="_blank" rel="noopener">Donella Meadows Systems Resources</a>] | 
+              [<a href="https://www.youtube.com/@academyforsystemschange" target="_blank" rel="noopener">YouTube: Academy for Systems Change</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>Official Club of Rome Channel:</strong><br>
+              Conferences, Earth4All initiatives, and retrospective lectures:
+              [<a href="https://www.youtube.com/@ClubofRome" target="_blank" rel="noopener">YouTube: The Club of Rome Official</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>Dennis Meadows – 40th Anniversary Address (Smithsonian / UZH):</strong><br>
+              On why sustainable development failed and managed resilience is required:
+              [<a href="https://www.youtube.com/results?search_query=Dennis+Meadows+Smithsonian+Limits+to+Growth" target="_blank" rel="noopener">Open verified YouTube search</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>Dennis Meadows – 50th Anniversary Address (2022):</strong><br>
+              <em>"It is too late for sustainable development"</em>:
+              [<a href="https://www.youtube.com/results?search_query=Dennis+Meadows+50th+Anniversary+Limits+to+Growth+2022" target="_blank" rel="noopener">Open verified YouTube search</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>Donella Meadows – Dartmouth College Lecture:</strong><br>
+              Systems thinking, feedback loops, and societal leverage points:
+              [<a href="https://www.youtube.com/results?search_query=Donella+Meadows+Systems+Thinking+lecture" target="_blank" rel="noopener">Open verified YouTube search</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>Documentary "Last Call" (2013, dir. Enrico Cerasuolo):</strong><br>
+              Feature film with original 1972 MIT 16mm footage:
+              [<a href="https://www.lastcallthefilm.org/" target="_blank" rel="noopener">Official Last Call Project</a>] | 
+              [<a href="https://www.youtube.com/results?search_query=Last+Call+2013+Limits+to+Growth+documentary" target="_blank" rel="noopener">Search on YouTube</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>Jørgen Randers – 2052 Forecast (Cambridge University):</strong><br>
+              Market inertia and long-term socio-ecological modeling:
+              [<a href="https://www.youtube.com/results?search_query=Jorgen+Randers+2052+Cambridge+lecture" target="_blank" rel="noopener">Open verified YouTube search</a>]
+            </li>
+          </ul>
+        </div>
+
+        <!-- HU -->
+        <div class="lang-content" data-lang="hu">
+          <p>A harmadik felek videóhivatkozásai gyakran megszakadnak. Az alábbiakban a hivatalos intézményi archívumok és ellenőrzött keresések találhatók:</p>
+          <ul style="margin-left: 20px; margin-bottom: 15px;">
+            <li>
+              <strong>Donella Meadows hivatalos videóarchívuma:</strong><br>
+              <em>The Academy for Systems Change</em> gyűjteménye a rendszerszemléletről:
+              [<a href="https://donellameadows.org/systems-resources/" target="_blank" rel="noopener">Donella Meadows Systems Resources</a>] | 
+              [<a href="https://www.youtube.com/@academyforsystemschange" target="_blank" rel="noopener">YouTube: Academy for Systems Change</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>A Római Klub hivatalos csatornája:</strong><br>
+              Konferenciák, visszatekintések és az Earth4All előadások:
+              [<a href="https://www.youtube.com/@ClubofRome" target="_blank" rel="noopener">YouTube: The Club of Rome Official</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>Dennis Meadows – Előadás a 40. évfordulón (Smithsonian / UZH):</strong><br>
+              Miért vallott kudarcot a fenntartható fejlődés, és miért elkerülhetetlen a reziliencia:
+              [<a href="https://www.youtube.com/results?search_query=Dennis+Meadows+Smithsonian+Limits+to+Growth" target="_blank" rel="noopener">Keresés indítása a YouTube-on</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>Dennis Meadows – 50. évfordulós interjú (2022):</strong><br>
+              <em>"Már túl késő a fenntartható fejlődéshez"</em>:
+              [<a href="https://www.youtube.com/results?search_query=Dennis+Meadows+50th+Anniversary+Limits+to+Growth+2022" target="_blank" rel="noopener">Keresés indítása a YouTube-on</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>Donella Meadows – Dartmouth College egyetemi előadás:</strong><br>
+              A rendszerdinamika alapjai és beavatkozási pontjai:
+              [<a href="https://www.youtube.com/results?search_query=Donella+Meadows+Systems+Thinking+lecture" target="_blank" rel="noopener">Keresés indítása a YouTube-on</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>"Last Call" dokumentumfilm (2013, Enrico Cerasuolo):</strong><br>
+              Egész estés dokumentumfilm az eredeti 1972-es MIT 16 mm-es archív felvételekkel:
+              [<a href="https://www.lastcallthefilm.org/" target="_blank" rel="noopener">A Last Call projekt hivatalos oldala</a>] | 
+              [<a href="https://www.youtube.com/results?search_query=Last+Call+2013+Limits+to+Growth+documentary" target="_blank" rel="noopener">Keresés indítása a YouTube-on</a>]
+            </li>
+            <li style="margin-top: 8px;">
+              <strong>Jørgen Randers – 2052 előrejelzés (Cambridge University):</strong><br>
+              A piac kudarca a hosszú távú modellezésben:
+              [<a href="https://www.youtube.com/results?search_query=Jorgen+Randers+2052+Cambridge+lecture" target="_blank" rel="noopener">Keresés indítása a YouTube-on</a>]
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </details>
+  </section>
+
+    <!-- ==================== FOOTER & FULL TRANSCRIPT ==================== -->
+  <footer>
+    <div class="footer-quote">
+      <span class="lang-content" data-lang="sk">„Tvorivosť je jedna z prirodzených vlastností človeka. Život ide naživo, ale v laboratórnych podmienkach môžeme trénovať na život.“</span>
+      <span class="lang-content" data-lang="en">"Creativity is a natural human trait. Life happens live, but under laboratory conditions, we can train for life."</span>
+      <span class="lang-content" data-lang="hu">"A kreativitás az ember egyik természetes tulajdonsága. Az élet élőben zajlik, de laboratóriumi körülmények között edzhetünk az életre."</span>
+    </div>
+
+    <p style="text-align: center; margin-bottom: 20px; font-weight: 600;">
+      <span class="lang-content" data-lang="sk">text je zhrnutím autorského dialógu s Blížencom Gemini 3.8 Flash 2.10.2026</span>
+      <span class="lang-content" data-lang="en">the text summarizes an authorial dialogue with Gemini 3.8 Flash on October 2, 2026</span>
+      <span class="lang-content" data-lang="hu">a szöveg a Gemini 3.8 Flash-sel folytatott szerzői párbeszéd összefoglalása – 2026. október 2.</span>
+    </p>
+
+    <!-- Collapsible Dialogue Box -->
+    <div class="dialogue-box">
+      <details>
+        <summary>
+          <span class="lang-content" data-lang="sk">Zobraziť celý autentický dialóg (2. 10. 2026)</span>
+          <span class="lang-content" data-lang="en">Display full authentic dialogue (October 2, 2026)</span>
+          <span class="lang-content" data-lang="hu">A teljes hiteles párbeszéd megjelenítése (2026. október 2.)</span>
+        </summary>
+        <div class="dialogue-content">
+          
+          <!-- Q1 -->
+          <div class="chat-msg user">
+            <div class="chat-speaker">
+              <span class="lang-content" data-lang="sk">Užívateľ (Jozef Vaško):</span>
+              <span class="lang-content" data-lang="en">User (Jozef Vaško):</span>
+              <span class="lang-content" data-lang="hu">Felhasználó (Jozef Vaško):</span>
+            </div>
+            <div class="lang-content" data-lang="sk">co vies o rimskom klube , o jeho aktivitach od minulosti do sucasnosti?</div>
+            <div class="lang-content" data-lang="en">What do you know about the Club of Rome, its activities from the past to the present?</div>
+            <div class="lang-content" data-lang="hu">Mit tudsz a Római Klubról és annak múltbeli és jelenlegi tevékenységéről?</div>
+          </div>
+
+          <div class="chat-msg gemini">
+            <div class="chat-speaker">Gemini 3.8 Flash:</div>
+            <div class="lang-content" data-lang="sk">Rímsky klub (The Club of Rome) je medzinárodný think-tank založený v apríli 1968 Aureliom Pecceim a Alexandrom Kingom s cieľom skúmať globálne krízy ľudstva (predicament of mankind). V roku 1972 vydal prelomovú správu <em>Medze rastu</em> (Limits to Growth) pod vedením Donelly a Dennisa Meadowsovcov z MIT s počítačovým modelom World3, ktorý sledoval interakcie 5 premenných: populácia, industrializácia, znečistenie, potraviny a neobnoviteľné zdroje. Správa varovala pred prekročením limitov v 21. storočí. Neskôr nasledovali správy ako <em>Mankind at the Turning Point</em> (1974), <em>No Limits to Learning</em> (1979), <em>Factor Four</em> (1997), revízia po 30 rokoch (2004) a nová vlajková štúdia <em>Earth4All</em> (2022) definujúca 5 systémových obratov (chudoba, nerovnosť, postavenie žien, potravinový systém a energetika).</div>
+            <div class="lang-content" data-lang="en">The Club of Rome is an international think-tank founded in April 1968 by Aurelio Peccei and Alexander King to study the global predicament of mankind. In 1972, it published the landmark report <em>The Limits to Growth</em> led by Donella and Dennis Meadows of MIT using the World3 computer model, tracking 5 key variables: population, industrialization, pollution, food production, and non-renewable resources. It warned of systemic overshoot in the 21st century. Later milestones include <em>Mankind at the Turning Point</em> (1974), <em>No Limits to Learning</em> (1979), <em>Factor Four</em> (1997), the 30-Year Update (2004), and the <em>Earth4All</em> initiative (2022) proposing 5 systemic turnarounds (poverty, inequality, empowerment, food, energy).</div>
+            <div class="lang-content" data-lang="hu">A Római Klub egy 1968 áprilisában Aurelio Peccei és Alexander King által alapított nemzetközi agytröszt, amely az emberiség globális válságait („predicament of mankind”) vizsgálja. 1972-ben adta ki a nagy hatású <em>A növekedés határai</em> című jelentést az MIT kutatói (Donella és Dennis Meadows) vezetésével, a World3 számítógépes modell segítségével, amely 5 változót követett nyomon: népesség, iparosodás, szennyezés, élelmiszertermelés és nem megújuló erőforrások. Későbbi fontos állomásai a <em>Mankind at the Turning Point</em> (1974), a <em>No Limits to Learning</em> (1979), a <em>Factor Four</em> (1997), a 30 éves frissítés (2004) és a legújabb <em>Earth4All</em> (2022) kezdeményezés, amely 5 rendszerszintű fordulatot javasol.</div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="chat-msg user">
+            <div class="chat-speaker">
+              <span class="lang-content" data-lang="sk">Užívateľ (Jozef Vaško):</span>
+              <span class="lang-content" data-lang="en">User (Jozef Vaško):</span>
+              <span class="lang-content" data-lang="hu">Felhasználó (Jozef Vaško):</span>
+            </div>
+            <div class="lang-content" data-lang="sk">na kolko sa naplnili ich prognozy?</div>
+            <div class="lang-content" data-lang="en">To what extent did their forecasts come true?</div>
+            <div class="lang-content" data-lang="hu">Mennyire igazolódtak be az előrejelzéseik?</div>
+          </div>
+
+          <div class="chat-msg gemini">
+            <div class="chat-speaker">Gemini 3.8 Flash:</div>
+            <div class="lang-content" data-lang="sk">Empirické revízie (Graham Turner 2008/2014 z CSIRO a Gaya Herrington 2020/2021 pre KPMG/Harvard) ukázali, že skutočný historický vývoj za 50 rokov takmer presne kopíruje scenár Business-as-Usual (BAU) a BAU2. Model World3 nikdy nepredpovedal kolaps do roku 2000, ale kulmináciu priemyselnej produkcie a blahobytu v horizonte 2020 – 2035, v ktorom sa práve nachádzame. Podcenil síce cenovú substitúciu a bridlicovú ropu, no v akumulácii znečistenia a klesajúcej kvalite ložísk sa trajektória potvrdila.</div>
+            <div class="lang-content" data-lang="en">Empirical reviews (Graham Turner 2008/2014 at CSIRO and Gaya Herrington 2020/2021 for KPMG/Harvard) demonstrated that 50 years of historical data align remarkably well with the Business-as-Usual (BAU) and BAU2 scenarios. World3 never predicted collapse by 2000, but an inflection peak in industrial output and well-being around 2020–2035—the exact window we are navigating today. While it underestimated market price substitution and fracking, its curves on pollution accumulation and resource quality degradation proved exceptionally accurate.</div>
+            <div class="lang-content" data-lang="hu">Az empirikus felülvizsgálatok (Graham Turner 2008/2014 a CSIRO-nál és Gaya Herrington 2020/2021 a KPMG/Harvard részéről) kimutatták, hogy a valós adatok 50 év távlatában szinte pontosan a Business-as-Usual (BAU és BAU2) pályát követik. A World3 modell soha nem jósolt összeomlást 2000-re, hanem az ipari kibocsátás és a jólét tetőzését jelezte előre 2020–2035 körül, amelyben most élünk. Bár a piaci helyettesítést és a palagázt alábecsülte, a szennyezés felhalmozódásának és az erőforrások minőségromlásának íve igazolódott.</div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="chat-msg user">
+            <div class="chat-speaker">
+              <span class="lang-content" data-lang="sk">Užívateľ (Jozef Vaško):</span>
+              <span class="lang-content" data-lang="en">User (Jozef Vaško):</span>
+              <span class="lang-content" data-lang="hu">Felhasználó (Jozef Vaško):</span>
+            </div>
+            <div class="lang-content" data-lang="sk">V čom sa líši najnovší model Earth4All z roku 2022 od pôvodnej správy Medze rastu z roku 1972?</div>
+            <div class="lang-content" data-lang="en">How does the latest Earth4All model from 2022 differ from the original 1972 Limits to Growth report?</div>
+            <div class="lang-content" data-lang="hu">Miben különbözik a legújabb, 2022-es Earth4All modell az 1972-es A növekedés határai jelentéstől?</div>
+          </div>
+
+          <div class="chat-msg gemini">
+            <div class="chat-speaker">Gemini 3.8 Flash:</div>
+            <div class="lang-content" data-lang="sk">Kým World3 (1972) skúmal najmä biofyzikálne limity a globálny celok, Earth4All (2022) modeluje svet v 10 regiónoch a prináša zásadný poznatok: bezprostrednou brzdou prežitia nie je nedostatok nerastov, ale sociálna nerovnosť a rozpad dôvery v spoločnosti. Earth4All meria úspech Indexom blahobytu (Wellbeing Index) namiesto HDP a presadzuje 5 obratov: ukončenie chudoby, zníženie extrémnej majetkovej nerovnosti, posilnenie práv žien, regeneratívne poľnohospodárstvo a transformáciu energetiky.</div>
+            <div class="lang-content" data-lang="en">Whereas World3 (1972) modeled a single global aggregate centered on biophysical boundaries, Earth4All (2022) divides the globe into 10 regions and arrives at a key revelation: the primary bottleneck is not raw geological scarcity, but social inequality and the collapse of democratic trust. Earth4All measures success via a Wellbeing Index rather than GDP and specifies 5 systemic turnarounds: ending poverty, curbing extreme wealth inequality, empowering women, transforming food systems, and clean energy transition.</div>
+            <div class="lang-content" data-lang="hu">Míg az 1972-es World3 a biofizikai korlátokat és az egységes globális egészet vizsgálta, addig az Earth4All (2022) 10 régióra osztja a világot, és kulcsfontosságú felismerésre jut: az azonnali akadály nem az ásványkincsek hiánya, hanem a társadalmi egyenlőtlenség és a bizalomvesztés. Az Earth4All a GDP helyett a Jóléti Indexet (Wellbeing Index) méri, és 5 fordulatot sürget: szegénység felszámolása, egyenlőtlenségek csökkentése, nők jogai, regeneratív mezőgazdaság és tiszta energia.</div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="chat-msg user">
+            <div class="chat-speaker">
+              <span class="lang-content" data-lang="sk">Užívateľ (Jozef Vaško):</span>
+              <span class="lang-content" data-lang="en">User (Jozef Vaško):</span>
+              <span class="lang-content" data-lang="hu">Felhasználó (Jozef Vaško):</span>
+            </div>
+            <div class="lang-content" data-lang="sk">nevizeraju aktualne rearli tak ko keby hlavni oligarchovia vlastniaci vacsinu zemegule tie varovania necitali alebo ano?</div>
+            <div class="lang-content" data-lang="en">Doesn't current reality look as if the main oligarchs owning most of the globe haven't read those warnings, or have they?</div>
+            <div class="lang-content" data-lang="hu">Nem úgy néz ki a jelenlegi valóság, mintha a földgolyó nagy részét birtokló oligarchák nem olvasták volna a figyelmeztetéseket?</div>
+          </div>
+
+          <div class="chat-msg gemini">
+            <div class="chat-speaker">Gemini 3.8 Flash:</div>
+            <div class="lang-content" data-lang="sk">Elity varovania čítali, no reagujú podľa vlastných systémových záujmov: stratégiou úniku (Survival of the Richest – luxusné bunkre na Novom Zélande, privátne zdroje a eskapizmus do vesmíru), uviaznutím vo väzňovej dileme trhu (kto prestane ťažiť, toho pohltí konkurencia) a redukciou riešení na zelený marketing namiesto spravodlivého prerozdelenia bohatstva.</div>
+            <div class="lang-content" data-lang="en">The elites read the warnings thoroughly, but they respond according to their systemic self-interests: an exit strategy (Survival of the Richest—luxury bunkers in New Zealand, private micro-grids, space escapism), entrapment in the market prisoner's dilemma (any corporation voluntarily halting extraction is swiftly consumed by rivals), and greenwashing commodification rather than structural wealth redistribution.</div>
+            <div class="lang-content" data-lang="hu">Az elitek nagyon is olvasták a figyelmeztetéseket, de saját rendszerérdekeik szerint cselekszenek: menekülési stratégia (Survival of the Richest – luxusbunkerek Új-Zélandon, magán infrastruktúra, űreszkapizmus), piaci fogolydilemma (aki önként leállítja a kitermelést, azt megeszi a konkurencia), valamint zöld marketing a valódi újraelosztás helyett.</div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="chat-msg user">
+            <div class="chat-speaker">
+              <span class="lang-content" data-lang="sk">Užívateľ (Jozef Vaško):</span>
+              <span class="lang-content" data-lang="en">User (Jozef Vaško):</span>
+              <span class="lang-content" data-lang="hu">Felhasználó (Jozef Vaško):</span>
+            </div>
+            <div class="lang-content" data-lang="sk">cize nesulad pomeru prioritizacie zsiku pre sluzbou privediezemegulu ku zaniku?</div>
+            <div class="lang-content" data-lang="en">So does this disproportionate prioritization of profit over service lead the globe to extinction?</div>
+            <div class="lang-content" data-lang="hu">Tehát a profit közjó elé helyezése a Föld pusztulásához vezet?</div>
+          </div>
+
+          <div class="chat-msg gemini">
+            <div class="chat-speaker">Gemini 3.8 Flash:</div>
+            <div class="lang-content" data-lang="sk">Zemeguľa ako planéta nezanikne, v stávke je však existencia komplexnej civilizácie. Nadradenie zisku nad službu spôsobuje: 1. čerpanie podstaty namiesto úrokov prírody, 2. prerušenie spätnej väzby v riadení, 3. sociálnu implóziu a polarizáciu skôr, než sa vyčerpá posledná kvapka ropy.</div>
+            <div class="lang-content" data-lang="en">The planet itself as a rock will survive; what is at stake is the viability of complex technological civilization. Subordinating service to compounding profit triggers: 1. consuming ecological principal rather than sustainable yield, 2. severed feedback loops in cybernetic control, and 3. social implosion and polarization long before the last drop of oil is drained.</div>
+            <div class="lang-content" data-lang="hu">A bolygó mint égitest nem fog elpusztulni; a tét a komplex civilizáció fennmaradása. A profit szolgálat fölé helyezése három hibát okoz: 1. a természeti tőke felélése a hozam helyett, 2. a kibernetikai visszacsatolás megszakadása, 3. társadalmi összeomlás jóval azelőtt, hogy az utolsó csepp olaj elfogyna.</div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="chat-msg user">
+            <div class="chat-speaker">
+              <span class="lang-content" data-lang="sk">Užívateľ (Jozef Vaško):</span>
+              <span class="lang-content" data-lang="en">User (Jozef Vaško):</span>
+              <span class="lang-content" data-lang="hu">Felhasználó (Jozef Vaško):</span>
+            </div>
+            <div class="lang-content" data-lang="sk">prudky vyvoj AI a AGI to moze urychlit, alebo spomalit.?</div>
+            <div class="lang-content" data-lang="en">Can the rapid rise of AI and AGI accelerate or slow this down?</div>
+            <div class="lang-content" data-lang="hu">A mesterséges intelligencia (MI) és az AGI gyors fejlődése felgyorsíthatja vagy lelassíthatja ezt?</div>
+          </div>
+
+          <div class="chat-msg gemini">
+            <div class="chat-speaker">Gemini 3.8 Flash:</div>
+            <div class="lang-content" data-lang="sk">AI/AGI je brutálny multiplikátor síl. Pri súčasnom komerčnom nastavení kolaps skôr urýchľuje cez hlad po energii a vode, Jevonsov paradox (efektívnejšie motory vedú k násobne vyššej spotrebe a rýchlejšiemu hľadaniu ropy) a koncentráciu bohatstva. Spomaliť by ho mohla len vtedy, ak by slúžila obnove biosféry a distribúcii blahobytu namiesto trhovej návratnosti.</div>
+            <div class="lang-content" data-lang="en">AI/AGI is a force multiplier. Under current market incentives, it predominantly accelerates breakdown through staggering power/water consumption, Jevons' paradox (efficiencies driving higher net throughput and faster fossil fuel prospecting), and wealth hyper-concentration. It could only mitigate collapse if redirected entirely toward regenerative biosystems and post-growth distribution.</div>
+            <div class="lang-content" data-lang="hu">Az MI/AGI brutális erőmultiplikátor. A jelenlegi piaci logikában inkább gyorsítja a hanyatlást a hatalmas energia- és vízigénye, a Jevons-paradoxon (a hatékonyság még nagyobb fogyasztást és új olajmezők keresését hozza) és a vagyonkoncentráció révén. Csak akkor lassíthatná, ha a bioszféra regenerálását és az elosztást szolgálná a piaci profit helyett.</div>
+          </div>
+
+          <!-- Q7 -->
+          <div class="chat-msg user">
+            <div class="chat-speaker">
+              <span class="lang-content" data-lang="sk">Užívateľ (Jozef Vaško):</span>
+              <span class="lang-content" data-lang="en">User (Jozef Vaško):</span>
+              <span class="lang-content" data-lang="hu">Felhasználó (Jozef Vaško):</span>
+            </div>
+            <div class="lang-content" data-lang="sk">tak ze otazka nie je ci, ale kedy?</div>
+            <div class="lang-content" data-lang="en">So the question is not if, but when?</div>
+            <div class="lang-content" data-lang="hu">Tehát a kérdés nem az, hogy bekövetkezik-e, hanem az, hogy mikor?</div>
+          </div>
+
+          <div class="chat-msg gemini">
+            <div class="chat-speaker">Gemini 3.8 Flash:</div>
+            <div class="lang-content" data-lang="sk">Pri zachovaní trajektórie nejde o otázku „či“, ale „kedy a ako“. Časové okno kulminácie je 2020 – 2035. Kolaps nebude blesková hollywoodska katastrofa, ale „dlhý zostup“ a polykríza. Racionálnou odpoveďou jednotlivcov a komunít je opustiť čakanie na záchranu zhora a budovať lokálnu rezilienciu: energetickú, vodnú, nástrojovú a remeselnú sebestačnosť v lokálnom rámci.</div>
+            <div class="lang-content" data-lang="en">Under the prevailing trajectory, it is indeed not "if", but "when and how". The inflection crest sits in the 2020–2035 window. This transition will not be a sudden cinematic collapse, but a protracted "long descent" and systemic polycrisis. The rational engineering response is to cease awaiting top-down deliverance and build deterministic local resilience: hydrological, energetic, tool, and communal self-reliance.</div>
+            <div class="lang-content" data-lang="hu">A jelenlegi pálya mellett valóban nem az a kérdés, hogy bekövetkezik-e, hanem hogy „mikor és hogyan”. A fordulópont a 2020–2035-ös időszak. Ez nem hirtelen filmszerű katasztrófa lesz, hanem egy „hosszú leereszkedés” és polikrízis. A racionális válasz: nem felülről várni a megmentést, hanem helyi rezilienciát építeni – energetikai, vízgazdálkodási, szerszámbeli és közösségi önellátást.</div>
+          </div>
+
+        </div>
+      </details>
+    </div>
+
+    <div style="text-align: center; margin-top: 25px; font-size: 0.8em;">
+      <span class="lang-content" data-lang="sk">*SSoT Spojenie:* [[000_Master_Index]] | Poschodie: [[Uvahy_MOC]] | LATVOMY Exocortex v2.0</span>
+      <span class="lang-content" data-lang="en">*SSoT Link:* [[000_Master_Index]] | Floor: [[Uvahy_MOC]] | LATVOMY Exocortex v2.0</span>
+      <span class="lang-content" data-lang="hu">*SSoT Kapcsolat:* [[000_Master_Index]] | Emelet: [[Uvahy_MOC]] | LATVOMY Exocortex v2.0</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // Dynamic language switcher with Unicode protection
+  function setLanguage(lang) {
+    document.documentElement.setAttribute("lang", lang);
+    document.querySelectorAll(".controls .btn").forEach(function(btn) {
+      btn.classList.remove("active-lang");
+    });
+    var targetBtn = document.getElementById("btn-" + lang);
+    if (targetBtn) {
+      targetBtn.classList.add("active-lang");
+    }
+    try {
+      localStorage.setItem("latvomy_lang", lang);
+    } catch(e) {}
+  }
+
+  // Layer switcher
+  function switchLayer(layerIdx) {
+    for (var i = 1; i <= 3; i++) {
+      var tab = document.getElementById("tab-layer-" + i);
+      var pane = document.getElementById("pane-layer-" + i);
+      if (tab) tab.className = "layer-btn";
+      if (pane) pane.classList.remove("active-pane");
+    }
+    var activeTab = document.getElementById("tab-layer-" + layerIdx);
+    var activePane = document.getElementById("pane-layer-" + layerIdx);
+    if (activeTab) activeTab.classList.add("active-" + layerIdx);
+    if (activePane) activePane.classList.add("active-pane");
+  }
+
+  // Theme switcher
+  function toggleTheme() {
+    var currentTheme = document.documentElement.getAttribute("data-theme");
+    var newTheme = (currentTheme === "dark") ? "light" : "dark";
+    if (newTheme === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+      document.getElementById("theme-toggle").innerText = "\u2600\uFE0F";
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+      document.getElementById("theme-toggle").innerText = "\uD83C\uDF19";
+    }
+    try {
+      localStorage.setItem("latvomy_theme", newTheme);
+    } catch(e) {}
+  }
+
+  // Initialize state
+  document.addEventListener("DOMContentLoaded", function() {
+    try {
+      var savedLang = localStorage.getItem("latvomy_lang");
+      if (savedLang && (savedLang === "sk" || savedLang === "en" || savedLang === "hu")) {
+        setLanguage(savedLang);
+      }
+      var savedTheme = localStorage.getItem("latvomy_theme");
+      if (savedTheme === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        var toggle = document.getElementById("theme-toggle");
+        if (toggle) toggle.innerText = "\u2600\uFE0F";
+      }
+    } catch(e) {}
+  });
+</script>
+
+</body>
+</html>
