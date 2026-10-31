@@ -1,0 +1,561 @@
+    [data-theme="dark"] {
+        --bg-color: #121212;
+        --text-color: #e0e0e0;
+        --link-color: #64b5f6;
+        --container-bg: #1e1e1e;
+        --border-color: #333333;
+        --accent-color: #0ea5e9;
+        --box-bg: #252525;
+        --term-bg: rgba(14, 165, 233, 0.15);
+        --term-border: #0ea5e9;
+        --tooltip-bg: #000000;
+        --tooltip-text: #e0e0e0;
+    }
+
+    body {
+        font-family: system-ui, -apple-system, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+        max-width: 820px;
+        margin: 40px auto;
+        background: var(--container-bg);
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        border: 1px solid var(--border-color);
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .top-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .header {
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+    }
+
+    h1 {
+        margin: 0 0 5px 0;
+        font-size: 1.8em;
+        color: var(--accent-color);
+    }
+
+    .subtitle {
+        font-size: 0.95em;
+        color: var(--text-color);
+        opacity: 0.75;
+        margin-bottom: 0;
+    }
+
+    h2 {
+        font-size: 1.3em;
+        color: var(--accent-color);
+        margin-top: 25px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 5px;
+    }
+
+    h3 {
+        font-size: 1.05em;
+        margin-top: 18px;
+        margin-bottom: 8px;
+    }
+
+    .controls {
+        display: flex;
+        gap: 6px;
+    }
+
+    .btn {
+        background: none;
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        padding: 6px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.85em;
+        transition: all 0.2s ease;
+    }
+
+    .btn:hover, .btn.active {
+        background: var(--border-color);
+        font-weight: bold;
+    }
+
+    a {
+        color: var(--link-color);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    /* Prepínač hĺbavosti */
+    .level-nav {
+        display: flex;
+        gap: 6px;
+        margin: 20px 0;
+        background: var(--box-bg);
+        padding: 5px;
+        border-radius: 6px;
+        border: 1px solid var(--border-color);
+    }
+
+    .level-btn {
+        flex: 1;
+        padding: 8px 10px;
+        font-size: 0.82em;
+        text-align: center;
+    }
+
+    .level-content {
+        display: none;
+    }
+
+    .level-content.active {
+        display: block;
+    }
+
+    /* Zoznamy */
+    ul.custom-list {
+        list-style-type: square;
+        padding-left: 20px;
+        margin-bottom: 15px;
+    }
+
+    ul.custom-list li {
+        margin-bottom: 8px;
+    }
+
+    /* Systémové boxy */
+    .system-box {
+        background: var(--box-bg);
+        border-left: 3px solid var(--accent-color);
+        padding: 15px;
+        margin: 18px 0;
+        border-radius: 0 6px 6px 0;
+        font-size: 0.95em;
+        border-top: 1px solid var(--border-color);
+        border-right: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Vektorová grafika */
+    .svg-wrap {
+        display: flex;
+        justify-content: center;
+        background: var(--box-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        padding: 15px;
+        margin: 18px 0;
+        overflow-x: auto;
+    }
+
+    svg {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Tooltipy */
+    .term {
+        position: relative;
+        background-color: var(--term-bg);
+        color: var(--accent-color);
+        border-bottom: 1px dotted var(--term-border);
+        padding: 0 4px;
+        border-radius: 3px;
+        cursor: help;
+        font-weight: 500;
+        display: inline-block;
+    }
+
+    .term .tooltip {
+        visibility: hidden;
+        opacity: 0;
+        width: 270px;
+        background-color: var(--tooltip-bg);
+        color: var(--tooltip-text);
+        border: 1px solid var(--border-color);
+        text-align: left;
+        border-radius: 6px;
+        padding: 10px;
+        position: absolute;
+        z-index: 100;
+        bottom: 130%;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+        font-size: 0.8em;
+        font-weight: normal;
+        line-height: 1.4;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+        pointer-events: none;
+    }
+
+    .term .tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: var(--tooltip-bg) transparent transparent transparent;
+    }
+
+    .term:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /* Pätička */
+    .footer-divider {
+        border: 0;
+        border-top: 1px solid var(--border-color);
+        margin: 35px 0 15px 0;
+    }
+
+    .footer-note {
+        font-size: 0.85em;
+        color: var(--text-color);
+        opacity: 0.7;
+        text-align: center;
+    }
+
+    /* Jazyková viditeľnosť */
+    .lang-content { display: none; }
+    html[lang="sk"] .lang-content[data-lang="sk"] { display: block; }
+    html[lang="en"] .lang-content[data-lang="en"] { display: block; }
+    html[lang="hu"] .lang-content[data-lang="hu"] { display: block; }
+    html[lang="cs"] .lang-content[data-lang="cs"] { display: block; }
+    html[lang="sk"] span.lang-content[data-lang="sk"] { display: inline; }
+    html[lang="en"] span.lang-content[data-lang="en"] { display: inline; }
+    html[lang="hu"] span.lang-content[data-lang="hu"] { display: inline; }
+    html[lang="cs"] span.lang-content[data-lang="cs"] { display: inline; }
+</style>
+
+
+<!-- Hlavička -->
+<div class="header">
+    <h1>
+        <span class="lang-content" data-lang="sk">Architektúra chránenej rezonancie</span>
+        <span class="lang-content" data-lang="en">Architecture of Protected Resonance</span>
+        <span class="lang-content" data-lang="hu">A védett rezonancia architektúrája</span>
+        <span class="lang-content" data-lang="cs">Architektura chráněné rezonance</span>
+    </h1>
+    <div class="subtitle">
+        <span class="lang-content" data-lang="sk">Ako hľadať TO spoločné s akceptovaním jedinečnosti bez ubližovania (LaTvoMy SSoT)</span>
+        <span class="lang-content" data-lang="en">Seeking the Common Ground while respecting uniqueness and preventing harm</span>
+        <span class="lang-content" data-lang="hu">A KÖZÖS keresése az egyediség tiszteletben tartásával, bántás nélkül</span>
+        <span class="lang-content" data-lang="cs">Hledání SPOLEČNÉHO s respektem k jedinečnosti a bez ubližování</span>
+    </div>
+</div>
+
+<!-- Prepínač troch úrovní hĺbavosti -->
+<div class="level-nav">
+    <button class="btn level-btn active" onclick="switchLevel('lvl-1')">
+        <span class="lang-content" data-lang="sk">1. Skúsenosť &amp; Príbeh</span>
+        <span class="lang-content" data-lang="en">1. Story &amp; Experience</span>
+        <span class="lang-content" data-lang="hu">1. Tapasztalat &amp; Történet</span>
+        <span class="lang-content" data-lang="cs">1. Zkušenost &amp; Příběh</span>
+    </button>
+    <button class="btn level-btn" onclick="switchLevel('lvl-2')">
+        <span class="lang-content" data-lang="sk">2. Komunikačná hygiena</span>
+        <span class="lang-content" data-lang="en">2. Communication Hygiene</span>
+        <span class="lang-content" data-lang="hu">2. Kommunikációs higiénia</span>
+        <span class="lang-content" data-lang="cs">2. Komunikační hygiena</span>
+    </button>
+    <button class="btn level-btn" onclick="switchLevel('lvl-3')">
+        <span class="lang-content" data-lang="sk">3. Systémový model</span>
+        <span class="lang-content" data-lang="en">3. Systems Model</span>
+        <span class="lang-content" data-lang="hu">3. Rendszermodell</span>
+        <span class="lang-content" data-lang="cs">3. Systémový model</span>
+    </button>
+</div>
+
+<!-- ==================== 1. ÚROVEŇ ==================== -->
+<section id="lvl-1" class="level-content active">
+    <!-- SK -->
+    <div class="lang-content" data-lang="sk">
+        <h2>Prienik duchovna a hmotna v kruhu</h2>
+        <p>
+            Pravidlo nehodnotenia je podobné pravidlu odročeného hodnotenia. V duchovnom svete neexistuje priestor ani čas. Akonáhle však dohodneme osobné alebo virtuálne stretnutie, už sme v prieniku duchovna a hmotna.
+        </p>
+        <p>
+            Pri osobnom stretnutí „vysielanie“ obrazu vypnúť nemôžeme. Môžeme však zažmúrením očí znížiť vonkajšie rušenie a zvýšiť citlivosť na 
+            <span class="term">bod v srdci<span class="tooltip"><strong>Bod v srdci:</strong> Vnútorné duchovné semienko, jediný komunikačný kanál orientovaný k altruizmu a Stvoriteľovi.</span></span>. 
+            Pri virtuálnom stretnutí môžeme vypnúť kameru, čo však pravidlá BB neodporúčajú. Virtuálne nástroje sú len náhradou osobného stretnutia a textové nástroje sú ešte abstraktnejšie – tam už úplne chýba časová synchrónnosť. Je to ako odkaz vo fľaši hodenej do mora informačnej kanalizácie: možno si to raz niekto prečíta, možno ho to osloví a zareaguje.
+        </p>
+
+        <div class="system-box">
+            <strong>💡 Pojmológia vs. Dojmológia</strong>
+            <p style="margin: 6px 0 0 0;">
+                Nesmieme miešať <span class="term">pojmológiu<span class="tooltip"><strong>Pojmológia:</strong> Oblasť hmotného sveta – exaktné vymedzenie pojmov, pravidiel a časových mantinelov.</span></span> 
+                s <span class="term">dojmológiou<span class="tooltip"><strong>Dojmológia:</strong> Oblasť duchovného vnímania bez priestoru a času – pocity, rezonancia a vnútorné dojmy.</span></span>. 
+                V hmotnom svete pripravujeme bezpečné podmienky na „odskok“ do duchovného priestoru, z ktorého sa v definovanom čase musíme vrátiť.
+            </p>
+        </div>
+
+        <p>
+            Konferencia je špeciálnym prípadom takéhoto prieniku. Striedali sa 5-minútové duchovné „okná“, kde sme v kruhoch slovne vyjadrovali rozumom prefiltrované pocity svojho bodu v srdci výlučne k zadanej otázke. Nikto nehodnotil obsah ani formu. Vrcholom bolo 5-minútové spoločné mlčanie – najvyššia forma komunikácie, pretože hlas je už vlnením hmoty.
+        </p>
+    </div>
+
+    <!-- EN -->
+    <div class="lang-content" data-lang="en">
+        <h2>Intersection of the Spiritual and Material in the Circle</h2>
+        <p>
+            The rule of non-judgment is akin to deferred judgment. In the spiritual realm, neither space nor time exists. Yet, the moment we agree upon an in-person or virtual gathering, we enter the intersection of spiritual and physical reality.
+        </p>
+        <p>
+            In person, we cannot switch off the visual broadcast. However, by closing our eyes, we can dampen external sensory noise and tune into the 
+            <span class="term">point in the heart<span class="tooltip"><strong>Point in the Heart:</strong> An inner spiritual spark; the receptive conduit oriented towards pure giving and the Creator.</span></span>. 
+            Virtual communication is merely an approximation, and asynchronous text loses temporal synchronicity altogether—resembling a message in a bottle cast into the noise of informational pipes.
+        </p>
+
+        <div class="system-box">
+            <strong>💡 Exact Terminology vs. Subjective Impression</strong>
+            <p style="margin: 6px 0 0 0;">
+                We must never confuse exact definitional protocols (physical constraints, rules of the game) with internal impressions (timeless spiritual perception). Physical rules build the safe container from which one dives into the spiritual and safely returns.
+            </p>
+        </div>
+    </div>
+
+    <!-- HU -->
+    <div class="lang-content" data-lang="hu">
+        <h2>A szellemi és anyagi világ metszéspontja a körben</h2>
+        <p>
+            A meg nem ítélés szabálya a halasztott értékelés elvéhez hasonlít. A szellemi világban nincs tér és idő. Amint azonban személyes vagy virtuális találkozót szervezünk, belépünk a szellemi és anyagi világ közös metszetébe.
+        </p>
+        <p>
+            Személyes találkozáskor nem kapcsolhatjuk ki a képet, de szemünk lehunyásával csökkenthetjük a zajt, élesítve a <span class="term">szív pontjára<span class="tooltip"><strong>A szív pontja:</strong> Belső szellemi szikra, az adakozás és a Teremtő felé nyitott csatorna.</span></span> való figyelmet.
+        </p>
+    </div>
+
+    <!-- CS -->
+    <div class="lang-content" data-lang="cs">
+        <h2>Průnik duchovního a hmotného světa v kruhu</h2>
+        <p>
+            Pravidlo nehodnocení je podobné pravidlu odloženého hodnocení. V duchovním světě neexistuje prostor ani čas. Jakmile však dohodneme osobní či virtuální setkání, ocitáme se v průniku duchovna a hmoty.
+        </p>
+        <p>
+            Při osobním setkání nemůžeme vypnout obraz, můžeme však přivřením očí snížit vnější šum a zcitlivět svůj <span class="term">bod v srdci<span class="tooltip"><strong>Bod v srdci:</strong> Vnitřní duchovní zárodek, jediný komunikační kanál orientovaný k altruismu a Stvořiteli.</span></span>.
+        </p>
+    </div>
+
+    <div class="svg-wrap">
+        <svg width="620" height="90" viewBox="0 0 620 90">
+            <rect x="20" y="20" width="160" height="50" rx="4" fill="none" stroke="var(--accent-color)" stroke-width="1.5"/>
+            <text x="100" y="45" font-size="11" font-weight="bold" fill="var(--accent-color)" text-anchor="middle">POJMOLÓGIA</text>
+            <text x="100" y="60" font-size="9" fill="var(--text-color)" opacity="0.8" text-anchor="middle">Hmotný rámec &amp; Pravidlá</text>
+
+            <path d="M 190 45 L 240 45" stroke="var(--border-color)" stroke-width="2" marker-end="url(#arr-res)"/>
+
+            <rect x="250" y="15" width="160" height="60" rx="6" fill="var(--box-bg)" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="330" y="42" font-size="11" font-weight="bold" fill="#f59e0b" text-anchor="middle">PRIENIK V KRUHU</text>
+            <text x="330" y="58" font-size="9" fill="var(--text-color)" opacity="0.8" text-anchor="middle">Nehodnotenie / Ticho</text>
+
+            <path d="M 420 45 L 470 45" stroke="var(--border-color)" stroke-width="2"/>
+
+            <rect x="480" y="20" width="130" height="50" rx="4" fill="none" stroke="var(--accent-color)" stroke-width="1.5"/>
+            <text x="545" y="45" font-size="11" font-weight="bold" fill="var(--accent-color)" text-anchor="middle">DOJMOLÓGIA</text>
+            <text x="545" y="60" font-size="9" fill="var(--text-color)" opacity="0.8" text-anchor="middle">Bod srdca / Bezčasia</text>
+        </svg>
+    </div>
+</section>
+
+<!-- ==================== 2. ÚROVEŇ ==================== -->
+<section id="lvl-2" class="level-content">
+    <!-- SK -->
+    <div class="lang-content" data-lang="sk">
+        <h2>2. Komunikačná hygiena: Prevencia úmyselného a neúmyselného ublíženia</h2>
+        <p>
+            Zatiaľ nie sme takí ostrieľaní, aby sme hoci aj dobre mienené, no mentálne toxické informácie nebrali ako útok na našu vnútornú integritu. Keď naše vnútorné podprahové kontrolné mechanizmy vypnú mentálne vnímanie, biologický automat velí ujsť.
+        </p>
+        <p>
+            Všetci nesieme dedičstvo troch obranných mechanizmov: <strong>útok, útek, zamrznutie (Fight, Flight, Freeze)</strong>. Človek od zvieraťa sa však líši tým, že si medzi akciou a reakciou dokáže dopriať čas na rozmyslenie.
+        </p>
+
+        <div class="system-box">
+            <strong>🛡️ Zovšeobecnenie ako vedomá sebaobrana</strong>
+            <p style="margin: 6px 0 0 0;">
+                Mojou filozofiou je pomáhať a neubližovať. Preto sa vierou vyše rozumu snažím zvierací reflex protiútoku vedome tlmiť. <strong>Snažím sa sebaobranu útokom premeniť na zovšeobecnenie</strong> a ostatné nechávam na prozreteľnosť. Ja môžem zmeniť jedine seba – a zmenou seba mením svet.
+            </p>
+        </div>
+
+        <h3>Pravidlá chráneného prostredia v tvorivej skupine</h3>
+        <ul class="custom-list">
+            <li><strong>Eliminácia úmyselného ubližovania:</strong> Žiadny účastník ani odbor nesmie kolonizovať druhého vyhlásením svojho spôsobu vnímania za nadradenú normu.</li>
+            <li><strong>Kognitívna medzera:</strong> Vloženie vedomej pauzy ($T_{off}$) pred reakciu odzbrojuje nutkanie zaútočiť na zdroj nepohodlia.</li>
+            <li><strong>Oddelenie človeka od problému:</strong> Spoločné ukotvenie debaty na konkrétnom hmotnom artefakte (namiesto abstraktného sporu egov).</li>
+            <li><strong>Odpustenie neúmyselného šumu:</strong> Prijatie faktu, že v asynchrónnej textovej komunikácii dochádza k skresleniu signálu.</li>
+        </ul>
+    </div>
+
+    <!-- EN -->
+    <div class="lang-content" data-lang="en">
+        <h2>2. Communication Hygiene: Mitigating Intentional and Accidental Harm</h2>
+        <p>
+            When internal sub-threshold defense alarms perceive incoming information as toxic, the animal reflex triggers Fight, Flight, or Freeze. The mark of consciousness is introducing a pause between stimulus and response.
+        </p>
+        <div class="system-box">
+            <strong>🛡️ Generalization as Self-Defense</strong>
+            <p style="margin: 6px 0 0 0;">
+                Instead of counter-attacking, we transform personal friction into a <strong>systemic generalization</strong>. By refusing to mirror aggression, we decouple the negative loop and leave the rest to providence.
+            </p>
+        </div>
+    </div>
+
+    <!-- HU -->
+    <div class="lang-content" data-lang="hu">
+        <h2>2. Kommunikációs higiénia: A szándékos és véletlen bántás elkerülése</h2>
+        <p>
+            Amikor fenyegetve érezzük magunkat, beindulnak az ösztönös védelmi reakciók (harc, menekülés, dermedés). A tudatosság abban áll, hogy szünetet tartunk az inger és a válasz között, és a személyes támadást elvi szintű általánosítássá alakítjuk át.
+        </p>
+    </div>
+
+    <!-- CS -->
+    <div class="lang-content" data-lang="cs">
+        <h2>2. Komunikační hygiena: Prevence úmyslného a neúmyslného ublížení</h2>
+        <p>
+            Při pocitu ohrožení velí biologický automat k útoku, útěku či zamrznutí. Vědomý aktér vkládá mezi podnět a reakci kognitivní mezeru a obranu útokem přetváří v <strong>systémové zobecnění</strong>.
+        </p>
+    </div>
+
+    <div class="svg-wrap">
+        <svg width="600" height="120" viewBox="0 0 600 120">
+            <text x="140" y="20" font-size="11" font-weight="bold" fill="#ef4444" text-anchor="middle">BIOLOGICKÝ REFLEX</text>
+            <rect x="50" y="35" width="180" height="60" rx="4" fill="none" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="140" y="58" font-size="10" fill="var(--text-color)" text-anchor="middle">Útok ↔ Útek ↔ Zamrznutie</text>
+            <text x="140" y="76" font-size="9" fill="#ef4444" text-anchor="middle">Reaktivita &amp; Eskalácia</text>
+
+            <path d="M 250 65 L 320 65" stroke="var(--border-color)" stroke-width="2"/>
+
+            <text x="440" y="20" font-size="11" font-weight="bold" fill="#22c55e" text-anchor="middle">KOGNITÍVNA MEDZERA</text>
+            <rect x="350" y="35" width="180" height="60" rx="4" fill="none" stroke="#22c55e" stroke-width="1.5"/>
+            <text x="440" y="58" font-size="10" fill="var(--text-color)" text-anchor="middle">Pauza &amp; Zovšeobecnenie</text>
+            <text x="440" y="76" font-size="9" fill="#22c55e" text-anchor="middle">Zmena seba, ochrana celku</text>
+        </svg>
+    </div>
+</section>
+
+<!-- ==================== 3. ÚROVEŇ ==================== -->
+<section id="lvl-3" class="level-content">
+    <!-- SK -->
+    <div class="lang-content" data-lang="sk">
+        <h2>3. Systémový model: Hľadanie TOHO spoločného v mnohosti</h2>
+        <div class="system-box">
+            <strong>🏛️ Architektúra trojvrstvovej spolupráce</strong>
+            <ul class="custom-list" style="margin-top: 8px; margin-bottom: 0;">
+                <li><strong>Vrstva 3 – Zdieľaný zámer (Pneuma / Zmysel):</strong> Spoločné hľadanie TOHO podstatného. Etika neubližovania, vedomie vzájomnej previazanosti a ochrana dôstojnosti človeka.</li>
+                <li><strong>Vrstva 2 – Ochranný protokol (Psyché / Pojmológia):</strong> Dohodnuté pravidlá hry, pevné časové okná, suspenzia vzájomného hodnotenia, neutrálny moderátor.</li>
+                <li><strong>Vrstva 1 – Zvrchovaná individualita (Soma / Kli):</strong> Nedotknuteľná jedinečnosť každého človeka, jeho špecifické dary, chyby a pohľad na svet.</li>
+            </ul>
+        </div>
+        <p>
+            Jednota skupiny nespočíva v unifikácii a potlačení odlišností, ale v <strong>rezonancii na úrovni zámeru</strong> pri zachovaní plnej zvrchovanosti jednotlivých uzlov.
+        </p>
+    </div>
+
+    <!-- EN -->
+    <div class="lang-content" data-lang="en">
+        <h2>3. Systems Model: Finding the Common Essence in Diversity</h2>
+        <div class="system-box">
+            <strong>🏛️ Three-Layer Collaborative Architecture</strong>
+            <ul class="custom-list" style="margin-top: 8px; margin-bottom: 0;">
+                <li><strong>Layer 3 – Shared Purpose (Pneuma):</strong> Unified alignment on higher ethical intent and non-harming.</li>
+                <li><strong>Layer 2 – Protective Protocol (Psyche / Terminology):</strong> Timeboxes, deferral of judgment, clear boundaries.</li>
+                <li><strong>Layer 1 – Sovereign Node (Soma / Individual):</strong> Preservation of authentic diversity and unique personal gifts.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- HU -->
+    <div class="lang-content" data-lang="hu">
+        <h2>3. Rendszermodell: A Közös megtalálása a sokféleségben</h2>
+        <div class="system-box">
+            <strong>🏛️ A háromrétegű együttműködés felépítése</strong>
+            <ul class="custom-list" style="margin-top: 8px; margin-bottom: 0;">
+                <li><strong>3. Réteg – Közös szándék (Pneuma):</strong> Magasabb etikai elhivatottság, bántásmentesség.</li>
+                <li><strong>2. Réteg – Védelmi protokoll (Psziché / Fogalmak):</strong> Időkeretek, a megítélés felfüggesztése.</li>
+                <li><strong>1. Réteg – Szuverén egyéniség (Szóma / Egyén):</strong> Az autentikus egyediség tisztelete.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- CS -->
+    <div class="lang-content" data-lang="cs">
+        <h2>3. Systémový model: Hledání SPOLEČNÉHO v mnohosti</h2>
+        <div class="system-box">
+            <strong>🏛️ Architektura třívrstvé spolupráce</strong>
+            <ul class="custom-list" style="margin-top: 8px; margin-bottom: 0;">
+                <li><strong>Vrstva 3 – Sdílený záměr (Pneuma):</strong> Etika neubližování a společné směřování.</li>
+                <li><strong>Vrstva 2 – Ochranný protokol (Psyché / Pojmy):</strong> Pravidla kruhu, odklad hodnocení.</li>
+                <li><strong>Vrstva 1 – Svrchovaná individualita (Soma):</strong> Zachování jedinečnosti každého člověka.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="svg-wrap">
+        <svg width="600" height="140" viewBox="0 0 600 140">
+            <rect x="120" y="10" width="360" height="30" rx="4" fill="none" stroke="var(--accent-color)" stroke-width="1.5"/>
+            <text x="300" y="30" font-size="11" font-weight="bold" fill="var(--accent-color)" text-anchor="middle">VRSTVA 3: ZDIEĽANÝ ZÁMER (TO SPOLOČNÉ)</text>
+
+            <rect x="80" y="55" width="440" height="30" rx="4" fill="none" stroke="var(--border-color)" stroke-width="1.5"/>
+            <text x="300" y="75" font-size="11" fill="var(--text-color)" text-anchor="middle">VRSTVA 2: POJMOLOGICKÝ OCHRANNÝ PROTOKOL</text>
+
+            <g transform="translate(60, 100)">
+                <rect x="0" y="0" width="100" height="30" rx="4" fill="var(--box-bg)" stroke="var(--border-color)"/>
+                <text x="50" y="20" font-size="10" fill="var(--text-color)" text-anchor="middle">Uzol A</text>
+
+                <rect x="130" y="0" width="100" height="30" rx="4" fill="var(--box-bg)" stroke="var(--border-color)"/>
+                <text x="180" y="20" font-size="10" fill="var(--text-color)" text-anchor="middle">Uzol B</text>
+
+                <rect x="260" y="0" width="100" height="30" rx="4" fill="var(--box-bg)" stroke="var(--border-color)"/>
+                <text x="310" y="20" font-size="10" fill="var(--text-color)" text-anchor="middle">Uzol C</text>
+
+                <rect x="390" y="0" width="100" height="30" rx="4" fill="var(--box-bg)" stroke="var(--border-color)"/>
+                <text x="440" y="20" font-size="10" fill="var(--text-color)" text-anchor="middle">Uzol D</text>
+            </g>
+        </svg>
+    </div>
+</section>
+
+<!-- Overené zdroje -->
+<h2>
+    <span class="lang-content" data-lang="sk">Overené zdroje &amp; Literatúra</span>
+    <span class="lang-content" data-lang="en">Verified Sources &amp; Literature</span>
+    <span class="lang-content" data-lang="hu">Hitelesített források &amp; Irodalom</span>
+    <span class="lang-content" data-lang="cs">Ověřené zdroje &amp; Literatura</span>
+</h2>
+<ul class="custom-list" style="font-size: 0.9em;">
+    <li><strong>Metodika kruhu a pravidlá nehodnotenia:</strong> Baal HaSulam: <em>Arvut (Vzájomná záruka)</em> | Bnei Baruch Kabbalah Education Center.</li>
+    <li><strong>Kognitívna psychológia a medzera medzi podnetom a reakciou:</strong> Frankl, V. E.: <em>Hľadanie zmyslu života (Man's Search for Meaning)</em>. Beacon Press, 2006.</li>
+    <li><strong>Limbický systém a biologické obrany:</strong> Cannon, W. B.: <em>Bodily Changes in Pain, Hunger, Fear and Rage</em>. Appleton, 1915.</li>
+    <li><strong>Dialóg a suspenzia predpokladov:</strong> Bohm, David: <em>On Dialogue</em>. Routledge, 1996.</li>
+</ul>
+
+<!-- Pätička -->
+<hr class="footer-divider">
+<div class="footer-note">
+    <span class="lang-content" data-lang="sk">Táto stránka bola vygenerovaná Gemini 3 Flash na základe otázok <a href="https://www.latvomy.info/o-mne/" target="_blank" rel="noopener">autora</a>.</span>
+    <span class="lang-content" data-lang="en">This page was generated by Gemini 3 Flash based on the questions of the <a href="https://www.latvomy.info/o-mne/" target="_blank" rel="noopener">author</a>.</span>
+    <span class="lang-content" data-lang="hu">Ezt az oldalt a Gemini 3 Flash generálta a <a href="https://www.latvomy.info/o-mne/" target="_blank" rel="noopener">szerző</a> kérdései alapján.</span>
+    <span class="lang-content" data-lang="cs">Tato stránka byla vygenerována Gemini 3 Flash na základě otázek <a href="https://www.latvomy.info/o-mne/" target="_blank" rel="noopener">autora</a>.</span>
+</div>
