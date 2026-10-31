@@ -8,7 +8,7 @@
         :root {
             --bg-color: #f5f5f5;
             --text-color: #2c3e50;
-            --link-color: #2980b9;
+            --link-color: #0284c7;
             --container-bg: #ffffff;
             --border-color: #e0e0e0;
             --accent-color: #0284c7;
@@ -17,35 +17,39 @@
             --term-border: #0284c7;
             --tooltip-bg: #1e293b;
             --tooltip-text: #f8fafc;
+            --subtle-bg: rgba(245, 158, 11, 0.08);
+            --subtle-border: #f59e0b;
         }
 
         [data-theme="dark"] {
             --bg-color: #121212;
             --text-color: #e0e0e0;
-            --link-color: #64b5f6;
+            --link-color: #38bdf8;
             --container-bg: #1e1e1e;
             --border-color: #333333;
-            --accent-color: #0ea5e9;
+            --accent-color: #38bdf8;
             --box-bg: #252525;
-            --term-bg: rgba(14, 165, 233, 0.15);
-            --term-border: #0ea5e9;
+            --term-bg: rgba(56, 189, 248, 0.15);
+            --term-border: #38bdf8;
             --tooltip-bg: #000000;
             --tooltip-text: #e0e0e0;
+            --subtle-bg: rgba(245, 158, 11, 0.12);
+            --subtle-border: #f59e0b;
         }
 
         body {
             font-family: system-ui, -apple-system, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.6;
+            line-height: 1.65;
             margin: 0;
             padding: 20px;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .container {
-            max-width: 820px;
-            margin: 40px auto;
+            max-width: 840px;
+            margin: 30px auto;
             background: var(--container-bg);
             padding: 40px;
             border-radius: 8px;
@@ -66,11 +70,11 @@
         .header {
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 15px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         h1 {
-            margin: 0 0 5px 0;
+            margin: 0 0 6px 0;
             font-size: 1.8em;
             color: var(--accent-color);
         }
@@ -78,20 +82,28 @@
         .subtitle {
             font-size: 0.95em;
             color: var(--text-color);
-            opacity: 0.75;
+            opacity: 0.8;
             margin-bottom: 0;
         }
 
         .motto-quote {
             background: var(--box-bg);
-            border-left: 4px solid #f59e0b;
-            padding: 14px 18px;
+            border-left: 4px solid var(--subtle-border);
+            padding: 15px 18px;
             margin: 0 0 22px 0;
             border-radius: 0 6px 6px 0;
-            font-style: italic;
             border-top: 1px solid var(--border-color);
             border-right: 1px solid var(--border-color);
             border-bottom: 1px solid var(--border-color);
+        }
+
+        .unifying-thought {
+            background: var(--subtle-bg);
+            border-left: 3px solid var(--subtle-border);
+            padding: 12px 15px;
+            margin: 15px 0 20px 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.94em;
         }
 
         h2 {
@@ -104,9 +116,10 @@
         }
 
         h3 {
-            font-size: 1.05em;
-            margin-top: 18px;
+            font-size: 1.08em;
+            margin-top: 20px;
             margin-bottom: 8px;
+            color: var(--text-color);
         }
 
         .controls {
@@ -295,7 +308,7 @@
         .footer-note {
             font-size: 0.85em;
             color: var(--text-color);
-            opacity: 0.7;
+            opacity: 0.75;
             text-align: center;
         }
 
@@ -340,327 +353,322 @@
             <span class="lang-content" data-lang="cs">Architektura chráněné rezonance</span>
         </h1>
         <div class="subtitle">
-            <span class="lang-content" data-lang="sk">Ako hľadať TO spoločné s akceptovaním jedinečnosti bez ubližovania (LaTvoMy SSoT)</span>
-            <span class="lang-content" data-lang="en">Seeking the Common Ground while respecting uniqueness and preventing harm (LaTvoMy SSoT)</span>
-            <span class="lang-content" data-lang="hu">A KÖZÖS keresése az egyediség tiszteletben tartásával, bántás nélkül (LaTvoMy SSoT)</span>
-            <span class="lang-content" data-lang="cs">Hledání SPOLEČNÉHO s respektem k jedinečnosti a bez ubližování (LaTvoMy SSoT)</span>
+            <span class="lang-content" data-lang="sk">Ako hľadať TO spoločné s akceptovaním jedinečnosti bez ubližovania (LaTvoMy)</span>
+            <span class="lang-content" data-lang="en">Seeking the Common Ground while respecting uniqueness and preventing harm (LaTvoMy)</span>
+            <span class="lang-content" data-lang="hu">A KÖZÖS keresése az egyediség tiszteletben tartásával, bántás nélkül (LaTvoMy)</span>
+            <span class="lang-content" data-lang="cs">Hledání SPOLEČNÉHO s respektem k jedinečnosti a bez ubližování (LaTvoMy)</span>
         </div>
     </div>
 
-    <!-- Úvodná inšpirácia / Motto -->
+    <!-- Zjednocujúca spoločná myšlienka (Spoločný menovateľ pre všetky úrovne) -->
     <div class="motto-quote">
         <div class="lang-content" data-lang="sk">
-            <strong>„Ak chceš ísť rýchlo, choď sám. Ak chceš ísť ďaleko, nechoď sám.“</strong><br>
-            <span style="font-style: normal; font-size: 0.94em; display: block; margin-top: 6px;">
-                Hľadám parťákov na spoločnú ďalekú cestu <span class="term">Isra-el<span class="tooltip"><strong>Isra-el (Jášar-El / יִשְׂרָאֵל):</strong> Vnútorný duchovný vektor „priamo k Stvoriteľovi“ (resp. zápasiaci o spojenie s Ním) – prechod od sebeckého žoldniera k nezištnému odovzdávaniu, nie svetská či politická inštitúcia.</span></span> – cestu približovania sa k Stvoriteľovi a k Jeho Svetlu – v bezpečnom kruhu, ktorý nám pomôže predísť <span class="term">predčasnému „oslepeniu“<span class="tooltip"><strong>Predčasné oslepenie:</strong> Stav, keď nepripravený jednotlivec narazí na príliš silné duchovné Svetlo bez clony (Masach) a bez ukotvenia v skupine – čo vedie buď k rozbitiu nádoby (šoku ako u Šavla pred Damaškom), alebo k pýche Svetlonosa, ktorý si zamení kanál so Zdrojom.</span></span>.
-            </span>
+            <strong>„Ak chceš ísť rýchlo, choď sám. Ak chceš ísť ďaleko, nechoď sám.“</strong>
+            <p style="margin: 8px 0 0 0; font-size: 0.94em;">
+                Hľadám parťákov na spoločnú ďalekú cestu <span class="term">Isra-el<span class="tooltip"><strong>Isra-el (Jášar-El):</strong> Vnútorný smer „priamo k Stvoriteľovi / k Zdroju“ – premena sebeckého kalkulu na nezištnú spoluprácu a službu.</span></span> – približovania sa k Stvoriteľovi a k Jeho Svetlu – v chránenom kruhu, ktorý nám pomôže predísť <span class="term">predčasnému „oslepeniu“<span class="tooltip"><strong>Predčasné oslepenie:</strong> Stav, keď nepripravený jednotlivec narazí na príliš silný vnem bez opory parťákov a ochranných pravidiel – čo vedie buď k vyhoreniu a rozbitiu vnútornej rovnováhy, alebo k pýche toho, kto si zamení kanál so Zdrojom.</span></span>.<br>
+                <em>Zjednocujúce krédo:</em> <strong>Nenásilne informovať, pomáhať a neubližovať. Každý je sám strojcom svojho osudu aj šťastia.</strong>
+            </p>
         </div>
         <div class="lang-content" data-lang="en">
-            <strong>"If you want to go fast, go alone. If you want to go far, do not go alone."</strong><br>
-            <span style="font-style: normal; font-size: 0.94em; display: block; margin-top: 6px;">
-                I am looking for partners for a shared, long journey of <span class="term">Isra-el<span class="tooltip"><strong>Isra-el (Yashar-El):</strong> The inner spiritual vector meaning "straight to the Creator"—transforming egoistic reception into altruistic bestowal.</span></span>—approaching the Creator and His Light—within a protected circle that prevents <span class="term">premature "blinding"<span class="tooltip"><strong>Premature Blinding:</strong> Exposure to intense spiritual Light without a protective screen (Masach) or group buffer—resulting either in the shattering of the vessel (like Saul's blindness at Damascus) or the pride of the Light-bearer mistaking himself for the Source.</span></span>.
-            </span>
+            <strong>"If you want to go fast, go alone. If you want to go far, do not go alone."</strong>
+            <p style="margin: 8px 0 0 0; font-size: 0.94em;">
+                I am looking for partners for a shared, long journey of <span class="term">Isra-el<span class="tooltip"><strong>Isra-el (Yashar-El):</strong> The inner direction "straight to the Creator / Source"—transforming self-serving calculation into genuine cooperation.</span></span>—approaching the Creator and His Light—within a protected circle that prevents <span class="term">premature "blinding"<span class="tooltip"><strong>Premature Blinding:</strong> Exposure to overwhelming intensity without a supportive circle or protective boundaries—resulting either in burnout or the pride of mistaking oneself for the Source.</span></span>.<br>
+                <em>Unifying Credo:</em> <strong>Inform non-violently, help, and do no harm. Everyone is the architect of their own destiny and happiness.</strong>
+            </p>
         </div>
         <div class="lang-content" data-lang="hu">
-            <strong>„Ha gyorsan akarsz menni, menj egyedül. Ha messzire akarsz jutni, ne menj egyedül.”</strong><br>
-            <span style="font-style: normal; font-size: 0.94em; display: block; margin-top: 6px;">
-                Társakat keresek a közös, hosszú <span class="term">Isra-el<span class="tooltip"><strong>Isra-el (Jásár-Él):</strong> Belső szellemi irányultság („egyenesen a Teremtőhöz”) – az önző befogadás átalakítása önzetlen adakozássá.</span></span> útra – a Teremtőhöz és az Ő Fényéhez való közeledésre –, hogy közösen előzzük meg az <span class="term">idő előtti „megvakulást”<span class="tooltip"><strong>Idő előtti megvakulás:</strong> Amikor a felkészületlen egyén védőernyő (Maszach) és közösségi megtartó erő nélkül találkozik a túl erős Fénnyel, ami vagy az edény töréséhez, vagy a Fényhozó gőgjéhez vezet.</span></span>.
-            </span>
+            <strong>„Ha gyorsan akarsz menni, menj egyedül. Ha messzire akarsz jutni, ne menj egyedül.”</strong>
+            <p style="margin: 8px 0 0 0; font-size: 0.94em;">
+                Társakat keresek a közös, hosszú <span class="term">Isra-el<span class="tooltip"><strong>Isra-el (Jásár-Él):</strong> Belső irányultság („egyenesen a Teremtőhöz / Forráshoz”) – az önző számítás átalakítása önzetlen együttműködéssé.</span></span> útra – a Teremtőhöz és az Ő Fényéhez való közeledésre –, hogy közösen előzzük meg az <span class="term">idő előtti „megvakulást”<span class="tooltip"><strong>Idő előtti megvakulás:</strong> Amikor a felkészületlen egyén közösségi védőháló nélkül találkozik a túl erős Fénnyel, ami kiégéshez vagy gőghöz vezet.</span></span>.<br>
+                <em>Egyesítő hitvallás:</em> <strong>Erőszakmentesen tájékoztatni, segíteni és nem ártani. Mindenki a maga sorsának és boldogságának kovácsa.</strong>
+            </p>
         </div>
         <div class="lang-content" data-lang="cs">
-            <strong>„Chceš-li jít rychle, jdi sám. Chceš-li dojít daleko, nechoď sám.“</strong><br>
-            <span style="font-style: normal; font-size: 0.94em; display: block; margin-top: 6px;">
-                Hledám parťáky na společnou dalekou cestu <span class="term">Isra-el<span class="tooltip"><strong>Isra-el (Jašar-El):</strong> Vnitřní duchovní směřování „přímo ke Stvořiteli“ – přerod ze sobeckého žoldnéře k nezištnému odevzdávání.</span></span> – přibližování se ke Stvořiteli a Jeho Světlu – v chráněném kruhu, který nám pomůže předejít <span class="term">předčasnému „oslepení“<span class="tooltip"><strong>Předčasné oslepení:</strong> Náraz nepřipraveného jednotlivce na příliš silné Světlo bez clony (Masach) a opory přátel – vedoucí buď k rozbití nádoby (jako u Šavla před Damaškem), nebo k pýše Světlonoše.</span></span>.
-            </span>
+            <strong>„Chceš-li jít rychle, jdi sám. Chceš-li dojít daleko, nechoď sám.“</strong>
+            <p style="margin: 8px 0 0 0; font-size: 0.94em;">
+                Hledám parťáky na společnou dalekou cestu <span class="term">Isra-el<span class="tooltip"><strong>Isra-el (Jašar-El):</strong> Vnitřní směřování „přímo ke Stvořiteli / Zdroji“ – přerod sobeckého kalkulu v nezištnou spolupráci.</span></span> – přibližování se ke Stvořiteli a Jeho Světlu – v chráněném kruhu, který nám pomůže předejít <span class="term">předčasnému „oslepení“<span class="tooltip"><strong>Předčasné oslepení:</strong> Náraz nepřipraveného jednotlivce na příliš silné Světlo bez opory přátel – vedoucí buď k vyhoření, nebo k pýše Světlonoše.</span></span>.<br>
+                <em>Sjednocující krédo:</em> <strong>Nenásilně informovat, pomáhat a neubližovat. Každý je sám strůjcem svého osudu i štěstí.</strong>
+            </p>
         </div>
     </div>
 
     <!-- Prepínač troch úrovní hĺbavosti -->
     <div class="level-nav">
         <button class="btn level-btn active" onclick="switchLevel('lvl-1', this)">
-            <span class="lang-content" data-lang="sk">1. Skúsenosť &amp; Príbeh</span>
-            <span class="lang-content" data-lang="en">1. Story &amp; Experience</span>
-            <span class="lang-content" data-lang="hu">1. Tapasztalat &amp; Történet</span>
-            <span class="lang-content" data-lang="cs">1. Zkušenost &amp; Příběh</span>
+            <span class="lang-content" data-lang="sk">1. Praktická skúsenosť (Príbeh)</span>
+            <span class="lang-content" data-lang="en">1. Practical Experience (Story)</span>
+            <span class="lang-content" data-lang="hu">1. Gyakorlati tapasztalat (Történet)</span>
+            <span class="lang-content" data-lang="cs">1. Praktická zkušenost (Příběh)</span>
         </button>
         <button class="btn level-btn" onclick="switchLevel('lvl-2', this)">
-            <span class="lang-content" data-lang="sk">2. Komunikačná hygiena</span>
-            <span class="lang-content" data-lang="en">2. Communication Hygiene</span>
-            <span class="lang-content" data-lang="hu">2. Kommunikációs higiénia</span>
-            <span class="lang-content" data-lang="cs">2. Komunikační hygiena</span>
+            <span class="lang-content" data-lang="sk">2. Hĺbavá analýza (Psychológia)</span>
+            <span class="lang-content" data-lang="en">2. Reflective Analysis (Psychology)</span>
+            <span class="lang-content" data-lang="hu">2. Elemző réteg (Pszichológia)</span>
+            <span class="lang-content" data-lang="cs">2. Hloubavá analýza (Psychologie)</span>
         </button>
         <button class="btn level-btn" onclick="switchLevel('lvl-3', this)">
-            <span class="lang-content" data-lang="sk">3. Systémový model</span>
-            <span class="lang-content" data-lang="en">3. Systems Model</span>
-            <span class="lang-content" data-lang="hu">3. Rendszermodell</span>
-            <span class="lang-content" data-lang="cs">3. Systémový model</span>
+            <span class="lang-content" data-lang="sk">3. Systémová syntéza (Architektúra)</span>
+            <span class="lang-content" data-lang="en">3. Systemic Synthesis (Architecture)</span>
+            <span class="lang-content" data-lang="hu">3. Rendszerszintézis (Architektúra)</span>
+            <span class="lang-content" data-lang="cs">3. Systémová syntéza (Architektura)</span>
         </button>
     </div>
 
-    <!-- ==================== 1. ÚROVEŇ ==================== -->
+    <!-- ========================================================================= -->
+    <!-- ==================== 1. ÚROVEŇ: PRAKTICKÁ SKÚSENOSŤ ===================== -->
+    <!-- ========================================================================= -->
     <section id="lvl-1" class="level-content active">
-        <!-- SK -->
+        <!-- SK L1 -->
         <div class="lang-content" data-lang="sk">
-            <h2>1. Prienik duchovna a hmotna v kruhu</h2>
+            <div class="unifying-thought">
+                <strong>Zjednocujúca myšlienka pre každodennú prax:</strong> Dobré vzťahy a spoločná radosť nevznikajú z poučovania ani z nátlaku, ale z jasne dohodnutých pravidiel, vzájomnej úcty a spoločného stola. Každý si z kruhu slobodne berie len to, čo mu dáva zmysel.
+            </div>
+
+            <h2>1. Stretnutie v kruhu: Kde sa spája slovo, ticho a čin</h2>
             <p>
-                Prečo vôbec hľadať parťákov na cestu <em>Isra-el</em> (priamo k Stvoriteľovi)? Ak sa osamelý pútnik pokúša priblížiť k plnému Svetlu sám, hrozí mu <strong>predčasné „oslepenie“</strong> – buď ho nefiltrovaný záblesk pravdy zrazí na kolená a rozbije jeho nepripravenú nádobu, alebo podľahne ilúzii vlastnej výnimočnosti (pýche Svetlonosa, ktorý si myslí, že zdrojom svetla je on sám). Skupina priateľov tvorí <strong>ochrannú clonu a tlmivý roztok</strong>, v ktorom sa Svetlo láme a rozdeľuje úmerne kapacite každého člena.
+                Pravidlo nehodnotenia pri spoločnom rozhovore je podobné pravidlu odročeného hodnotenia: najprv necháme druhého dohovoriť bez skákania do reči a bez posudzovania. V myšlienkach neexistuje priestor ani čas, no akonáhle si dohodneme osobné alebo virtuálne stretnutie, vstupujeme do konkrétneho priestoru a času.
             </p>
             <p>
-                Pravidlo nehodnotenia v takomto kruhu je podobné pravidlu <span class="term">odročeného hodnotenia<span class="tooltip"><strong>Odročené hodnotenie (Deferred Judgment):</strong> Kľúčový princíp brainstormingu (Alex Osborn, 1953), ktorý striktne oddeľuje fázu slobodného generovania myšlienok a vnemov od fázy ich kritického posudzovania.</span></span>. V duchovnom svete neexistuje priestor ani čas. Akonáhle však dohodneme osobné alebo virtuálne stretnutie, už sme v prieniku duchovna a hmotna.
+                Pri osobnom stretnutí „vysielanie“ obrazu vypnúť nemôžeme. Môžeme však zažmúrením očí znížiť vonkajšie rušenie a zvýšiť citlivosť na 
+                <span class="term">bod v srdci<span class="tooltip"><strong>Bod v srdci:</strong> Najhlbšie miesto úprimného ľudského cítenia a svedomia – vnútorný kompas orientovaný na dobro a Stvoriteľa.</span></span>. 
+                Pri virtuálnom stretnutí môžeme vypnúť kameru, čo však pravidlá skupinovej komunikácie neodporúčajú, pretože sa stráca vzájomný očný a ľudský kontakt.
             </p>
             <p>
-                Pri osobnom stretnutí „vysielanie“ obrazu vypnúť nemôžeme. Môžeme však zažmúrením očí znížiť vonkajšie rušenie (vedomý <em>cimcum</em> – obmedzenie zmyslového šumu) a zvýšiť citlivosť na 
-                <span class="term">bod v srdci<span class="tooltip"><strong>Bod v srdci:</strong> Vnútorné duchovné semienko, jediný komunikačný kanál orientovaný k altruizmu a Stvoriteľovi.</span></span> – jediný komunikačný kanál so Stvoriteľom. 
-                Pri virtuálnom stretnutí môžeme vypnúť kameru, čo však pravidlá BB neodporúčajú.
-            </p>
-            <p>
-                Virtuálne nástroje sú len náhradou osobného stretnutia. Textové komunikačné nástroje sú ešte zjednodušenejšie – tu už vôbec nie je jasná časová synchrónnosť komunikujúcich. Je to podobné ako odkaz vo fľaši hodenej do mora informačnej kanalizácie. Možno si to raz niekto prečíta, možno ho to osloví a možno niekedy zareaguje.
+                Virtuálne nástroje sú len náhradou osobného stretnutia. Textové správy sú ešte zjednodušenejšie – tu už vôbec nie je jasná časová súbežnosť komunikujúcich. Je to ako odkaz vo fľaši hodenej do mora informačnej kanalizácie: možno si to raz niekto prečíta, možno ho to osloví a možno niekedy zareaguje.
             </p>
 
             <div class="system-box">
-                <strong>💡 Pojmológia vs. Dojmológia</strong>
+                <strong>💡 Jasné pravidlá pred spoločnou prácou (Pojmy vs. Dojmy)</strong>
                 <p style="margin: 6px 0 0 0;">
-                    Nesmieme miešať <span class="term">pojmológiu<span class="tooltip"><strong>Pojmológia:</strong> Oblasť hmotného sveta – exaktné vymedzenie pojmov, pravidiel hry a časových mantinelov.</span></span> 
-                    s <span class="term">dojmológiou<span class="tooltip"><strong>Dojmológia:</strong> Oblasť duchovného vnímania bez priestoru a času – pocity, rezonancia a vnútorné dojmy.</span></span>. 
-                    Pred každou spoločnou aktivitou je dobré vyjasniť si pojmy a pravidlá hry. V hmotnom svete môžeme pripraviť podmienky na „odskok“ do bezpečného duchovného prostredia, z ktorého sa však obvykle musíme v definovanom čase vrátiť.
+                    Nesmieme miešať <strong>pojmológiu</strong> (jasnú dohodu o pravidlách, čase a úlohách v hmotnom svete) s <strong>dojmológiou</strong> (vnútornými pocitmi a atmosférou). Pred každou spoločnou aktivitou je dobré vyjasniť si pravidlá hry. Tým v hmotnom svete vytvoríme bezpečné prostredie, z ktorého sa v dohodnutom čase vieme vrátiť späť k bežným povinnostiam.
                 </p>
             </div>
 
             <p>
-                Konferencia je špeciálnym prípadom vytvorenia priestoru pre prienik spoločného duchovného a hmotného sveta. Striedali sa päťminútové duchovné „okná“, kde sme v kruhoch mohli slovne vyjadrovať rozumom prefiltrované pocity svojho bodu v srdci výlučne k zadanej otázke. Nikto v našom kruhu nehodnotil obsah ani formu.
+                Živé stretnutie (konferencia) je výnimočným príkladom takéhoto chráneného priestoru. Striedali sa päťminútové „okná“, kde sme v kruhoch mohli vyjadriť úprimné pocity k zadanej otázke. Nikto v našom kruhu nehodnotil obsah ani formu.
             </p>
             <p>
-                Mali sme aj päťminútové spoločné mlčanie, čo považujem za najvyššiu formu komunikácie s bodom či hlasom srdca, a tým pádom aj so Stvoriteľom. Hlas a zvuk sú už totiž vlnením hmotných častíc. Zažili sme aj ďalšie prieniky duchovného a hmotného sveta: spoločné jedenie a hostinu s „prípitkami“, hudbu, spoločný spev a takmer tanec s fyzickým držaním sa za plecia ;-)
+                Mali sme aj päťminútové spoločné mlčanie, čo považujem za najvyššiu formu porozumenia so srdcom a so Stvoriteľom – veď samotný hlas a zvuk sú už len vlnením hmotných častíc vzduchu. Zažili sme aj ďalšie živé prepojenia: <strong>spoločné jedenie a hostinu s „prípitkami“, hudbu, spoločný spev a takmer tanec s fyzickým držaním sa za plecia ;-)</strong>
+            </p>
+            <p>
+                Mojou filozofiou je <strong>pomáhať a neubližovať</strong>. Ja môžem zmeniť jedine seba – a verím, že zmenou svojho prístupu k ľuďom zmením k lepšiemu aj svet okolo seba ;-)
             </p>
         </div>
 
-        <!-- EN -->
+        <!-- EN L1 -->
         <div class="lang-content" data-lang="en">
-            <h2>1. Intersection of the Spiritual and Material in the Circle</h2>
-            <p>
-                Why seek partners on the path of <em>Isra-el</em> (straight to the Creator)? When a solitary seeker approaches unfiltered Light alone, they risk <strong>premature "blinding"</strong>—either their unprepared vessel shatters under the intensity of sudden illumination, or they fall into the Luciferian pride of the Light-bearer who mistakes the conduit for the Source. A circle of partners acts as a <strong>protective screen and buffer</strong>, attenuating and distributing the Light safely.
-            </p>
-            <p>
-                The rule of non-judgment is similar to the rule of <span class="term">deferred judgment<span class="tooltip"><strong>Deferred Judgment:</strong> The foundational principle of brainstorming (Alex Osborn, 1953) that strictly separates the generative phase of open expression from critical evaluation.</span></span>. In the spiritual realm, neither space nor time exists. Yet, the moment we arrange an in-person or virtual meeting, we enter the intersection of the spiritual and material worlds.
-            </p>
-            <p>
-                During an in-person encounter, we cannot switch off the visual broadcast. However, by closing our eyes, we can dampen external sensory noise and heighten our sensitivity to the 
-                <span class="term">point in the heart<span class="tooltip"><strong>Point in the Heart:</strong> An inner spiritual spark; the sole communication channel oriented towards altruism and the Creator.</span></span>—the only communication channel with the Creator. In a virtual meeting, we can turn off the camera, although BB guidelines advise against it.
-            </p>
-            <p>
-                Virtual tools are merely a substitute for meeting in person. Text-based communication tools are even more simplified—temporal synchronicity between participants disappears altogether. It is like a message in a bottle cast into a sea of informational sewage: perhaps someone will read it someday, perhaps it will resonate, and perhaps they will eventually respond.
-            </p>
-
-            <div class="system-box">
-                <strong>💡 Exact Terminology vs. Subjective Impressions</strong>
-                <p style="margin: 6px 0 0 0;">
-                    We must not confuse <span class="term">terminology (pojmológia)<span class="tooltip"><strong>Terminology:</strong> The domain of the physical world—clarifying terms, rules of the game, and time boundaries.</span></span> with <span class="term">impressions (dojmológia)<span class="tooltip"><strong>Impressions:</strong> The domain of the spiritual world beyond space and time—resonance and inner perception.</span></span>. Before any joint activity, it is wise to clarify terms and rules of the game. In the material world, we prepare safe conditions for a "leap" into a protected spiritual space, from which we must return within a defined timeframe.
-                </p>
+            <div class="unifying-thought">
+                <strong>Unifying Thought for Everyday Practice:</strong> Healthy relationships and genuine joy do not arise from lecturing or pressure, but from clear agreements, mutual respect, and sharing a table. Everyone freely takes only what resonates with them.
             </div>
 
+            <h2>1. Meeting in the Circle: Where Word, Silence, and Action Meet</h2>
             <p>
-                A congress is a special case of creating space for the intersection of the shared spiritual and material worlds. Five-minute spiritual "windows" alternated, where in circles we verbally expressed reason-filtered feelings from the point in the heart strictly regarding the assigned question. No one in our circle judged content or form.
+                The rule of non-judgment in conversation is simple: let others speak openly without interruption or immediate criticism. The moment we arrange an in-person or virtual gathering, we step into shared time and space.
             </p>
             <p>
-                We also shared five minutes of collective silence—which I consider the highest form of communication with the voice of the heart and thus the Creator, since physical voice and sound are already vibrations of material particles. We also experienced other intersections of the spiritual and material worlds: shared meals and a festive banquet with "toasts", music, singing together, and nearly dancing while holding each other by the shoulders ;-)
+                In person, we cannot switch off the visual broadcast, but by closing our eyes we can reduce external distractions and tune into the <span class="term">point in the heart<span class="tooltip"><strong>Point in the Heart:</strong> The deepest seat of sincere human empathy, conscience, and connection to the Creator.</span></span>. Virtual tools are only a substitute for meeting face to face, and text messages are like a message in a bottle cast into a noisy sea—lacking shared presence in time.
+            </p>
+            <div class="system-box">
+                <strong>💡 Clear Agreements First (Terms vs. Impressions)</strong>
+                <p style="margin: 6px 0 0 0;">
+                    Before any joint activity, it is wise to clarify the rules of the game. Clear practical boundaries create a safe space for open sharing, from which we return on time to our daily responsibilities.
+                </p>
+            </div>
+            <p>
+                During our gathering, five-minute windows of speaking from the heart alternated without anyone judging content or form. We also shared five minutes of collective silence—the highest form of inner communication, since physical sound is already a vibration of air particles. And we experienced tangible human warmth: <strong>shared meals and a festive banquet with "toasts", music, singing together, and nearly dancing while holding each other by the shoulders ;-)</strong>
+            </p>
+            <p>
+                My philosophy is to <strong>help and do no harm</strong>. I can only change myself—hoping that by changing myself, I also improve the world around me ;-)
             </p>
         </div>
 
-        <!-- HU -->
+        <!-- HU L1 -->
         <div class="lang-content" data-lang="hu">
-            <h2>1. A szellemi és anyagi világ metszéspontja a körben</h2>
-            <p>
-                Miért keresünk társakat az <em>Isra-el</em> (egyenesen a Teremtőhöz vezető) úton? Ha a magányos kereső egyedül közelít a teljes Fényhez, fennáll az <strong>idő előtti „megvakulás”</strong> veszélye: a szűretlen fény vagy összetöri a felkészületlen edényt, vagy a Fényhozó gőgjébe taszítja, aki összetéveszti a csatornát a Forrással. A társak köre <strong>védőernyőként és pufferként</strong> szolgál.
-            </p>
-            <p>
-                A meg nem ítélés szabálya hasonlít a <span class="term">halasztott értékelés<span class="tooltip"><strong>Halasztott értékelés (Deferred Judgment):</strong> Az ötletbörze (brainstorming – Alex Osborn, 1953) alapelve, amely szigorúan szétválasztja a szabad kifejezés szakaszát a kritikai bírálattól.</span></span> szabályához. A szellemi világban nem létezik sem tér, sem idő. Amint azonban személyes vagy virtuális találkozót beszélünk meg, máris a szellemi és az anyagi világ metszéspontjában vagyunk.
-            </p>
-            <p>
-                Személyes találkozáskor a kép „sugárzását” nem kapcsolhatjuk ki, de szemünk lehunyásával csökkenthetjük a külső zajt, és növelhetjük az érzékenységet a 
-                <span class="term">szív pontjára<span class="tooltip"><strong>A szív pontja:</strong> Belső szellemi mag, az egyetlen kommunikációs csatorna a Teremtővel.</span></span> – az egyetlen kommunikációs csatornára a Teremtővel. Virtuális találkozón kikapcsolhatjuk a kamerát, amit a BB szabályai nem javasolnak. A szöveges kommunikációs eszközök pedig még leegyszerűsítettebbek: olyanok, mint egy információs csatornatengerbe dobott palackposta.
-            </p>
-
-            <div class="system-box">
-                <strong>💡 Fogalomtan vs. Benyomástan</strong>
-                <p style="margin: 6px 0 0 0;">
-                    Nem szabad összekevernünk a <span class="term">fogalomtant (pojmológia)<span class="tooltip"><strong>Fogalomtan:</strong> Az anyagi világ területe – a fogalmak és játékszabályok pontos tisztázása.</span></span> a <span class="term">benyomástannal (dojmológia)<span class="tooltip"><strong>Benyomástan:</strong> A tér és idő nélküli szellemi világ területe – belső érzetek és rezonancia.</span></span>. Minden közös tevékenység előtt jó tisztázni a játékszabályokat. Az anyagi világban előkészíthetjük a feltételeket egy biztonságos szellemi környezetbe való „elrugaszkodáshoz”, ahonnan meghatározott időben vissza kell térnünk.
-                </p>
+            <div class="unifying-thought">
+                <strong>Egyesítő gondolat a mindennapokra:</strong> A jó kapcsolatok és a közös öröm nem kioktatásból vagy kényszerből születik, hanem világos játékszabályokból, kölcsönös tiszteletből és a közös asztalból. Mindenki szabadon annyit visz magával, amennyi megszólítja.
             </div>
 
+            <h2>1. Találkozás a körben: Ahol a szó, a csend és a tett összeér</h2>
             <p>
-                A konferencia különleges tér a közös szellemi és anyagi világ metszéspontjára. Ötperces szellemi „ablakok” váltakoztak, ahol körökben, kizárólag a feltett kérdésre válaszolva fejezhettük ki szívünk pontjának értelmen átszűrt érzéseit. Senki sem értékelte a tartalmat vagy a formát.
+                A meg nem ítélés szabálya egyszerű: hagyjuk a másikat végigmondani a gondolatát félbeszakítás és azonnali bírálat nélkül. Személyes találkozáskor szemünk lehunyásával csökkenthetjük a külső zajt, és figyelhetünk a <span class="term">szív pontjára<span class="tooltip"><strong>A szív pontja:</strong> Az őszinte emberi érzés, lelkiismeret és a Teremtővel való kapcsolat legmélyebb magja.</span></span>. A szöveges üzenetek ezzel szemben olyanok, mint egy zajos tengerbe dobott palackposta.
+            </p>
+            <div class="system-box">
+                <strong>💡 Tiszta játékszabályok minden közös munka előtt</strong>
+                <p style="margin: 6px 0 0 0;">
+                    Minden közös tevékenység előtt jó tisztázni a fogalmakat és a kereteket. A pontos idő- és játékszabályok teremtik meg azt a biztonságos légkört, amelyben őszinték lehetünk.
+                </p>
+            </div>
+            <p>
+                A találkozón ötperces „ablakokban” osztottuk meg érzéseinket az adott kérdésről, miközben senki sem minősítette a másikat. Volt ötperces közös hallgatásunk is – a legmagasabb szintű belső kommunikáció –, valamint átéltünk igazi emberi pillanatokat: <strong>közös étkezést és lakomát „pohárköszöntőkkel”, zenét, közös éneklést és szinte táncot, egymás vállát átkarolva ;-)</strong>
             </p>
             <p>
-                Volt ötperces közös hallgatásunk is – a legmagasabb szintű kommunikáció a szív hangjával és így a Teremtővel, hiszen a hang már anyagi részecskék rezgése. Átéltük a szellemi és anyagi világ további metszéspontjait is: közös étkezést és lakomát „pohárköszöntőkkel”, zenét, közös éneklést és szinte táncot, egymás vállát átkarolva ;-)
+                Filozófiám: <strong>segíteni és nem ártani</strong>. Csak önmagamat változtathatom meg – bízva abban, hogy ezzel a világot is jobbá teszem ;-)
             </p>
         </div>
 
-        <!-- CS -->
+        <!-- CS L1 -->
         <div class="lang-content" data-lang="cs">
-            <h2>1. Průnik duchovního a hmotného světa v kruhu</h2>
-            <p>
-                Proč vlastně hledat parťáky na společnou dalekou cestu <em>Isra-el</em> (přímo ke Stvořiteli)? Pokud se osamělý poutník pokouší přiblížit k plnému Světlu sám, hrozí mu <strong>předčasné „oslepení“</strong> – nefiltrovaný záblesk pravdy buď rozbije jeho nepřipravenou nádobu, nebo v něm probudí pýchu Světlonoše, který si zamění kanál se Zdrojem. Kruh přátel funguje jako <strong>ochranná clona a tlumivý roztok</strong>.
-            </p>
-            <p>
-                Pravidlo nehodnocení je podobné pravidlu <span class="term">odloženého hodnocení<span class="tooltip"><strong>Odložené hodnocení (Deferred Judgment):</strong> Klíčový princip brainstormingu (Alex Osborn, 1953), který odděluje fázi volného vyjádření a tvorby nápadů od fáze kritického posuzování.</span></span>. V duchovním světě neexistuje prostor ani čas. Jakmile však dohodneme osobní nebo virtuální setkání, už jsme v průniku duchovna a hmoty.
-            </p>
-            <p>
-                Při osobním setkání „vysílání“ obrazu vypnout nemůžeme. Můžeme však přivřením očí snížit vnější rušení a zvýšit citlivost na 
-                <span class="term">bod v srdci<span class="tooltip"><strong>Bod v srdci:</strong> Vnitřní duchovní zárodek, jediný komunikační kanál se Stvořitelem.</span></span> – jediný komunikační kanál se Stvořitelem. Při virtuálním setkání lze vypnout kameru, což pravidla BB nedoporučují. Textové nástroje jsou pak jako vzkaz v láhvi hozený do moře informační kanalizace – bez časové souběžnosti.
-            </p>
-
-            <div class="system-box">
-                <strong>💡 Pojmologie vs. Dojmologie</strong>
-                <p style="margin: 6px 0 0 0;">
-                    Nesmíme míchat <span class="term">pojmologii<span class="tooltip"><strong>Pojmologie:</strong> Oblast hmotného světa – vyjasnění pojmů, pravidel hry a časových rámců.</span></span> s <span class="term">dojmologií<span class="tooltip"><strong>Dojmologie:</strong> Oblast duchovního světa bez prostoru a času – vnitřní pocity a rezonance.</span></span>. V hmotném světě připravujeme podmínky pro „odskok“ do bezpečného duchovního prostředí, odkud se v definovaném čase vracíme.
-                </p>
+            <div class="unifying-thought">
+                <strong>Sjednocující myšlenka pro každodenní praxi:</strong> Dobré vztahy a společná radost nevznikají z poučování ani nátlaku, ale z jasně dohodnutých pravidel, vzájemné úcty a společného stolu. Každý si svobodně bere jen to, co s ním rezonuje.
             </div>
 
+            <h2>1. Setkání v kruhu: Kde se spojuje slovo, ticho a čin</h2>
             <p>
-                Konference je speciálním případem vytvoření prostoru pro průnik společného duchovního a hmotného světa. Střídala se pětiminutová duchovní „okna“, kde jsme v kruzích slovně vyjadřovali rozumem přefiltrované pocity svého bodu v srdci výlučně k zadané otázce. Nikdo nehodnotil obsah ani formu.
+                Pravidlo nehodnocení v rozhovoru znamená nechat druhého domluvit bez skákání do řeči a okamžité kritiky. Při osobním setkání můžeme přivřením očí snížit vnější šum a naladit se na <span class="term">bod v srdci<span class="tooltip"><strong>Bod v srdci:</strong> Nejhlubší místo upřímného lidského cítění, svědomí a spojení se Stvořitelem.</span></span>, zatímco textové zprávy bez časové souběžnosti připomínají vzkaz v láhvi hozený do informační kanalizace.
+            </p>
+            <div class="system-box">
+                <strong>💡 Jasná pravidla před společnou prací</strong>
+                <p style="margin: 6px 0 0 0;">
+                    Před každou společnou aktivitou je dobré vyjasnit si pojmy a pravidla hry. Jasný časový a lidský rámec vytváří bezpečný prostor pro otevřenost.
+                </p>
+            </div>
+            <p>
+                Na setkání se střídala pětiminutová „okna“, kde jsme v kruhu vyjadřovali pocity k zadané otázce bez jakéhokoli hodnocení. Měli jsme i pětiminutové společné mlčení jako nejvyšší formu komunikace se srdcem a Stvořitelem, a zažili jsme i živé lidské propojení: <strong>společné jídlo a hostinu s „přípitky“, hudbu, společný zpěv a téměř tanec s držením se kolem ramen ;-)</strong>
             </p>
             <p>
-                Měli jsme i pětiminutové společné mlčení, což považuji za nejvyšší formu komunikace s bodem či hlasem srdce, a tím pádem i se Stvořitelem – hlas a zvuk jsou již totiž vlněním hmotných částic. Zažili jsme i další průniky duchovního a hmotného světa: společné jídlo a hostinu s „přípitky“, hudbu, společný zpěv a téměř tanec s fyzickým držením se kolem ramen ;-)
+                Mou filozofií je <strong>pomáhat a neubližovat</strong>. Mohu změnit jedině sebe – s nadějí, že změnou sebe změním k lepšímu i svět ;-)
             </p>
         </div>
 
         <div class="svg-wrap">
             <svg width="620" height="90" viewBox="0 0 620 90">
                 <defs>
-                    <marker id="arr1" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <marker id="arr-l1" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                         <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent-color)"/>
                     </marker>
                 </defs>
                 <rect x="20" y="20" width="160" height="50" rx="4" fill="none" stroke="var(--accent-color)" stroke-width="1.5"/>
-                <text x="100" y="45" font-size="11" font-weight="bold" fill="var(--accent-color)" text-anchor="middle">POJMOLÓGIA</text>
-                <text x="100" y="60" font-size="9" fill="var(--text-color)" opacity="0.8" text-anchor="middle">Hmotný rámec &amp; Clona</text>
+                <text x="100" y="45" font-size="11" font-weight="bold" fill="var(--accent-color)" text-anchor="middle">DOHODA PRAVIDIEL</text>
+                <text x="100" y="60" font-size="9" fill="var(--text-color)" opacity="0.8" text-anchor="middle">Čas, úcta &amp; bezpečie</text>
 
-                <path d="M 190 45 L 240 45" stroke="var(--accent-color)" stroke-width="2" marker-end="url(#arr1)"/>
+                <path d="M 190 45 L 240 45" stroke="var(--accent-color)" stroke-width="2" marker-end="url(#arr-l1)"/>
 
                 <rect x="250" y="15" width="160" height="60" rx="6" fill="var(--box-bg)" stroke="#f59e0b" stroke-width="1.5"/>
                 <text x="330" y="42" font-size="11" font-weight="bold" fill="#f59e0b" text-anchor="middle">KRUH PARŤÁKOV</text>
                 <text x="330" y="58" font-size="9" fill="var(--text-color)" opacity="0.8" text-anchor="middle">Hostina / Ticho / Spev</text>
 
-                <path d="M 420 45 L 470 45" stroke="var(--accent-color)" stroke-width="2" marker-end="url(#arr1)"/>
+                <path d="M 420 45 L 470 45" stroke="var(--accent-color)" stroke-width="2" marker-end="url(#arr-l1)"/>
 
                 <rect x="480" y="20" width="130" height="50" rx="4" fill="none" stroke="var(--accent-color)" stroke-width="1.5"/>
-                <text x="545" y="45" font-size="11" font-weight="bold" fill="var(--accent-color)" text-anchor="middle">DOJMOLÓGIA</text>
-                <text x="545" y="60" font-size="9" fill="var(--text-color)" opacity="0.8" text-anchor="middle">Svetlo bez oslepenia</text>
+                <text x="545" y="45" font-size="11" font-weight="bold" fill="var(--accent-color)" text-anchor="middle">VNÚTORNÝ POKOJ</text>
+                <text x="545" y="60" font-size="9" fill="var(--text-color)" opacity="0.8" text-anchor="middle">Radosť bez ublíženia</text>
             </svg>
         </div>
+
+        <!-- Overené odkazy pre 1. úroveň (Praktické, nenásilné, ľudské) -->
+        <h3>
+            <span class="lang-content" data-lang="sk">Súvisiace čítanie a otvorené zdroje (1. úroveň – Praktický život a kruh)</span>
+            <span class="lang-content" data-lang="en">Related Reading &amp; Open Resources (Level 1 – Practical Life &amp; Circle)</span>
+            <span class="lang-content" data-lang="hu">Kapcsolódó olvasmányok és nyílt források (1. szint – Gyakorlati élet és kör)</span>
+            <span class="lang-content" data-lang="cs">Související čtení a otevřené zdroje (1. úroveň – Praktický život a kruh)</span>
+        </h3>
+        <ul class="custom-list" style="font-size: 0.9em;">
+            <li>
+                <strong>Metodika diskusného kruhu a umenie počúvať bez hodnotenia:</strong> 
+                <a href="https://www.kabbalah.info/sk/" target="_blank" rel="noopener">Verejný vzdelávací portál Kabbalah.info (SK) – sekcia Spoločnosť a vzájomné vzťahy</a> 
+                <em>(voľne dostupné úvahy o budovaní priateľského prostredia a prekonávaní osamelosti; každý čitateľ si slobodne vyberá len to, čo považuje za užitočné)</em>.
+            </li>
+            <li>
+                <strong>Zmysel života a ľudská vzájomnosť v každodennej praxi:</strong> 
+                <a href="https://www.britannica.com/biography/Viktor-Frankl" target="_blank" rel="noopener">Viktor E. Frankl – O sile ľudského postoja a zmysluplnom konaní (Britannica)</a>.
+            </li>
+            <li>
+                <strong>Živá kultúra stretnutí v kruhu (Council Circle):</strong> 
+                <a href="https://en.wikipedia.org/wiki/Learning_circle" target="_blank" rel="noopener">Learning Circle – Tradícia rovnocenných kruhov vzájomného učenia sa a zdieľania</a>.
+            </li>
+        </ul>
     </section>
 
-    <!-- ==================== 2. ÚROVEŇ ==================== -->
+    <!-- ========================================================================= -->
+    <!-- ==================== 2. ÚROVEŇ: HĹBAVÁ ANALÝZA ========================== -->
+    <!-- ========================================================================= -->
     <section id="lvl-2" class="level-content">
-        <!-- SK -->
+        <!-- SK L2 -->
         <div class="lang-content" data-lang="sk">
-            <h2>2. Odročené hodnotenie a komunikačná hygiena</h2>
+            <div class="unifying-thought">
+                <strong>Zjednocujúca myšlienka pre hĺbavého čitateľa:</strong> Medzi vonkajšou provokáciou a našou odpoveďou leží priestor slobodnej voľby. Keď namiesto okamžitej kritiky alebo protiútoku zvolíme <em>odročené hodnotenie</em> a <em>zovšeobecnenie problému</em>, chránime dôstojnosť druhého aj vlastnú duševnú integritu.
+            </div>
+
+            <h2>2. Odročené hodnotenie (Brainstorming) a kognitívna medzera</h2>
             <p>
-                Prečo je v skupine také dôležité <strong>pravidlo nehodnotenia</strong>? V metodike tvorivého riešenia problémov je tento princíp známy ako <strong>odročené hodnotenie (deferred judgment)</strong> – základný pilier metódy <em>brainstormingu</em>, ktorú v roku 1953 sformuloval Alex F. Osborn a ďalej rozvinul Sidney Parnes (model CPS).
+                Prečo je v tvorivej skupine kľúčové <strong>pravidlo nehodnotenia</strong>? V psychológii tvorivosti je tento princíp známy ako <strong>odročené hodnotenie (deferred judgment)</strong> – základný pilier metódy <em>brainstormingu</em>, ktorý v roku 1953 sformuloval Alex F. Osborn a systematizoval Sidney Parnes v modeli tvorivého riešenia problémov (CPS).
             </p>
             <div class="system-box">
-                <strong>🧠 Mechanizmus odročeného hodnotenia (Divergencia pred Konvergenciou)</strong>
+                <strong>🧠 Prečo odročené hodnotenie vypína strach (Divergencia pred Konvergenciou)</strong>
                 <p style="margin: 6px 0 0 0;">
-                    Ľudská myseľ nedokáže naplno tvoriť a otvárať srdce, ak má súčasne zapnutého vnútorného cenzora alebo čelí strachu z okamžitej kritiky okolia. Ak niekto pri vyslovení krehkého vnemu okamžite narazí na posudzovanie, aktivuje sa uňho <strong>biologická obrana</strong> a komunikačný kanál sa uzavrie. Odročené hodnotenie preto časovo oddeľuje dve fázy:
+                    Ľudská psychika nedokáže úprimne tvoriť a zdieľať krehké vnútorné postrehy, ak má súčasne zapnutého vnútorného cenzora alebo čelí okamžitej kritike okolia. Predčasné posudzovanie vyvoláva pocit ohrozenia, spúšťa obranný reflex a uzatvára myseľ. Metodika preto striktne oddeľuje dve fázy:
                 </p>
                 <ul class="custom-list" style="margin-top: 8px; margin-bottom: 0;">
-                    <li><strong>1. Fáza divergencie (Otvorenie a zber):</strong> V chránenom časovom okne sa pozastavuje akákoľvek kritika, irónia i polemika. Každý vklad do kruhu je prijatý ako legitímny lúč poznania.</li>
-                    <li><strong>2. Fáza konvergencie (Syntéza a ukotvenie):</strong> Až po skončení chráneného okna nastupuje triezvy rozum, pojmologické triedenie a overovanie v hmotnej realite.</li>
+                    <li><strong>1. Divergentná fáza (Chránené okno otvorenosti):</strong> Počas časového okna sa vedome pozastavuje akékoľvek hodnotenie, súhlas i nesúhlas. Každý pohľad v kruhu rozširuje spoločné vnímanie bez rizika zosmiešnenia.</li>
+                    <li><strong>2. Konvergentná fáza (Racionálne ukotvenie):</strong> Až s časovým odstupom nastupuje analytické triedenie pojmov, hľadanie súvislostí a overovanie v praxi.</li>
                 </ul>
             </div>
 
+            <h3>Biologické obranné reflexy verzus vedomá sebaobrana zovšeobecnením</h3>
             <p>
-                Zatiaľ nie sme takí „ostrieľaní“, aby sme hoci aj dobre mienené, no mentálne toxické informácie nebrali ako útok na našu vnútornú integritu. Keď naše vnútorné podprahové kontrolné mechanizmy vypnú mentálne vnímanie, najlepšie je ujsť. Všetci sme len zvieratá s tromi obrannými mechanizmami: <strong>útok, útek, zamrznutie (Fight, Flight, Freeze)</strong>. Niektoré „zvieratá“ si však medzi akciou a reakciou dokážu dopriať čas na rozmyslenie.
+                Zatiaľ nie sme takí „ostrieľaní“, aby sme hoci aj dobre mienené, no mentálne toxické informácie nebrali ako útok na našu vnútornú konzistenciu. Keď naše podprahové kontrolné mechanizmy vyhodnotia situáciu ako preťaženie a vypnú mentálne vnímanie, biologický automat velí ujsť.
+            </p>
+            <p>
+                Biologicky sme vybavení tromi starými obrannými mechanizmami: <strong>útok, útek, zamrznutie (Fight, Flight, Freeze)</strong>. Rozdiel medzi reaktívnym automatom a vedomým človekom spočíva v tom, že si medzi akciou a reakciou doprajeme <strong>čas na rozmyslenie (Franklovu kognitívnu medzerera)</strong>.
             </p>
 
             <div class="system-box">
-                <strong>🛡️ Zovšeobecnenie ako vedomá sebaobrana</strong>
+                <strong>🛡️ Premena protiútoku na systémové zovšeobecnenie</strong>
                 <p style="margin: 6px 0 0 0;">
-                    Mojou filozofiou je pomáhať a neubližovať. Preto sa vierou vyše rozumu snažím zvierací reflex protiútoku vedome tlmiť. <strong>Snažím sa sebaobranu útokom premeniť na zovšeobecnenie</strong> a ostatné nechávam na prozreteľnosť. Ja môžem zmeniť jedine seba. Vierou vyše rozumu dúfam, že zmenou seba zmením aj svet ;-)
+                    Mojou filozofiou je pomáhať a neubližovať. Preto sa vierou vyše rozumu snažím zvierací reflex protiútoku vedome tlmiť. <strong>Snažím sa sebaobranu útočením zmeniť na zovšeobecnenie</strong> (pomenovať všeobecný jav bez osobného útoku na vinníka) a ostatné nechávam na prozreteľnosť. Každý človek má vlastné tempo dozrievania a je sám strojcom svojho šťastia.
                 </p>
             </div>
-
-            <h3>Pravidlá minimalizácie zranení v tvorivej skupine</h3>
-            <ul class="custom-list">
-                <li><strong>Zákaz kolonizácie jedného prístupu druhým:</strong> Prevencia úmyselného ubližovania spočíva v tom, že žiadny účastník ani odbor nesmie vyhlásiť svoj spôsob vnímania za nadradenú normu.</li>
-                <li><strong>Kognitívna medzera pred reakciou:</strong> Vedomá pauza medzi podnetom a odpoveďou vypína biologický automat pomsty a umožňuje pomenovať systémový jav namiesto útoku na osobu.</li>
-                <li><strong>Ukotvenie cez spoločný hmotný artefakt či stôl:</strong> Spoločné dielo v dielni alebo spoločná hostina za jedným stolom uzemňuje abstraktné spory egov do žitej vzájomnosti.</li>
-            </ul>
         </div>
 
-        <!-- EN -->
+        <!-- EN L2 -->
         <div class="lang-content" data-lang="en">
-            <h2>2. Deferred Judgment and Communication Hygiene</h2>
-            <p>
-                Why is the <strong>rule of non-judgment</strong> so vital in a group? In creative problem-solving methodology, this is known as <strong>deferred judgment</strong>—the cornerstone of <em>brainstorming</em> formulated by Alex F. Osborn (1953) and expanded by Sidney Parnes in Creative Problem Solving (CPS).
-            </p>
-            <div class="system-box">
-                <strong>🧠 How Deferred Judgment Works (Divergence Before Convergence)</strong>
-                <p style="margin: 6px 0 0 0;">
-                    The human mind cannot genuinely open up or create while simultaneously defending against premature criticism. Immediate judgment triggers limbic defense mechanisms and shuts down receptivity. Deferred judgment separates two phases in time:
-                </p>
-                <ul class="custom-list" style="margin-top: 8px; margin-bottom: 0;">
-                    <li><strong>1. Divergent Phase (Opening &amp; Harvesting):</strong> During the protected window, criticism and evaluation are suspended so authentic inner impressions can surface safely.</li>
-                    <li><strong>2. Convergent Phase (Synthesis &amp; Grounding):</strong> Only after the protected window closes does analytical reason step in to structure and test ideas in physical reality.</li>
-                </ul>
+            <div class="unifying-thought">
+                <strong>Unifying Thought for the Reflective Reader:</strong> Between stimulus and response lies the space of human freedom. By choosing <em>deferred judgment</em> and <em>systemic generalization</em> instead of counter-attacking, we protect both mutual dignity and our own mental integrity.
             </div>
 
+            <h2>2. Deferred Judgment (Brainstorming) and the Cognitive Gap</h2>
             <p>
-                We are not yet seasoned enough to avoid perceiving well-intentioned but mentally toxic information as an attack on our inner consistency. When our subliminal control mechanisms shut down mental perception, it is best to retreat. Biologically, we all share three animal defense mechanisms: <strong>Fight, Flight, or Freeze</strong>. However, some "animals" grant themselves time to reflect between stimulus and response.
+                In creative psychology, the rule of non-judgment is known as <strong>deferred judgment</strong>—the core principle of <em>brainstorming</em> introduced by Alex F. Osborn (1953) and Sidney Parnes (CPS).
             </p>
-
             <div class="system-box">
-                <strong>🛡️ Generalization as Conscious Self-Defense</strong>
+                <strong>🧠 Divergence Before Convergence</strong>
                 <p style="margin: 6px 0 0 0;">
-                    My philosophy is to help and do no harm. Therefore, through faith above reason, I consciously suppress the animal reflex to counter-attack. <strong>I strive to transform self-defense by attacking into systemic generalization</strong>, leaving the rest to providence. I can only change myself—and by changing myself, I hope to change the world ;-)
+                    The human mind cannot generate authentic insights while defending against immediate criticism. Premature evaluation triggers limbic defense mechanisms. Separating the <strong>divergent phase</strong> (timeboxed sharing without criticism) from the <strong>convergent phase</strong> (subsequent rational synthesis) creates psychological safety.
                 </p>
             </div>
+            <p>
+                When subliminal defense mechanisms perceive incoming information as mentally toxic, our biological hardware defaults to <strong>Fight, Flight, or Freeze</strong>. Consciousness begins when we insert a deliberate pause between trigger and reaction—transforming the impulse to counter-attack into a <strong>generalization</strong> of the underlying principle, while respecting that everyone is the architect of their own path.
+            </p>
         </div>
 
-        <!-- HU -->
+        <!-- HU L2 -->
         <div class="lang-content" data-lang="hu">
-            <h2>2. Halasztott értékelés és kommunikációs higiénia</h2>
-            <p>
-                Miért olyan fontos a csoportban a <strong>meg nem ítélés szabálya</strong>? Az alkotói problémamegoldásban ez a <strong>halasztott értékelés (deferred judgment)</strong> elveként ismert – az Alex F. Osborn (1953) által kidolgozott <em>brainstorming</em> (ötletbörze) és a Sidney Parnes-féle CPS modell alappillére.
-            </p>
-            <div class="system-box">
-                <strong>🧠 A halasztott értékelés mechanizmusa (Divergencia a konvergencia előtt)</strong>
-                <p style="margin: 6px 0 0 0;">
-                    Az emberi szellem nem képes megnyílni és alkotni, ha közben azonnali bírálattól kell tartania. A korai kritika beindítja a biológiai védekezést. A módszer ezért időben szétválasztja a <strong>divergens szakaszt</strong> (szabad önkifejezés és befogadás ítélkezés nélkül) és a <strong>konvergens szakaszt</strong> (utólagos rendszerezés és gyakorlati megvalósítás).
-                </p>
+            <div class="unifying-thought">
+                <strong>Egyesítő gondolat az elemző olvasónak:</strong> Az inger és a válasz között rejlik a szabad döntés tere. Ha az azonnali kritika vagy ellentámadás helyett a <em>halasztott értékelést</em> és az <em>általánosítást</em> választjuk, megóvjuk belső integritásunkat és a másik ember méltóságát.
             </div>
+
+            <h2>2. Halasztott értékelés (Brainstorming) és a kognitív szünet</h2>
             <p>
-                Még nem vagyunk elég edzettek ahhoz, hogy a jó szándékú, de mentálisan mérgező információkat ne belső integritásunk elleni támadásként éljük meg. Mindannyian három alapvető védekező mechanizmussal rendelkezünk: <strong>támadás, menekülés, ledermedés</strong>. Néhányan azonban a tett és a reakció között hagynak maguknak időt a gondolkodásra.
+                Az alkotói pszichológiában a meg nem ítélés szabálya <strong>halasztott értékelésként (deferred judgment)</strong> ismert – ez Alex F. Osborn (1953) <em>brainstorming</em> módszerének és Sidney Parnes CPS modelljének alappillére, amely időben szétválasztja a szabad <strong>divergens</strong> (ötletgyűjtő, megnyíló) és a <strong>konvergens</strong> (elemző, rendszerező) szakaszt.
             </p>
-            <div class="system-box">
-                <strong>🛡️ Általánosítás mint tudatos önvédelem</strong>
-                <p style="margin: 6px 0 0 0;">
-                    Filozófiám: segíteni és nem ártani. Ezért az értelmen felüli hittel igyekszem tudatosan elfojtani a támadó reflexet. <strong>A támadással történő önvédelmet igyekszem általánosítássá alakítani</strong>, a többit pedig a gondviselésre bízom. Csak önmagamat változtathatom meg – remélve, hogy ezzel a világot is megváltoztatom ;-)
-                </p>
-            </div>
+            <p>
+                Amikor tudatalatti védelmi mechanizmusaink támadásként élik meg a mérgező információkat, beindul az állati <strong>támadás, menekülés vagy ledermedés</strong> reflexe. Az értelmen felüli hittel azonban tudatos szünetet tarthatunk az inger és a reakció között, és a személyes ellentámadást <strong>rendszerszintű általánosítássá</strong> alakíthatjuk át.
+            </p>
         </div>
 
-        <!-- CS -->
+        <!-- CS L2 -->
         <div class="lang-content" data-lang="cs">
-            <h2>2. Odložené hodnocení a komunikační hygiena</h2>
-            <p>
-                Proč je ve skupině tak důležité <strong>pravidlo nehodnocení</strong>? V metodice tvůrčí práce se tento princip nazývá <strong>odložené hodnocení (deferred judgment)</strong> – základní pilíř metody <em>brainstormingu</em>, který v roce 1953 definoval Alex F. Osborn a rozvinul Sidney Parnes (CPS).
-            </p>
-            <div class="system-box">
-                <strong>🧠 Princip odloženého hodnocení (Divergence před Konvergencí)</strong>
-                <p style="margin: 6px 0 0 0;">
-                    Lidská mysl se nedokáže plně otevřít a tvořit, pokud čelí strachu z okamžité kritiky. Předčasné posuzování spouští obranný reflex a uzavírá srdce. Odložené hodnocení proto striktně odděluje <strong>divergentní fázi</strong> (chráněné okno pro svobodné vyjádření bez cenzury) od <strong>konvergentní fáze</strong> (následného racionálního třídění a ukotvení v praxi).
-                </p>
+            <div class="unifying-thought">
+                <strong>Sjednocující myšlenka pro hloubavého čtenáře:</strong> Mezi podnětem a reakcí leží prostor svobodné volby. Když místo okamžité kritiky či protiútoku zvolíme <em>odložené hodnocení</em> a <em>zobecnění problému</em>, chráníme důstojnost druhého i vlastní vnitřní integritu.
             </div>
+
+            <h2>2. Odložené hodnocení (Brainstorming) a kognitivní mezera</h2>
             <p>
-                Zatím nejsme tak ostřílení, abychom byť i dobře míněné, ale mentálně toxické informace nebrali jako útok na naši vnitřní konzistenci. Všichni jsme jen zvířata se třemi obrannými mechanismy: <strong>útok, útěk, zamrznutí</strong>. Některá „zvířata“ si však mezi akcí a reakcí dopřejí čas na rozmyšlenou.
+                V psychologii tvořivosti je pravidlo nehodnocení známé jako <strong>odložené hodnocení (deferred judgment)</strong> – klíčový pilíř metody <em>brainstormingu</em> (Alex F. Osborn, 1953; Sidney Parnes, CPS), který časově odděluje <strong>divergentní fázi</strong> (chráněné okno otevřenosti bez kritiky) od <strong>konvergentní fáze</strong> (následného racionálního vyhodnocení).
             </p>
-            <div class="system-box">
-                <strong>🛡️ Zobecnění jako vědomá sebeobrana</strong>
-                <p style="margin: 6px 0 0 0;">
-                    Mou filozofií je pomáhat a neubližovat. Proto se vírou výše rozumu snažím zvířecí reflex protiútoku vědomě potlačovat. <strong>Snažím se sebeobranu útokem změnit na zobecnění</strong> a ostatní nechávám na prozřetelnost. Mohu změnit jedině sebe – a změnou sebe snad změním i svět ;-)
-                </p>
-            </div>
+            <p>
+                Při pocitu ohrožení mentálně toxickou informací spouští biologický automat reakci <strong>útok, útěk, nebo zamrznutí</strong>. Vědomý člověk však mezi akci a reakci vkládá čas na rozmyšlenou a sebeobranu útokem přetváří v <strong>zobecnění</strong>.
+            </p>
         </div>
 
         <div class="svg-wrap">
@@ -668,295 +676,345 @@
                 <text x="140" y="20" font-size="11" font-weight="bold" fill="#ef4444" text-anchor="middle">BIOLOGICKÝ REFLEX</text>
                 <rect x="50" y="35" width="180" height="60" rx="4" fill="none" stroke="#ef4444" stroke-width="1.5"/>
                 <text x="140" y="58" font-size="10" fill="var(--text-color)" text-anchor="middle">Útok ↔ Útek ↔ Zamrznutie</text>
-                <text x="140" y="76" font-size="9" fill="#ef4444" text-anchor="middle">Predčasná kritika &amp; Obrana</text>
+                <text x="140" y="76" font-size="9" fill="#ef4444" text-anchor="middle">Okamžitá kritika &amp; Eskalácia</text>
 
-                <path d="M 250 65 L 320 65" stroke="var(--accent-color)" stroke-width="2" marker-end="url(#arr1)"/>
+                <path d="M 250 65 L 320 65" stroke="var(--accent-color)" stroke-width="2" marker-end="url(#arr-l1)"/>
 
                 <text x="440" y="20" font-size="11" font-weight="bold" fill="#22c55e" text-anchor="middle">KOGNITÍVNA MEDZERA</text>
                 <rect x="350" y="35" width="180" height="60" rx="4" fill="none" stroke="#22c55e" stroke-width="1.5"/>
                 <text x="440" y="58" font-size="10" fill="var(--text-color)" text-anchor="middle">Odročené hodnotenie &amp; Pauza</text>
-                <text x="440" y="76" font-size="9" fill="#22c55e" text-anchor="middle">Zovšeobecnenie &amp; Ochrana celku</text>
+                <text x="440" y="76" font-size="9" fill="#22c55e" text-anchor="middle">Zovšeobecnenie bez ublíženia</text>
             </svg>
         </div>
+
+        <!-- Overené odkazy pre 2. úroveň (Psychologické a metodické) -->
+        <h3>
+            <span class="lang-content" data-lang="sk">Overené odkazy a štúdie (2. úroveň – Psychológia skupiny a komunikačná hygiena)</span>
+            <span class="lang-content" data-lang="en">Verified Links &amp; Studies (Level 2 – Group Psychology &amp; Communication Hygiene)</span>
+            <span class="lang-content" data-lang="hu">Hitelesített hivatkozások (2. szint – Csoportpszichológia és kommunikációs higiénia)</span>
+            <span class="lang-content" data-lang="cs">Ověřené odkazy a studie (2. úroveň – Psychologie skupiny a komunikační hygiena)</span>
+        </h3>
+        <ul class="custom-list" style="font-size: 0.9em;">
+            <li>
+                <strong>Odročené hodnotenie a metóda Brainstormingu (Alex Osborn &amp; Sidney Parnes):</strong> 
+                <a href="https://www.creativeeducationfoundation.org/what-is-cps/" target="_blank" rel="noopener">Creative Education Foundation – Creative Problem Solving (CPS) &amp; Deferred Judgment</a>.
+            </li>
+            <li>
+                <strong>Psychológia integrálneho spojenia a metodika workshopov v kruhu:</strong> 
+                <a href="https://www.kabbalah.info/sk/kabalisticke-texty/spolocnost-buducnosti" target="_blank" rel="noopener">Verejná knižnica Kabbalah.info – Psychológia integrálnej spoločnosti a pravidlá kruhu</a> 
+                <em>(inšpiratívny študijný materiál o skupinovej synergii a prekonávaní konfrontačného ega bez nátlaku)</em>.
+            </li>
+            <li>
+                <strong>Biologická reakcia Fight-or-Flight a zvládanie stresu:</strong> 
+                <a href="https://www.britannica.com/science/fight-or-flight-response" target="_blank" rel="noopener">Encyclopaedia Britannica – Fight-or-Flight Response (Walter B. Cannon)</a>.
+            </li>
+            <li>
+                <strong>Suspenzia predpokladov v skupinovom dialógu:</strong> 
+                <a href="https://infed.org/mobi/david-bohm-on-dialogue-and-systemic-thinking/" target="_blank" rel="noopener">David Bohm – On Dialogue &amp; Suspending Assumptions (INFED)</a>.
+            </li>
+        </ul>
     </section>
 
-    <!-- ==================== 3. ÚROVEŇ ==================== -->
+    <!-- ========================================================================= -->
+    <!-- ==================== 3. ÚROVEŇ: SYSTÉMOVÁ SYNTÉZA ======================= -->
+    <!-- ========================================================================= -->
     <section id="lvl-3" class="level-content">
-        <!-- SK -->
+        <!-- SK L3 -->
         <div class="lang-content" data-lang="sk">
-            <h2>3. Systémový model: Spoločná cesta Isra-el a ochrana pred „oslepením“</h2>
+            <div class="unifying-thought">
+                <strong>Zjednocujúca myšlienka pre systémovú architektúru (LaTvoMy):</strong> Skutočná jednota (<em>Arvut</em>) nevzniká unifikáciou ani potlačením kritického rozumu, ale harmonickou rezonanciou slobodných a jedinečných uzlov chránených spoločnou clonou (<em>Masach</em>) a etickým imperatívom <em>Ahinsá</em> (neubližovať). Každý nesie plnú zvrchovanosť nad svojou cestou.
+            </div>
+
+            <h2>3. Architektúra trojvrstvovej spolupráce a ochrana pred „oslepením“</h2>
             <p>
-                Ako môže rôznorodá skupina parťákov hľadať <strong>TO spoločné</strong> (smer <em>Isra-el</em> – priamo k Stvoriteľovi) v chránenom prostredí bez potlačenia jedinečnosti a bez rizika predčasného oslepenia? Kľúčom je oddelenie troch vrstiev spolupráce:
+                Ako môže rôznorodá skupina parťákov hľadať <strong>TO spoločné</strong> (vektor <em>Isra-el</em> – priamo k Stvoriteľovi) v chránenom prostredí bez toho, aby potlačila jedinečnosť indivíduí, a zároveň predísť <strong>predčasnému „oslepeniu“</strong>?
             </p>
+            <p>
+                V ontológii kabaly aj v systémovom inžinierstve platí, že ak nechránený uzol (<em>Kli</em>) príjme príliš intenzívny tok Svetla bez odrazovej clony (<em>Masach</em>) a bez rozptylu v sieti parťákov, nastáva kolaps: buď <strong>rozbitie nádob (<em>Švirat ha-Kelim</em>)</strong> – psychické preťaženie a šok (archetyp oslepenia Šavla pred Damaškom), alebo <strong>pýcha Svetlonosa</strong>, kedy si ego privlastní svetlo a začne manipulovať druhých. Riešením je trojvrstvová architektúra:
+            </p>
+
             <div class="system-box">
-                <strong>🏛️ Trojvrstvová architektúra tvorivej rezonancie</strong>
+                <strong>🏛️ Trojvrstvová architektúra tvorivej rezonancie (Pneuma – Psyché – Soma)</strong>
                 <ul class="custom-list" style="margin-top: 8px; margin-bottom: 0;">
-                    <li><strong>Vrstva 3 – Zdieľaný zámer (Pneuma / Cesta Isra-el):</strong> Spoločný etický vektor – pomáhať, tvoriť a neubližovať (prechod od žoldniera k dobrovoľníkovi). Zjednocuje skupinu v smerovaní k Svetlu bez vynucovania názorovej uniformity.</li>
-                    <li><strong>Vrstva 2 – Ochranný protokol a Clona (Psyché / Masach):</strong> Jasne dohodnuté pravidlá hry v časopriestore: odročené hodnotenie, striedanie 5-minútových okien, spoločné ticho ($T_{off}$) a rituály spolupatričnosti (spoločné stolovanie, prípitky, spev). Táto vrstva slúži ako <strong>optická clona</strong>, ktorá bráni predčasnému oslepeniu jednotlivca i pýche Svetlonosa.</li>
-                    <li><strong>Vrstva 1 – Zvrchovaná individualita (Soma / Jedinečné uzly):</strong> Nedotknuteľná odlišnosť každého parťáka – jeho špecifické (ne)dary, remeslo, „krívanie“ (pokora) a osobná citlivosť.</li>
+                    <li><strong>Vrstva 3 – Zdieľaný zámer (Pneuma / Atzilut / Cesta Isra-el):</strong> Spoločný etický atraktor – pomáhať, tvoriť a neubližovať (premena <em>racon le-kabel</em> na <em>racon le-hašpia</em>). Zjednocuje skupinu v smerovaní k Zdroju bez vynucovania dogmatickej uniformity.</li>
+                    <li><strong>Vrstva 2 – Ochranný pojmologický protokol a Clona (Psyché / Beriah-Yetzirah / Masach):</strong> Presne dohodnuté pravidlá v časopriestore: odročené hodnotenie, striedanie 5-minútových okien, vedomý analógový čas ticha ($T_{off}$ / <em>Cimcum</em>) a rituály vteleného priateľstva (spoločné stolovanie, prípitky <em>LeChaim</em>, spev). Táto vrstva funguje ako optický filter, ktorý láme ostré svetlo na bezpečné spektrum.</li>
+                    <li><strong>Vrstva 1 – Zvrchovaná individualita (Soma / Assiyah / Jedinečné uzly):</strong> Nedotknuteľná autonómia každého účastníka – jeho špecifické dary, obmedzenia, kritické myslenie, remeslo a slobodná vôľa.</li>
                 </ul>
             </div>
-            <p>
-                <strong>Zákon zachovania jedinečnosti na ďalekej ceste:</strong> Osamelý bežec síce vyštartuje rýchlo, no pri prvom náraze na ostré Svetlo alebo prekážku vyhorí či oslepne. Skupina parťákov nehľadá splynutie do sivej priemernosti, ale harmonický akord, v ktorom každý tón zostáva sám sebou a pritom chráni ostatných na spoločnej ďalekej ceste.
+
+            <div class="svg-wrap">
+                <svg width="600" height="140" viewBox="0 0 600 140">
+                    <rect x="100" y="10" width="400" height="32" rx="4" fill="none" stroke="var(--accent-color)" stroke-width="1.5"/>
+                    <text x="300" y="30" font-size="11" font-weight="bold" fill="var(--accent-color)" text-anchor="middle">VRSTVA 3: ZDIEĽANÝ ZÁMER ISRA-EL (SVETLO &amp; AHINSÁ)</text>
+
+                    <rect x="60" y="55" width="480" height="32" rx="4" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+                    <text x="300" y="75" font-size="11" fill="var(--text-color)" text-anchor="middle">VRSTVA 2: CLONA PROTI OSLEPENIU (ODROČENÉ HODNOTENIE, TICHO, HOSTINA)</text>
+
+                    <g transform="translate(60, 100)">
+                        <rect x="0" y="0" width="105" height="30" rx="4" fill="var(--box-bg)" stroke="var(--border-color)"/>
+                        <text x="52" y="19" font-size="10" fill="var(--text-color)" text-anchor="middle">Slobodný uzol A</text>
+
+                        <rect x="125" y="0" width="105" height="30" rx="4" fill="var(--box-bg)" stroke="var(--border-color)"/>
+                        <text x="177" y="19" font-size="10" fill="var(--text-color)" text-anchor="middle">Slobodný uzol B</text>
+
+                        <rect x="250" y="0" width="105" height="30" rx="4" fill="var(--box-bg)" stroke="var(--border-color)"/>
+                        <text x="302" y="19" font-size="10" fill="var(--text-color)" text-anchor="middle">Slobodný uzol C</text>
+
+                        <rect x="375" y="0" width="105" height="30" rx="4" fill="var(--box-bg)" stroke="var(--border-color)"/>
+                        <text x="427" y="19" font-size="10" fill="var(--text-color)" text-anchor="middle">Slobodný uzol D</text>
+                    </g>
+                </svg>
+            </div>
+
+            <h3>Vývoj metodík kolektívnej tvorivej práce a skupinovej rezonancie</h3>
+            <p style="font-size: 0.92em;">
+                Hľadanie chráneného priestoru, v ktorom skupina parťákov dokáže ísť ďaleko, tvoriť bez vzájomného ničenia a predísť predčasnému „oslepeniu“, prešlo v histórii postupným vývojom – od starobylých duchovných kruhov až po moderné inžinierske a systémové protokoly:
             </p>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Obdobie / Prúd</th>
+                            <th>Metodika &amp; Kľúčoví autori</th>
+                            <th>Hlavný prínos pre chránenú skupinovú spoluprácu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Starovek &amp; Tradícia</strong></td>
+                            <td><strong>Kruhové rady (Council Circles) &amp; Kabalistická desiatka (Arvut / Masach):</strong><br><em>Baal HaSulam (Yehuda Ashlag), Rabash (Baruch Ashlag)</em></td>
+                            <td>Rovnosť parťákov v kruhu, ochranná clona (<em>Masach</em>) pred rozbitím nádob (predčasným oslepením), spoločné ticho a stolovanie (hostina s prípitkami – <em>LeChaim</em>) ako hmotná kotva duchovného spojenia.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1939 – 1953</strong><br>(1. generácia)</td>
+                            <td><strong>Brainstorming &amp; Odročené hodnotenie:</strong><br><em>Alex F. Osborn: Applied Imagination (1953)</em></td>
+                            <td>Sformulovanie <strong>princípu odročeného hodnotenia (Deferred Judgment)</strong> – striktný zákaz kritiky počas divergentnej fázy zberu nápadov.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1950 – 1970</strong><br>(Systémové vetvenie)</td>
+                            <td><strong>CPS (Creative Problem Solving), Synektika, Brainwriting 6-3-5 &amp; TRIZ:</strong><br><em>Sidney Parnes, W. J. J. Gordon (1961), Bernd Rohrbach (1968), Genrich Altšuller</em></td>
+                            <td>Vedomé striedanie <strong>divergentného a konvergentného myslenia</strong>; tiché písanie (Brainwriting) na ochranu introvertov pred dominantnými rečníkmi; prekonávanie systémových rozporov (TRIZ).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1985 – 1996</strong><br>(Paralelný dialóg)</td>
+                            <td><strong>Šesť mysliacich klobúkov &amp; Bohmov Dialóg:</strong><br><em>Edward de Bono (1985), Peter Senge: Piata disciplína (1990), David Bohm: On Dialogue (1996)</em></td>
+                            <td>Prechod od konfrontačného ping-pongu eg k <strong>paralelnému mysleniu</strong> (všetci sa naraz pozerajú rovnakým smerom – fakty, pocity, riziká, tvorivosť) a suspenzii predpokladov.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2000 – súčasnosť</strong><br>(Integrálna syntéza)</td>
+                            <td><strong>Teória U (Presencing), Sociokracia &amp; Ekosystém LaTvoMy:</strong><br><em>C. Otto Scharmer (MIT, 2007), Gerard Endenburg</em></td>
+                            <td>Prepojenie troch rovín: <em>Open Mind, Open Heart, Open Will</em> (Myseľ, Láska, Tvorivosť) s ukotvením v spoločnom hmatateľnom diele, analógovom tichu ($T_{off}$) a zachovaní suverenity každého uzla.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <!-- EN -->
+        <!-- EN L3 -->
         <div class="lang-content" data-lang="en">
-            <h2>3. Systems Model: The Shared Path of Isra-el and Preventing "Blinding"</h2>
+            <div class="unifying-thought">
+                <strong>Unifying Thought for Systemic Architecture (LaTvoMy):</strong> True unity (<em>Arvut</em>) arises not from uniformity or suppressing critical reason, but from the harmonic resonance of free, sovereign nodes protected by a shared screen (<em>Masach</em>) and the ethical imperative of <em>Ahimsa</em> (do no harm).
+            </div>
+
+            <h2>3. Three-Layer Collaborative Architecture &amp; Preventing "Blinding"</h2>
             <p>
-                How can a diverse collective of partners seek <strong>the Common Ground</strong> (the vector of <em>Isra-el</em>—straight to the Creator) without erasing individuality or suffering premature blinding? By separating collaboration into three distinct architectural layers:
+                In both Kabbalistic ontology and systems engineering, if an unprotected node (<em>Kli</em>) receives an overwhelming influx of Light without a reflective screen (<em>Masach</em>) and network distribution among partners, collapse ensues: either the <strong>shattering of the vessels (<em>Shevirat HaKelim</em>)</strong> or the <strong>pride of the Light-bearer</strong>.
             </p>
             <div class="system-box">
-                <strong>🏛️ Three-Layer Architecture of Creative Resonance</strong>
+                <strong>🏛️ Three-Layer Architecture of Creative Resonance (Pneuma – Psyche – Soma)</strong>
                 <ul class="custom-list" style="margin-top: 8px; margin-bottom: 0;">
-                    <li><strong>Layer 3 – Shared Ethical Purpose (Pneuma / Path of Isra-el):</strong> Alignment on higher intent—helping, creating, and doing no harm (transforming from mercenary to volunteer).</li>
-                    <li><strong>Layer 2 – Protective Protocol &amp; Screen (Psyche / Masach):</strong> Agreed rules in time and space: deferred judgment, timeboxed speaking windows, shared silence ($T_{off}$), and embodied fellowship (communal meals, toasts, song). This acts as an <strong>attenuating screen</strong> against premature blinding and Luciferian pride.</li>
-                    <li><strong>Layer 1 – Sovereign Individuality (Soma / Unique Nodes):</strong> The inviolable uniqueness of each partner—their distinct gifts, limitations, craft, and humility.</li>
+                    <li><strong>Layer 3 – Shared Purpose (Pneuma / Atzilut / Path of Isra-el):</strong> Unified alignment on altruistic intent—helping, creating, and doing no harm.</li>
+                    <li><strong>Layer 2 – Protective Protocol &amp; Screen (Psyche / Beriah-Yetzirah / Masach):</strong> Timeboxed windows, deferred judgment, shared analog silence ($T_{off}$), and communal meals with toasts (<em>LeChaim</em>).</li>
+                    <li><strong>Layer 1 – Sovereign Individuality (Soma / Assiyah / Unique Nodes):</strong> Inviolable personal autonomy, critical reason, craft, and free will.</li>
                 </ul>
+            </div>
+
+            <h3>Evolution of Collective Creative Methodologies</h3>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Era / Stream</th>
+                            <th>Methodology &amp; Key Authors</th>
+                            <th>Core Contribution to Protected Group Collaboration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Ancient &amp; Traditional</strong></td>
+                            <td><strong>Council Circles &amp; Kabbalistic Ten (Arvut / Masach):</strong><br><em>Baal HaSulam, Rabash</em></td>
+                            <td>Equality in the circle, a protective screen (<em>Masach</em>) preventing premature blinding, shared silence, and communal banquets with toasts (<em>LeChaim</em>).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1939 – 1953</strong></td>
+                            <td><strong>Brainstorming &amp; Deferred Judgment:</strong><br><em>Alex F. Osborn (1953)</em></td>
+                            <td>Formulation of <strong>Deferred Judgment</strong>—strictly separating idea generation from critical evaluation.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1950 – 1970</strong></td>
+                            <td><strong>CPS, Synectics, Brainwriting 6-3-5 &amp; TRIZ:</strong><br><em>Sidney Parnes, W. J. J. Gordon, Bernd Rohrbach, Genrich Altshuller</em></td>
+                            <td>Alternating <strong>divergent and convergent thinking</strong>; silent writing to protect quieter members; resolving systemic contradictions (TRIZ).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1985 – 1996</strong></td>
+                            <td><strong>Six Thinking Hats &amp; Bohmian Dialogue:</strong><br><em>Edward de Bono (1985), Peter Senge (1990), David Bohm (1996)</em></td>
+                            <td>Replacing adversarial debate with <strong>parallel thinking</strong> and suspension of assumptions.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2000 – Present</strong></td>
+                            <td><strong>Theory U (Presencing), Sociocracy &amp; LaTvoMy:</strong><br><em>C. Otto Scharmer (2007), Gerard Endenburg</em></td>
+                            <td>Integrating <em>Open Mind, Open Heart, Open Will</em> with object-mediated collaboration, analog silence ($T_{off}$), and node sovereignty.</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <!-- HU -->
+        <!-- HU L3 -->
         <div class="lang-content" data-lang="hu">
-            <h2>3. Rendszermodell: A közös Isra-el út és védelem a „megvakulás” ellen</h2>
-            <p>
-                Hogyan keresheti egy sokszínű társaság <strong>a KÖZÖSET</strong> (az <em>Isra-el</em> irányt) védett környezetben anélkül, hogy elnyomná az egyéni sajátosságokat vagy idő előtt megvakulna? Az együttműködés három rétegének szétválasztásával:
-            </p>
+            <div class="unifying-thought">
+                <strong>Egyesítő gondolat a rendszerarchitektúrához (LaTvoMy):</strong> Az igazi egység (<em>Arvut</em>) nem az egyformaságból vagy a kritikus értelem elnyomásából születik, hanem a szabad, szuverén egyének harmonikus rezonanciájából, amelyet a közös védőernyő (<em>Maszach</em>) és a nem ártás (<em>Ahinszá</em>) etikája véd.
+            </div>
+
+            <h2>3. Háromrétegű együttműködési architektúra és védelem a „megvakulás” ellen</h2>
             <div class="system-box">
-                <strong>🏛️ Az alkotói rezonancia háromrétegű architektúrája</strong>
+                <strong>🏛️ Az alkotói rezonancia három rétege (Pneuma – Psziché – Szóma)</strong>
                 <ul class="custom-list" style="margin-top: 8px; margin-bottom: 0;">
-                    <li><strong>3. Réteg – Közös etikai szándék (Pneuma / Isra-el út):</strong> Elköteleződés a segítés, alkotás és nem ártás mellett (átmenet a zsoldosból az önkéntesbe).</li>
-                    <li><strong>2. Réteg – Védelmi protokoll és Ernyő (Psziché / Maszach):</strong> Tisztázott játékszabályok térben és időben: halasztott értékelés, időablakok, közös csend ($T_{off}$) és közös asztalközösség (lakoma, pohárköszöntők, ének), amely megvéd az idő előtti megvakulástól.</li>
-                    <li><strong>1. Réteg – Szuverén egyéniség (Szóma / Egyedi csomópontok):</strong> Minden társ sérthetetlen egyedisége, adottságai és alázata.</li>
+                    <li><strong>3. Réteg – Közös szándék (Pneuma / Atzilut / Isra-el út):</strong> Segíteni, alkotni és nem ártani.</li>
+                    <li><strong>2. Réteg – Védelmi protokoll és Ernyő (Psziché / Maszach):</strong> Halasztott értékelés, időablakok, közös csend ($T_{off}$) és közös lakoma pohárköszöntőkkel (<em>LeChaim</em>).</li>
+                    <li><strong>1. Réteg – Szuverén egyéniség (Szóma / Egyedi csomópontok):</strong> Sérthetetlen egyéni szabadság, kritikus gondolkodás és saját felelősség.</li>
                 </ul>
+            </div>
+
+            <h3>A kollektív alkotómunka módszertanának fejlődése</h3>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Korszak</th>
+                            <th>Módszertan &amp; Szerzők</th>
+                            <th>Fő hozzájárulás a védett csoportmunkához</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Hagyomány</strong></td>
+                            <td><strong>Tanácskörök &amp; Kabbalisztikus tízes (Arvut / Maszach):</strong><br><em>Baal HaSulam, Rabash</em></td>
+                            <td>Egyenlőség a körben, védőernyő (<em>Maszach</em>) az idő előtti megvakulás ellen, közös csend és lakoma pohárköszöntőkkel.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1939 – 1953</strong></td>
+                            <td><strong>Brainstorming &amp; Halasztott értékelés:</strong><br><em>Alex F. Osborn (1953)</em></td>
+                            <td>A <strong>halasztott értékelés (Deferred Judgment)</strong> elve – a kritika felfüggesztése az alkotó szakaszban.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1950 – 1970</strong></td>
+                            <td><strong>CPS, Szinektika, Brainwriting 6-3-5 &amp; TRIZ:</strong><br><em>S. Parnes, W. Gordon, B. Rohrbach, G. Altshuller</em></td>
+                            <td>A <strong>divergens és konvergens gondolkodás</strong> szétválasztása; írásos ötletelés az introvertáltak védelmében.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1985 – jelen</strong></td>
+                            <td><strong>Hat gondolkodó kalap, Bohm-dialógus, U-elmélet &amp; LaTvoMy:</strong><br><em>E. de Bono, P. Senge, D. Bohm, O. Scharmer</em></td>
+                            <td>Párhuzamos gondolkodás, a nyitott elme, szív és akarat összekapcsolása az egyéni szuverenitás megőrzésével.</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <!-- CS -->
+        <!-- CS L3 -->
         <div class="lang-content" data-lang="cs">
-            <h2>3. Systémový model: Společná cesta Isra-el a ochrana před „oslepením“</h2>
-            <p>
-                Jak může různorodá skupina parťáků hledat <strong>TO společné</strong> (směr <em>Isra-el</em> – přímo ke Stvořiteli) v chráněném prostředí, aniž by potlačila jedinečnost jednotlivců nebo utrpěla předčasné oslepení? Oddělením tří vrstev spolupráce:
-            </p>
+            <div class="unifying-thought">
+                <strong>Sjednocující myšlenka pro systémovou architekturu (LaTvoMy):</strong> Skutečná jednota (<em>Arvut</em>) nevzniká unifikací ani potlačením kritického rozumu, nýbrž harmonickou rezonancí svobodných a jedinečných uzlů chráněných společnou clonou (<em>Masach</em>) a etikou neubližování (<em>Ahinsá</em>).
+            </div>
+
+            <h2>3. Architektura třívrstvé spolupráce a ochrana před „oslepením“</h2>
             <div class="system-box">
-                <strong>🏛️ Třívrstvá architektura tvůrčí rezonance</strong>
+                <strong>🏛️ Třívrstvá architektura tvůrčí rezonance (Pneuma – Psyché – Soma)</strong>
                 <ul class="custom-list" style="margin-top: 8px; margin-bottom: 0;">
-                    <li><strong>Vrstva 3 – Sdílený etický záměr (Pneuma / Cesta Isra-el):</strong> Společný kompas – pomáhat, tvořit a neubližovat (přerod žoldnéře v dobrovolníka).</li>
-                    <li><strong>Vrstva 2 – Ochranný protokol a Clona (Psyché / Masach):</strong> Jasně dohodnutá pravidla hry v časoprostoru: odložené hodnocení, časová okna, společné ticho ($T_{off}$) i stolování s přípitky a zpěvem. Slouží jako <strong>ochranný filtr</strong> proti předčasnému oslepení a pýše Světlonoše.</li>
-                    <li><strong>Vrstva 1 – Svrchovaná individualita (Soma / Jedinečné uzly):</strong> Nedotknutelná odlišnost každého člověka, jeho dary, limity a pokora.</li>
+                    <li><strong>Vrstva 3 – Sdílený záměr (Pneuma / Atzilut / Cesta Isra-el):</strong> Pomáhat, tvořit a neubližovat.</li>
+                    <li><strong>Vrstva 2 – Ochranný protokol a Clona (Psyché / Masach):</strong> Odložené hodnocení, časová okna, společné ticho ($T_{off}$) a hostina s přípitky (<em>LeChaim</em>) jako filtr proti předčasnému oslepení.</li>
+                    <li><strong>Vrstva 1 – Svrchovaná individualita (Soma / Jedinečné uzly):</strong> Nedotknutelná svoboda, kritické myšlení a osobní odpovědnost každého člověka.</li>
                 </ul>
+            </div>
+
+            <h3>Vývoj metodik kolektivní tvůrčí práce</h3>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Období</th>
+                            <th>Metodika &amp; Klíčoví autoři</th>
+                            <th>Hlavní přínos pro chráněnou spolupráci</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Tradice</strong></td>
+                            <td><strong>Poradní kruhy &amp; Kabalistická desítka (Arvut / Masach):</strong><br><em>Baal HaSulam, Rabaš</em></td>
+                            <td>Rovnost v kruhu, ochranná clona (<em>Masach</em>) před rozbitím nádob (oslepením), společné ticho a hostina s přípitky.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1939 – 1953</strong></td>
+                            <td><strong>Brainstorming &amp; Odložené hodnocení:</strong><br><em>Alex F. Osborn (1953)</em></td>
+                            <td>Zavedení <strong>odloženého hodnocení (Deferred Judgment)</strong> – oddělení generování myšlenek od kritiky.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1950 – 1970</strong></td>
+                            <td><strong>CPS, Synektika, Brainwriting 6-3-5 &amp; TRIZ:</strong><br><em>Sidney Parnes, W. J. J. Gordon, Bernd Rohrbach, G. Altšuller</em></td>
+                            <td>Střídání <strong>divergentního a konvergentního myšlení</strong>; tichý zápis chránící introverty; řešení systémových rozporů (TRIZ).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1985 – současnost</strong></td>
+                            <td><strong>Šest myslících klobouků, Bohmův dialog, Teorie U &amp; LaTvoMy:</strong><br><em>E. de Bono, P. Senge, D. Bohm, O. Scharmer</em></td>
+                            <td>Paralelní myšlení místo souboje eg a propojení otevřené mysli, srdce a vůle v chráněné dílně ($T_{off}$).</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <div class="svg-wrap">
-            <svg width="600" height="140" viewBox="0 0 600 140">
-                <rect x="100" y="10" width="400" height="32" rx="4" fill="none" stroke="var(--accent-color)" stroke-width="1.5"/>
-                <text x="300" y="30" font-size="11" font-weight="bold" fill="var(--accent-color)" text-anchor="middle">VRSTVA 3: CESTA ISRA-EL (SVETLO &amp; ZDIEĽANÝ ZÁMER)</text>
-
-                <rect x="60" y="55" width="480" height="32" rx="4" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
-                <text x="300" y="75" font-size="11" fill="var(--text-color)" text-anchor="middle">VRSTVA 2: CLONA PROTI OSLEPENIU (ODROČENÉ HODNOTENIE, TICHO, HOSTINA)</text>
-
-                <g transform="translate(60, 100)">
-                    <rect x="0" y="0" width="105" height="30" rx="4" fill="var(--box-bg)" stroke="var(--border-color)"/>
-                    <text x="52" y="19" font-size="10" fill="var(--text-color)" text-anchor="middle">Parťák A</text>
-
-                    <rect x="125" y="0" width="105" height="30" rx="4" fill="var(--box-bg)" stroke="var(--border-color)"/>
-                    <text x="177" y="19" font-size="10" fill="var(--text-color)" text-anchor="middle">Parťák B</text>
-
-                    <rect x="250" y="0" width="105" height="30" rx="4" fill="var(--box-bg)" stroke="var(--border-color)"/>
-                    <text x="302" y="19" font-size="10" fill="var(--text-color)" text-anchor="middle">Parťák C</text>
-
-                    <rect x="375" y="0" width="105" height="30" rx="4" fill="var(--box-bg)" stroke="var(--border-color)"/>
-                    <text x="427" y="19" font-size="10" fill="var(--text-color)" text-anchor="middle">Parťák D</text>
-                </g>
-            </svg>
-        </div>
-    </section>
-
-    <!-- Overené zdroje a vývoj metodík kolektívnej tvorivej práce -->
-    <h2>
-        <span class="lang-content" data-lang="sk">Overené zdroje &amp; Vývoj metodík kolektívnej tvorivej práce</span>
-        <span class="lang-content" data-lang="en">Verified Sources &amp; Evolution of Collective Creative Methodologies</span>
-        <span class="lang-content" data-lang="hu">Hitelesített források &amp; A kollektív alkotómunka módszertanának fejlődése</span>
-        <span class="lang-content" data-lang="cs">Ověřené zdroje &amp; Vývoj metodik kolektivní tvůrčí práce</span>
-    </h2>
-
-    <!-- SK Zdroje -->
-    <div class="lang-content" data-lang="sk">
-        <p style="font-size: 0.92em;">
-            Hľadanie chráneného priestoru, v ktorom skupina parťákov dokáže ísť ďaleko, tvoriť bez vzájomného ničenia a predísť predčasnému „oslepeniu“, prešlo v histórii postupným vývojom – od duchovných kruhov až po moderné inžinierske a systémové protokoly:
-        </p>
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Obdobie / Prúd</th>
-                        <th>Metodika &amp; Kľúčoví autori</th>
-                        <th>Hlavný prínos pre skupinovú spoluprácu</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Starovek &amp; Tradícia</strong></td>
-                        <td><strong>Kruhové rady (Council Circles) &amp; Kabalistická desiatka (Arvut / Masach):</strong><br><em>Baal HaSulam (Yehuda Ashlag), Rabash (Baruch Ashlag)</em></td>
-                        <td>Rovnosť parťákov v kruhu, ochranná clona (<em>Masach</em>) pred rozbitím nádob (predčasným oslepením), spoločné ticho a stolovanie (hostina s prípitkami – <em>LeChaim</em>) ako hmotná kotva duchovného spojenia.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1939 – 1953</strong><br>(1. generácia)</td>
-                        <td><strong>Brainstorming &amp; Odročené hodnotenie:</strong><br><em>Alex F. Osborn: Applied Imagination (1953)</em></td>
-                        <td>Sformulovanie <strong>princípu odročeného hodnotenia (Deferred Judgment)</strong> – striktný zákaz kritiky počas divergentnej fázy zberu nápadov.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1950 – 1970</strong><br>(Systémové vetvenie)</td>
-                        <td><strong>CPS (Creative Problem Solving), Synektika &amp; Brainwriting 6-3-5:</strong><br><em>Sidney Parnes, William J. J. Gordon (1961), Bernd Rohrbach (1968), Genrich Altšuller (TRIZ)</em></td>
-                        <td>Vedomé striedanie <strong>divergentného a konvergentného myslenia</strong>; tiché písanie (Brainwriting) na ochranu introvertov pred dominantnými rečníkmi; prekonávanie systémových rozporov (TRIZ).</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1985 – 1996</strong><br>(Paralelný dialóg)</td>
-                        <td><strong>Šesť mysliacich klobúkov &amp; Bohmov Dialóg:</strong><br><em>Edward de Bono: Six Thinking Hats (1985), Peter Senge: Piata disciplína (1990), David Bohm: On Dialogue (1996)</em></td>
-                        <td>Prechod od konfrontačného ping-pongu eg k <strong>paralelnému mysleniu</strong> (všetci sa naraz pozerajú rovnakým smerom – fakty, pocity, riziká, tvorivosť) a suspenzii predpokladov.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>2000 – súčasnosť</strong><br>(Integrálna syntéza)</td>
-                        <td><strong>Teória U (Presencing), Sociokracia &amp; Inkluzívny FabLab / LaTvoMy:</strong><br><em>C. Otto Scharmer (MIT, 2007), Gerard Endenburg</em></td>
-                        <td>Prepojenie troch rovín: <em>Open Mind, Open Heart, Open Will</em> (otvorená myseľ, srdce a vôľa) s ukotvením v spoločnom hmatateľnom diele a analógovom tichu ($T_{off}$).</td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Kompletný zoznam overených odkazov pre 3. úroveň (Všetky vrstvy + verejné archívy BB bez narušenia integrity) -->
+        <h3>
+            <span class="lang-content" data-lang="sk">Kompletný archív overených odkazov a prameňov (Úrovne 1 – 3)</span>
+            <span class="lang-content" data-lang="en">Complete Archive of Verified Links &amp; Primary Sources (Levels 1 – 3)</span>
+            <span class="lang-content" data-lang="hu">Hitelesített források és hivatkozások teljes archívuma (1 – 3. szint)</span>
+            <span class="lang-content" data-lang="cs">Kompletní archiv ověřených odkazů a pramenů (Úrovně 1 – 3)</span>
+        </h3>
+        <div class="system-box" style="font-size: 0.88em;">
+            <strong>🕊️ Poznámka k otvorenému zdieľaniu prameňov (Princíp LaTvoMy):</strong> 
+            Nasledujúce odkazy zahŕňajú vedecké, psychologické, systémové aj autentické kabalistické pramene (vrátane verejne dostupných študijných archívov Bnei Baruch / Kabbalah.info). Sú uvádzané v duchu hesla <em>„nenásilne informovať, ale neubližovať“</em> – ako otvorená studnica inšpirácie, nie ako dogma. Každý čitateľ (či už sa vníma ako pragmatik, hľadajúci analytik alebo duchovný pútnik) má plnú slobodu vybrať si len to, čo rezonuje s jeho svedomím, pretože <strong>každý je sám strojcom svojho osudu aj šťastia</strong>.
         </div>
         <ul class="custom-list" style="font-size: 0.88em;">
-            <li><strong>Odročené hodnotenie a kreativita:</strong> Osborn, A. F. (1953): <em>Applied Imagination: Principles and Procedures of Creative Problem-Solving</em>. Charles Scribner's Sons. | Parnes, S. J. (1967): <em>Creative Behavior Guidebook</em>.</li>
-            <li><strong>Paralelné a systémové myslenie:</strong> De Bono, E. (1985): <em>Six Thinking Hats</em>. Little, Brown and Company. | Senge, P. M. (1990): <em>The Fifth Discipline: The Art and Practice of the Learning Organization</em>. Doubleday.</li>
-            <li><strong>Skupinový dialóg, práca v kruhu a ochranná clona:</strong> Bohm, D. (1996): <em>On Dialogue</em>. Routledge. | Ashlag, Y. (Baal HaSulam): <em>List 21 &amp; Talmud Eser Sefirot</em>. | Ashlag, B. (Rabash): <em>Šlavej ha-Sulam (články o skupine)</em>.</li>
-            <li><strong>Kognitívna medzera a biologické obrany:</strong> Frankl, V. E. (2006): <em>Man's Search for Meaning</em>. Beacon Press. | Cannon, W. B. (1915): <em>Bodily Changes in Pain, Hunger, Fear and Rage</em>.</li>
+            <li>
+                <strong>Primárne pramene ku kruhu, vzájomnej záruke (<em>Arvut</em>) a clone (<em>Masach</em>):</strong> 
+                <a href="https://www.kabbalah.info/sk/" target="_blank" rel="noopener">Kabbalah.info (Slovenský a medzinárodný verejný archív Bnei Baruch)</a> | 
+                <a href="https://kabbalahmedia.info/sk/" target="_blank" rel="noopener">KabbalahMedia.info – Verejný archív textov Baal HaSulama (Yehuda Ashlag) a Rabasha (Baruch Ashlag: <em>Šlavej ha-Sulam / Články o skupine</em>)</a>.
+            </li>
+            <li>
+                <strong>Odročené hodnotenie, Brainstorming a CPS (1. a 2. generácia kreatívnych metodík):</strong> 
+                <a href="https://www.creativeeducationfoundation.org/what-is-cps/" target="_blank" rel="noopener">Osborn, A. F. (1953): <em>Applied Imagination</em> &amp; Parnes, S. J. (1967): <em>Creative Problem Solving (CPS)</em></a> | 
+                <a href="https://en.wikipedia.org/wiki/6-3-5_Brainwriting" target="_blank" rel="noopener">Rohrbach, B. (1968): <em>Metóda 6-3-5 Brainwriting</em></a> | 
+                <a href="https://www.triz-journal.com/what-is-triz/" target="_blank" rel="noopener">Altšuller, G.: <em>TRIZ – Teória riešenia vynálezcovských úloh</em></a>.
+            </li>
+            <li>
+                <strong>Paralelné myslenie, systémová dynamika a skupinový dialóg:</strong> 
+                <a href="https://www.debono.com/six-thinking-hats-summary" target="_blank" rel="noopener">De Bono, E. (1985): <em>Six Thinking Hats (Šesť mysliacich klobúkov)</em></a> | 
+                <a href="https://infed.org/mobi/peter-senge-and-the-learning-organization/" target="_blank" rel="noopener">Senge, P. M. (1990): <em>The Fifth Discipline (Piata disciplína)</em></a> | 
+                <a href="https://infed.org/mobi/david-bohm-on-dialogue-and-systemic-thinking/" target="_blank" rel="noopener">Bohm, D. (1996): <em>On Dialogue</em></a> | 
+                <a href="https://www.u-school.org/theory-u" target="_blank" rel="noopener">Scharmer, C. O. (MIT, 2007): <em>Theory U (Open Mind, Open Heart, Open Will)</em></a>.
+            </li>
+            <li>
+                <strong>Kognitívna medzera, zmysel života a neurobiológia obranných mechanizmov:</strong> 
+                <a href="https://www.britannica.com/biography/Viktor-Frankl" target="_blank" rel="noopener">Frankl, V. E. (2006): <em>Hľadanie zmyslu života (Man's Search for Meaning)</em></a> | 
+                <a href="https://www.britannica.com/science/fight-or-flight-response" target="_blank" rel="noopener">Cannon, W. B. (1915): <em>Fight-or-Flight Response</em></a>.
+            </li>
+            <li>
+                <strong>Kontext ekosystému LaTvoMy (Láska – Tvorivosť – Myseľ):</strong> 
+                <a href="https://www.latvomy.info/uvahy/" target="_blank" rel="noopener">Verejný úvahovník LaTvoMy.info – Hľadanie prienikov medzi duchovnom, etikou neubližovania a hmatateľnou tvorivosťou</a>.
+            </li>
         </ul>
-    </div>
-
-    <!-- EN Zdroje -->
-    <div class="lang-content" data-lang="en">
-        <p style="font-size: 0.92em;">
-            The quest for a protected space where a group of partners can travel far together, co-create without mutual destruction, and prevent premature "blinding" has evolved across history:
-        </p>
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Era / Stream</th>
-                        <th>Methodology &amp; Key Authors</th>
-                        <th>Core Contribution to Collective Collaboration</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Ancient &amp; Traditional</strong></td>
-                        <td><strong>Council Circles &amp; Kabbalistic Ten (Arvut / Masach):</strong><br><em>Baal HaSulam, Rabash</em></td>
-                        <td>Equality in the circle, a protective screen (<em>Masach</em>) preventing the shattering of vessels (premature blinding), shared silence, and communal meals with toasts (<em>LeChaim</em>).</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1939 – 1953</strong><br>(1st Generation)</td>
-                        <td><strong>Brainstorming &amp; Deferred Judgment:</strong><br><em>Alex F. Osborn: Applied Imagination (1953)</em></td>
-                        <td>Formulation of <strong>Deferred Judgment</strong>—strictly separating idea generation from critical evaluation.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1950 – 1970</strong><br>(Systemic Branching)</td>
-                        <td><strong>CPS, Synectics, Brainwriting 6-3-5 &amp; TRIZ:</strong><br><em>Sidney Parnes, W. J. J. Gordon (1961), Bernd Rohrbach (1968), Genrich Altshuller</em></td>
-                        <td>Deliberate alternation of <strong>divergent and convergent thinking</strong>; silent writing to protect quieter members; resolving systemic contradictions (TRIZ).</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1985 – 1996</strong><br>(Parallel Dialogue)</td>
-                        <td><strong>Six Thinking Hats &amp; Bohmian Dialogue:</strong><br><em>Edward de Bono (1985), Peter Senge (1990), David Bohm (1996)</em></td>
-                        <td>Replacing adversarial debate with <strong>parallel thinking</strong> and suspension of assumptions.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>2000 – Present</strong><br>(Integral Synthesis)</td>
-                        <td><strong>Theory U (Presencing), Sociocracy &amp; LaTvoMy:</strong><br><em>C. Otto Scharmer (2007), Gerard Endenburg</em></td>
-                        <td>Integrating <em>Open Mind, Open Heart, Open Will</em> with object-mediated collaboration and analog silence ($T_{off}$).</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- HU Zdroje -->
-    <div class="lang-content" data-lang="hu">
-        <p style="font-size: 0.92em;">
-            A védett csoportos alkotótér keresése – amely megóv az idő előtti megvakulástól – hosszú fejlődésen ment keresztül a hagyományos köröktől a modern rendszerszintű módszertanokig:
-        </p>
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Korszak</th>
-                        <th>Módszertan &amp; Szerzők</th>
-                        <th>Fő hozzájárulás a csoportmunkához</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Hagyomány</strong></td>
-                        <td><strong>Tanácskörök &amp; Kabbalisztikus tízes (Arvut / Maszach):</strong><br><em>Baal HaSulam, Rabash</em></td>
-                        <td>Egyenlőség a körben, védőernyő (<em>Maszach</em>) az edények törése ellen, közös csend, valamint a közös étkezés és pohárköszöntők.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1939 – 1953</strong></td>
-                        <td><strong>Brainstorming &amp; Halasztott értékelés:</strong><br><em>Alex F. Osborn (1953)</em></td>
-                        <td>A <strong>halasztott értékelés (Deferred Judgment)</strong> elve – a kritika felfüggesztése az alkotó szakaszban.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1950 – 1970</strong></td>
-                        <td><strong>CPS, Szinektika, Brainwriting 6-3-5 &amp; TRIZ:</strong><br><em>S. Parnes, W. Gordon, B. Rohrbach, G. Altshuller</em></td>
-                        <td>A <strong>divergens és konvergens gondolkodás</strong> tudatos szétválasztása; írásos ötletelés a csendesebb tagok védelmében.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1985 – jelen</strong></td>
-                        <td><strong>Hat gondolkodó kalap, Bohm-dialógus &amp; U-elmélet:</strong><br><em>E. de Bono (1985), P. Senge (1990), D. Bohm (1996), O. Scharmer (2007)</em></td>
-                        <td>Párhuzamos gondolkodás, a feltételezések felfüggesztése, valamint a nyitott elme, nyitott szív és nyitott akarat összekapcsolása.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- CS Zdroje -->
-    <div class="lang-content" data-lang="cs">
-        <p style="font-size: 0.92em;">
-            Hledání chráněného prostoru pro společnou dalekou cestu bez předčasného oslepení a vzájemného zraňování prošlo vývojem od tradičních kruhů až po moderní systémové metodiky:
-        </p>
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Období</th>
-                        <th>Metodika &amp; Klíčoví autoři</th>
-                        <th>Hlavní přínos pro kolektivní spolupráci</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Tradice</strong></td>
-                        <td><strong>Poradní kruhy &amp; Kabalistická desítka (Arvut / Masach):</strong><br><em>Baal HaSulam, Rabaš</em></td>
-                        <td>Rovnost v kruhu, ochranná clona (<em>Masach</em>) před rozbitím nádob (oslepením), společné ticho a hostina s přípitky jako hmotné ukotvení duchovní sounáležitosti.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1939 – 1953</strong></td>
-                        <td><strong>Brainstorming &amp; Odložené hodnocení:</strong><br><em>Alex F. Osborn: Applied Imagination (1953)</em></td>
-                        <td>Zavedení <strong>odloženého hodnocení (Deferred Judgment)</strong> – oddělení generování myšlenek od kritiky.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1950 – 1970</strong></td>
-                        <td><strong>CPS, Synektika, Brainwriting 6-3-5 &amp; TRIZ:</strong><br><em>Sidney Parnes, W. J. J. Gordon, Bernd Rohrbach, G. Altšuller</em></td>
-                        <td>Střídání <strong>divergentního a konvergentního myšlení</strong>; tichý zápis chránící introverty; systémové řešení rozporů (TRIZ).</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1985 – současnost</strong></td>
-                        <td><strong>Šest myslících klobouků, Bohmův dialog &amp; Teorie U:</strong><br><em>E. de Bono (1985), P. Senge (1990), D. Bohm (1996), O. Scharmer (2007)</em></td>
-                        <td>Paralelní myšlení místo souboje eg, suspenze předsudků a propojení otevřené mysli, srdce a vůle v chráněné dílně ($T_{off}$).</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    </section>
 
     <!-- Pätička -->
     <hr class="footer-divider">
