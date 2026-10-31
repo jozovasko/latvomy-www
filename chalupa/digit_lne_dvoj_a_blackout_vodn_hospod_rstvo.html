@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digitálne Dvojča: Blackout Vodné Hospodárstvo Chalupe</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Phosphor Icons for clean engineering icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <style>
+    @keyframes dashWater {
+      to {
+        stroke-dashoffset: -40;
+      }
+    }
+    @keyframes dashElectric {
+      to {
+        stroke-dashoffset: -30;
+      }
+    }
+    .flow-active-water {
+      stroke-dasharray: 8 6;
+      animation: dashWater 1.2s linear infinite;
+    }
+    .flow-active-electric {
+      stroke-dasharray: 6 4;
+      animation: dashElectric 0.9s linear infinite;
+    }
+    .node-card {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .node-card:hover {
+      filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.45));
+      cursor: pointer;
+    }
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans flex flex-col antialiased selection:bg-cyan-500 selection:text-black">
+
+  <!-- Hlavná horná lišta -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur px-6 py-4 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-2xl shadow-inner">
+        <i class="ph-bold ph-drop"></i>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="font-bold text-lg text-slate-50 tracking-wide">AQUA-TWIN // REŽIM BLACKOUT</h1>
+          <span class="text-xs px-2 py-0.5 rounded-full font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">v3.4 SSoT</span>
+        </div>
+        <p class="text-xs text-slate-400">Interaktívne digitálne dvojča a simulačná schéma off-grid vodného hospodárstva</p>
+      </div>
+    </div>
+
+    <!-- Globálny prepínač režimu -->
+    <div class="flex items-center bg-slate-950 p-1.5 rounded-xl border border-slate-800 gap-1.5 shadow-lg">
+      <button id="btnModeNormal" onclick="setMode('NORMAL')" class="px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all text-slate-400 hover:text-slate-200">
+        <i class="ph-bold ph-buildings"></i>
+        Mestská sieť (Normál)
+      </button>
+      <button id="btnModeBlackout" onclick="setMode('BLACKOUT')" class="px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm">
+        <i class="ph-bold ph-warning-circle animate-pulse"></i>
+        BLACKOUT (Nádrž & Solár)
+      </button>
+    </div>
+  </header>
+
+  <!-- Hlavný pracovný layout -->
+  <main class="flex-1 grid grid-cols-1 xl:grid-cols-12 gap-6 p-6 overflow-hidden">
+
+    <!-- ĽAVÁ / HLAVNÁ SEKCIA: SVG Interaktívna Schéma (8 cols) -->
+    <div class="xl:col-span-8 flex flex-col gap-4">
+      
+      <!-- Ovládacia lišta vetiev a zobrazení -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Aktívne vetvy:</span>
+          
+          <label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs cursor-pointer hover:border-slate-700">
+            <input type="checkbox" id="chkIrrigation" checked onchange="updateSimulation()" class="rounded bg-slate-900 border-slate-700 text-emerald-500 focus:ring-0">
+            <span class="text-emerald-400 font-medium flex items-center gap-1.5"><i class="ph-bold ph-plant"></i> Závlaha</span>
+          </label>
+
+          <label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs cursor-pointer hover:border-slate-700">
+            <input type="checkbox" id="chkUtility" checked onchange="updateSimulation()" class="rounded bg-slate-900 border-slate-700 text-blue-500 focus:ring-0">
+            <span class="text-blue-400 font-medium flex items-center gap-1.5"><i class="ph-bold ph-shower"></i> Dom (Úžitková)</span>
+          </label>
+
+          <label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs cursor-pointer hover:border-slate-700">
+            <input type="checkbox" id="chkDrinking" checked onchange="updateSimulation()" class="rounded bg-slate-900 border-slate-700 text-cyan-500 focus:ring-0">
+            <span class="text-cyan-400 font-medium flex items-center gap-1.5"><i class="ph-bold ph-glass-water"></i> RO Pitná voda</span>
+          </label>
+        </div>
+
+        <!-- Voľba UV konfigurácie -->
+        <div class="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 text-xs">
+          <i class="ph-bold ph-sun text-purple-400"></i>
+          <span class="text-slate-400 font-medium">Režim UV:</span>
+          <select id="selUVMode" onchange="updateSimulation()" class="bg-transparent text-purple-300 font-semibold focus:outline-none cursor-pointer">
+            <option value="KITCHEN" class="bg-slate-900 text-slate-100">Iba v kuchyni (RO 8W)</option>
+            <option value="CENTRAL" class="bg-slate-900 text-slate-100">Centrálne dom (35W 24/7)</option>
+            <option value="OFF" class="bg-slate-900 text-slate-100">Bez UV lampy (0W)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Plátno SVG schémy -->
+      <div class="relative bg-slate-900/90 border border-slate-800 rounded-2xl p-4 flex-1 flex flex-col justify-center items-center overflow-x-auto shadow-2xl min-h-[560px]">
+        
+        <!-- Stavový banner v schéme -->
+        <div id="bannerStatus" class="absolute top-4 left-4 bg-amber-500/10 border border-amber-500/30 text-amber-300 px-3 py-1.5 rounded-xl text-xs font-mono flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></div>
+          Režim: BLACKOUT [Zberná nádrž pod podlahou + Solár 230V]
+        </div>
+
+        <div class="absolute top-4 right-4 text-xs font-mono text-slate-500 flex items-center gap-4">
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-1 bg-cyan-400 inline-block rounded"></span> Pitná voda</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-1 bg-blue-500 inline-block rounded"></span> Úžitková</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-1 bg-emerald-500 inline-block rounded"></span> Závlaha</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-1 bg-yellow-400 inline-block rounded"></span> 230V Solár</span>
+        </div>
+
+        <!-- SVG Schéma -->
+        <svg viewBox="0 0 960 560" class="w-full max-w-[960px] h-auto select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="tankGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#0284c7" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#0369a1" stop-opacity="0.7"/>
+            </linearGradient>
+            <filter id="glowCyan" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+
+          <!-- ================= POTRUBIA A TOKY ================= -->
+          <!-- Potočná studňa & Dažďová voda -> Nádrž -->
+          <path d="M 60 410 L 90 410 L 90 470" fill="none" stroke="#0284c7" stroke-width="2" stroke-dasharray="3 3"/>
+          <path d="M 60 520 L 90 520 L 90 480" fill="none" stroke="#0284c7" stroke-width="2" stroke-dasharray="3 3"/>
+          
+          <!-- Čerpadlo z nádrže -> Spätná klapka ITAP -->
+          <path id="flow_pump_out" d="M 140 430 L 140 330" fill="none" stroke="#334155" stroke-width="5" stroke-linecap="round"/>
+          <path id="flow_tank_branch" d="M 140 330 L 220 330" fill="none" stroke="#334155" stroke-width="5" stroke-linecap="round"/>
+
+          <!-- Tlakový uzol -> 1. Vetva Záhrady (Závlaha) -->
+          <path id="flow_to_irrigation" d="M 220 330 L 220 170 L 290 170" fill="none" stroke="#334155" stroke-width="4"/>
+          <!-- Závlaha: Redukčák -> Diskový filter -> Kvapková závlaha -->
+          <path id="flow_irrig_mid" d="M 370 170 L 420 170" fill="none" stroke="#334155" stroke-width="4"/>
+          <path id="flow_irrig_end" d="M 500 170 L 560 170" fill="none" stroke="#334155" stroke-width="4"/>
+
+          <!-- Tlakový uzol -> 2. Vetva do domu k Trojcestnému ventilu -->
+          <path id="flow_to_3way" d="M 220 330 L 300 330" fill="none" stroke="#334155" stroke-width="5"/>
+          
+          <!-- Verejný vodovod -> Spätná klapka -> Trojcestný ventil -->
+          <path id="flow_city" d="M 340 470 L 340 370" fill="none" stroke="#334155" stroke-width="5"/>
+
+          <!-- Trojcestný ventil -> Atlas Filtri DP TRIO -->
+          <path id="flow_from_3way" d="M 380 330 L 450 330" fill="none" stroke="#334155" stroke-width="5"/>
+
+          <!-- Atlas Filtri -> Domáci rozvod (Úžitková) -->
+          <path id="flow_utility_main" d="M 550 330 L 640 330" fill="none" stroke="#334155" stroke-width="5"/>
+          <!-- Odbočka do kúpeľne / WC -->
+          <path id="flow_to_bathroom" d="M 640 330 L 640 430 L 710 430" fill="none" stroke="#334155" stroke-width="4"/>
+
+          <!-- Domáci rozvod -> Kuchyňa (Reverzná osmóza) -->
+          <path id="flow_to_ro" d="M 640 330 L 710 330" fill="none" stroke="#334155" stroke-width="4"/>
+          <path id="flow_ro_to_uv" d="M 800 330 L 830 330" fill="none" stroke="#334155" stroke-width="3"/>
+          <path id="flow_uv_to_tap" d="M 890 330 L 920 330" fill="none" stroke="#334155" stroke-width="3"/>
+
+          <!-- ELEKTRICKÉ ROZVODY (230V Inverter k čerpadlám a UV) -->
+          <path id="flow_elec_pump" d="M 170 120 L 170 200 L 120 200 L 120 420" fill="none" stroke="#ca8a04" stroke-width="2" stroke-dasharray="4 4"/>
+          <path id="flow_elec_ro" d="M 230 100 L 755 100 L 755 300" fill="none" stroke="#ca8a04" stroke-width="2" stroke-dasharray="4 4"/>
+          <path id="flow_elec_uv" d="M 230 110 L 860 110 L 860 300" fill="none" stroke="#ca8a04" stroke-width="2" stroke-dasharray="4 4"/>
+
+          <!-- ================= UZLY / KOMPONENTY ================= -->
+
+          <!-- 1. PODZEMNÁ NÁDRŽ (Pod úrovňou podlahy) -->
+          <g class="node-card" onclick="selectComponent('tank')">
+            <rect x="70" y="420" width="130" height="110" rx="14" fill="#090d16" stroke="#0284c7" stroke-width="2"/>
+            <rect x="72" y="465" width="126" height="63" rx="10" fill="url(#tankGrad)"/>
+            <text x="135" y="445" font-size="11" font-weight="bold" fill="#38bdf8" text-anchor="middle">PODZEMNÁ NÁDRŽ</text>
+            <text x="135" y="460" font-size="9" fill="#94a3b8" text-anchor="middle">(Studňa + Dážďovka)</text>
+            <text x="135" y="505" font-size="10" font-family="monospace" fill="#e0f2fe" text-anchor="middle">Objem: ~6 m³</text>
+            <!-- Kalová línia na dne -->
+            <line x1="75" y1="522" x2="195" y2="522" stroke="#78350f" stroke-width="3" stroke-linecap="round"/>
+          </g>
+
+          <!-- Vstupy vody do nádrže -->
+          <g class="node-card" onclick="selectComponent('stream_well')">
+            <rect x="10" y="395" width="50" height="28" rx="6" fill="#1e293b" stroke="#475569"/>
+            <text x="35" y="412" font-size="8" fill="#94a3b8" text-anchor="middle">Studňa</text>
+          </g>
+          <g class="node-card" onclick="selectComponent('rainwater')">
+            <rect x="10" y="505" width="50" height="28" rx="6" fill="#1e293b" stroke="#475569"/>
+            <text x="35" y="522" font-size="8" fill="#94a3b8" text-anchor="middle">Strecha</text>
+          </g>
+
+          <!-- Ponorné čerpadlo v nádrži -->
+          <g class="node-card" onclick="selectComponent('pump')">
+            <rect x="110" y="460" width="55" height="50" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="137" y="482" font-size="9" font-weight="bold" fill="#fcd34d" text-anchor="middle">ČERPADLO</text>
+            <text x="137" y="497" font-size="8" fill="#cbd5e1" text-anchor="middle">230V / 750W</text>
+          </g>
+
+          <!-- Mosadzná spätná klapka ITAP pri čerpadle -->
+          <g class="node-card" onclick="selectComponent('check_valve_tank')">
+            <polygon points="135,360 145,360 140,370" fill="#f59e0b" stroke="#b45309"/>
+            <circle cx="140" cy="365" r="16" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="140" y="368" font-size="8" font-weight="bold" fill="#fcd34d" text-anchor="middle">SK 1"</text>
+          </g>
+
+          <!-- Tlaková nádoba (Expanzka) -->
+          <g class="node-card" onclick="selectComponent('expansion_tank')">
+            <rect x="195" y="305" width="50" height="50" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+            <text x="220" y="328" font-size="9" font-weight="bold" fill="#38bdf8" text-anchor="middle">EXPANZKA</text>
+            <text x="220" y="343" font-size="8" fill="#94a3b8" text-anchor="middle">24L / 3.2 bar</text>
+          </g>
+
+          <!-- VETVA ZÁHRADA: Redukčný ventil Caleffi -->
+          <g class="node-card" onclick="selectComponent('pressure_reducer')">
+            <rect x="290" y="145" width="80" height="50" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+            <text x="330" y="167" font-size="9" font-weight="bold" fill="#34d399" text-anchor="middle">REDUKČNÝ V.</text>
+            <text x="330" y="182" font-size="8" fill="#a7f3d0" text-anchor="middle">Caleffi 1,5 bar</text>
+          </g>
+
+          <!-- VETVA ZÁHRADA: Diskový lamelový filter Irritec -->
+          <g class="node-card" onclick="selectComponent('disk_filter')">
+            <rect x="420" y="145" width="80" height="50" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+            <text x="460" y="167" font-size="9" font-weight="bold" fill="#34d399" text-anchor="middle">DISKOVÝ FILT.</text>
+            <text x="460" y="182" font-size="8" fill="#a7f3d0" text-anchor="middle">Irritec 120 mesh</text>
+          </g>
+
+          <!-- KVAPKOVÁ ZÁVLAHA (Koniec vetvy A) -->
+          <g class="node-card" onclick="selectComponent('drip_irrigation')">
+            <rect x="560" y="145" width="95" height="50" rx="10" fill="#064e3b" stroke="#10b981" stroke-width="2"/>
+            <text x="607" y="167" font-size="10" font-weight="bold" fill="#6ee7b7" text-anchor="middle">KVAPKOVÁ Z.</text>
+            <text x="607" y="182" font-size="8" fill="#a7f3d0" text-anchor="middle">Kríky & Záhony</text>
+          </g>
+
+          <!-- TROJCESTNÝ GUĽOVÝ VENTIL GIACOMINI (Prepínací uzol) -->
+          <g class="node-card" onclick="selectComponent('three_way_valve')">
+            <circle cx="340" cy="330" r="26" fill="#0f172a" stroke="#e2e8f0" stroke-width="2"/>
+            <circle cx="340" cy="330" r="18" fill="#1e293b" stroke="#38bdf8" stroke-dasharray="3 3"/>
+            <!-- Ukazovateľ polohy páky -->
+            <line id="valve_indicator" x1="340" y1="330" x2="362" y2="330" stroke="#f43f5e" stroke-width="4" stroke-linecap="round"/>
+            <text x="340" y="315" font-size="8" font-weight="bold" fill="#e2e8f0" text-anchor="middle">3-CESTNÝ</text>
+            <text x="340" y="352" font-size="7" fill="#94a3b8" text-anchor="middle">Giacomini 1"</text>
+          </g>
+
+          <!-- VEREJNÝ VODOVOD + SPÄTNÁ KLAPKA ITAP EUROPA -->
+          <g class="node-card" onclick="selectComponent('city_water')">
+            <rect x="290" y="470" width="100" height="55" rx="10" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+            <text x="340" y="493" font-size="10" font-weight="bold" fill="#cbd5e1" text-anchor="middle">MESTSKÝ VODOVOD</text>
+            <text x="340" y="508" font-size="8" fill="#94a3b8" text-anchor="middle">+ SK ITAP EUROPA</text>
+          </g>
+
+          <!-- ATLAS FILTRI DP TRIO (Trojitý domový filter) -->
+          <g class="node-card" onclick="selectComponent('atlas_filter')">
+            <rect x="450" y="295" width="100" height="70" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+            <text x="500" y="318" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">ATLAS DP TRIO</text>
+            <text x="500" y="333" font-size="8" fill="#cbd5e1" text-anchor="middle">50µm → 5µm → Uhlík</text>
+            <text x="500" y="350" font-size="8" fill="#94a3b8" text-anchor="middle">Predfiltrácia úžitkovej</text>
+          </g>
+
+          <!-- DOMÁCI ROZVOD ÚŽITKOVEJ VODY (Kúpeľňa, WC, Bojler) -->
+          <g class="node-card" onclick="selectComponent('utility_consumers')">
+            <rect x="710" y="405" width="100" height="50" rx="10" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+            <text x="760" y="427" font-size="9" font-weight="bold" fill="#60a5fa" text-anchor="middle">ÚŽITKOVÁ VODA</text>
+            <text x="760" y="442" font-size="8" fill="#93c5fd" text-anchor="middle">Sprcha, WC, Pranie</text>
+          </g>
+
+          <!-- KUCHYNSKÁ REVERZNÁ OSMÓZA (Booster pumpa + Membrána + Nádržka) -->
+          <g class="node-card" onclick="selectComponent('reverse_osmosis')">
+            <rect x="710" y="300" width="90" height="60" rx="10" fill="#0c4a6e" stroke="#38bdf8" stroke-width="2"/>
+            <text x="755" y="322" font-size="9" font-weight="bold" fill="#e0f2fe" text-anchor="middle">RO OSMÓZA</text>
+            <text x="755" y="337" font-size="8" fill="#7dd3fc" text-anchor="middle">+ 230V Booster (30W)</text>
+            <text x="755" y="350" font-size="7" fill="#38bdf8" text-anchor="middle">0,0001 µm Membrána</text>
+          </g>
+
+          <!-- INLINE UV LAMPA / LED (Mikrobiologická bariéra) -->
+          <g class="node-card" onclick="selectComponent('uv_lamp')">
+            <rect x="830" y="310" width="60" height="40" rx="8" fill="#2e1065" stroke="#a855f7" stroke-width="1.5"/>
+            <text x="860" y="328" font-size="9" font-weight="bold" fill="#d8b4fe" text-anchor="middle">UV LED</text>
+            <text x="860" y="342" font-size="7" fill="#c084fc" text-anchor="middle" id="svgUVLabel">8W Inline</text>
+          </g>
+
+          <!-- ČISTÝ VÝTOK V KUCHYNI -->
+          <g class="node-card" onclick="selectComponent('pure_water_tap')">
+            <circle cx="935" cy="330" r="16" fill="#083344" stroke="#22d3ee" stroke-width="2"/>
+            <text x="935" y="334" font-size="10" font-weight="bold" fill="#67e8f9" text-anchor="middle">🚰</text>
+            <text x="935" y="360" font-size="8" font-weight="bold" fill="#22d3ee" text-anchor="middle">PITNÁ</text>
+          </g>
+
+          <!-- SOLÁRNY SYSTÉM A 230V MENIČ -->
+          <g class="node-card" onclick="selectComponent('solar_power')">
+            <rect x="130" y="45" width="100" height="75" rx="12" fill="#292524" stroke="#eab308" stroke-width="2"/>
+            <text x="180" y="70" font-size="9" font-weight="bold" fill="#facc15" text-anchor="middle">⚡ SOLÁR + BATÉRIA</text>
+            <text x="180" y="86" font-size="8" fill="#fef08a" text-anchor="middle">Menič 230V Inverter</text>
+            <text x="180" y="103" font-size="8" font-family="monospace" fill="#ca8a04" text-anchor="middle" id="svgPowerDisplay">Odber: 780 W</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Spodný status lišty s rýchlym prehľadom hydrauliky -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+        <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex flex-col">
+          <span class="text-slate-400">Tlak na vstupe domu</span>
+          <span id="statHousePressure" class="text-base font-bold text-cyan-400 mt-1">3.4 bar</span>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex flex-col">
+          <span class="text-slate-400">Tlak na závlahe</span>
+          <span id="statGardenPressure" class="text-base font-bold text-emerald-400 mt-1">1.5 bar (Regulovaný)</span>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex flex-col">
+          <span class="text-slate-400">Tlak na RO membráne</span>
+          <span id="statRoPressure" class="text-base font-bold text-cyan-300 mt-1">4.5 bar (Booster ON)</span>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex flex-col">
+          <span class="text-slate-400">Spätná kontaminácia siete</span>
+          <span class="text-base font-bold text-emerald-400 mt-1">0.00 % (Zabránené)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRAVÁ SEKCIA: Technický inšpektor, Energetika a Rozpočet (4 cols) -->
+    <div class="xl:col-span-4 flex flex-col gap-6 overflow-y-auto max-h-[calc(100vh-100px)] pr-1">
+      
+      <!-- KARTA DETAILU KOMPONENTU (Inšpektor uzla) -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl relative">
+        <div class="flex items-start justify-between mb-3">
+          <div>
+            <span id="compBadge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 uppercase">Komponent</span>
+            <h2 id="compTitle" class="text-lg font-bold text-slate-50 mt-1">Podzemná nádrž</h2>
+          </div>
+          <div class="text-2xl text-cyan-400" id="compIcon">
+            <i class="ph-bold ph-cylinder"></i>
+          </div>
+        </div>
+
+        <p id="compDescription" class="text-xs text-slate-300 leading-relaxed mb-4">
+          Zberná podzemná nádrž umiestnená pod úrovňou podlahy. Slúži na gravitačné zachytávanie dažďovej vody zo strechy v kombinácii s prečerpávanou vodou zo studne pri potoku.
+        </p>
+
+        <div class="space-y-2 text-xs border-t border-slate-800 pt-3">
+          <div class="flex justify-between py-1 border-b border-slate-800/60">
+            <span class="text-slate-400">Odporúčaný model:</span>
+            <span id="compModel" class="font-medium text-slate-200">Monolitická betónová / PE nádrž</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800/60">
+            <span class="text-slate-400">Pracovný tlak / Špecifikácia:</span>
+            <span id="compSpec" class="font-medium text-slate-200">Objem cca 5-8 m³</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800/60">
+            <span class="text-slate-400">Interval údržby / výmeny:</span>
+            <span id="compMaintenance" class="font-medium text-amber-300">1x za rok (odkalenie)</span>
+          </div>
+          <div class="flex justify-between py-1">
+            <span class="text-slate-400">Orientačná cena dielu:</span>
+            <span id="compCost" class="font-bold text-emerald-400">Existujúca investícia</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ENERGETICKÁ BILANCIA SOLÁRU -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center">
+              <i class="ph-bold ph-lightning"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-100">Energetická bilancia (230V Inverter)</h3>
+          </div>
+          <span id="energyStatusTag" class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">V limite</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 mb-4">
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span class="text-[11px] text-slate-400">Okamžitý príkon:</span>
+            <div class="text-xl font-bold font-mono text-amber-400 mt-0.5" id="valInstantPower">780 W</div>
+            <span class="text-[10px] text-slate-500">Špičkový nábeh: ~1400 W</span>
+          </div>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span class="text-[11px] text-slate-400">Denná spotreba:</span>
+            <div class="text-xl font-bold font-mono text-cyan-400 mt-0.5" id="valDailyEnergy">1.15 kWh</div>
+            <span class="text-[10px] text-slate-500">pri bežnej prevádzke</span>
+          </div>
+        </div>
+
+        <!-- Rozpad odberateľov energie -->
+        <div class="space-y-2 text-xs">
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400 flex items-center gap-1.5"><i class="ph ph-drop text-amber-400"></i> Ponorné čerpadlo (750W cyklicky):</span>
+            <span class="font-mono text-slate-200" id="powerPump">750 W (aktívne)</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400 flex items-center gap-1.5"><i class="ph ph-arrows-clockwise text-cyan-400"></i> RO Booster pumpa (30W):</span>
+            <span class="font-mono text-slate-200" id="powerRO">30 W (aktívne)</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400 flex items-center gap-1.5"><i class="ph ph-sun text-purple-400"></i> UV dezinfekcia:</span>
+            <span class="font-mono text-slate-200" id="powerUV">8 W</span>
+          </div>
+        </div>
+
+        <!-- Odhad výdrže batérie -->
+        <div class="mt-4 pt-4 border-t border-slate-800">
+          <div class="flex justify-between items-center text-xs mb-1.5">
+            <span class="text-slate-400">Odhad výdrže z 2.4 kWh LiFePO4 batérie:</span>
+            <span class="font-bold text-amber-300 font-mono" id="valBatteryRuntime">~ 2.1 dňa</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-2 border border-slate-800 overflow-hidden">
+            <div id="barBattery" class="bg-gradient-to-r from-emerald-500 to-amber-500 h-full rounded-full transition-all duration-500" style="width: 72%;"></div>
+          </div>
+          <p class="text-[10px] text-slate-500 mt-2">Výpočet predpokladá priemerne 45 min chodu čerpadla denne a plnenie 12L zásobníka pitnej vody.</p>
+        </div>
+      </div>
+
+      <!-- ROZPOČET: ZRIAĎOVACIE A ROČNÉ PREVÁDZKOVÉ NÁKLADY -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+              <i class="ph-bold ph-coins"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-100">Ekonomika systému (Záloha)</h3>
+          </div>
+          <button onclick="toggleBudgetView()" id="btnToggleBudget" class="text-xs text-cyan-400 hover:underline">Zobraziť ročné</button>
+        </div>
+
+        <!-- Náhľad zriaďovacích nákladov -->
+        <div id="boxCapex" class="space-y-2 text-xs">
+          <div class="text-[11px] font-semibold text-slate-300 mb-1">Kľúčové komponenty pre dovybavenie:</div>
+          <div class="flex justify-between py-1 border-b border-slate-800">
+            <span class="text-slate-400">2x ITAP Europa 1" spätné klapky</span>
+            <span class="font-mono text-slate-200">35 €</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800">
+            <span class="text-slate-400">3-cestný ventil Giacomini 1"</span>
+            <span class="font-mono text-slate-200">40 €</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800">
+            <span class="text-slate-400">Redukčný ventil Caleffi 1,5 bar</span>
+            <span class="font-mono text-slate-200">45 €</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800">
+            <span class="text-slate-400">Diskový filter Irritec 120 mesh</span>
+            <span class="font-mono text-slate-200">18 €</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800">
+            <span class="text-slate-400">Atlas Filtri DP TRIO 10" + vložky</span>
+            <span class="font-mono text-slate-200">125 €</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800">
+            <span class="text-slate-400">Kuchynská RO s 230V boosterom & UV</span>
+            <span class="font-mono text-slate-200">330 €</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800">
+            <span class="text-slate-400">Potrubie, mosadzné fitinky, spojky</span>
+            <span class="font-mono text-slate-200">65 €</span>
+          </div>
+          <div class="flex justify-between pt-2 text-sm font-bold border-t border-slate-700">
+            <span class="text-slate-100">Celkové investičné náklady:</span>
+            <span class="text-emerald-400 font-mono">658 €</span>
+          </div>
+        </div>
+
+        <!-- Náhľad ročných prevádzkových nákladov (skrytý/prepínateľný) -->
+        <div id="boxOpex" class="space-y-2 text-xs hidden">
+          <div class="text-[11px] font-semibold text-slate-300 mb-1">Pravidelná ročná údržba (filtre a vložky):</div>
+          <div class="flex justify-between py-1 border-b border-slate-800">
+            <span class="text-slate-400">Diskový filter Irritec (preplach)</span>
+            <span class="font-mono text-emerald-400">0 € (doživotný)</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800">
+            <span class="text-slate-400">Vložky Atlas (50µm + 5µm + Uhlík, 2x ročne)</span>
+            <span class="font-mono text-slate-200">55 €</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800">
+            <span class="text-slate-400">Predfiltre kuchynskej RO (1-2x ročne)</span>
+            <span class="font-mono text-slate-200">28 €</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800">
+            <span class="text-slate-400">RO membrána 75 GPD (rozpočítané na rok)</span>
+            <span class="font-mono text-slate-200">12 €</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800">
+            <span class="text-slate-400">Náhradná UV lampa (1x ročne)</span>
+            <span class="font-mono text-slate-200">18 €</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800">
+            <span class="text-slate-400">Elektrická energia (Solár)</span>
+            <span class="font-mono text-emerald-400">0 €</span>
+          </div>
+          <div class="flex justify-between pt-2 text-sm font-bold border-t border-slate-700">
+            <span class="text-slate-100">Ročné prevádzkové náklady:</span>
+            <span class="text-cyan-400 font-mono">~ 113 € / rok</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- JAVASCRIPT: Logika digitálneho dvojčaťa a kalkulačky -->
+  <script>
+    // Globálny stav systému
+    const systemState = {
+      mode: 'BLACKOUT', // 'NORMAL' alebo 'BLACKOUT'
+      irrigationActive: true,
+      utilityActive: true,
+      drinkingActive: true,
+      uvMode: 'KITCHEN', // 'KITCHEN', 'CENTRAL', 'OFF'
+      selectedNode: 'tank'
+    };
+
+    // Databáza technických parametrov pre informačný panel
+    const componentDB = {
+      tank: {
+        title: "Podzemná zberná nádrž",
+        badge: "ZDROJ VODY",
+        icon: "ph-cylinder",
+        desc: "Zberná podzemná nádrž pod úrovňou podlahy. Gravitačne zachytáva dažďovú vodu zo strechy spojenú s prečerpávanou vodou zo studne pri potoku.",
+        model: "Monolitická nádrž 6 000 litrov",
+        spec: "Hĺbka 2.2 m, nátok DN110 s filtrom lístia",
+        maintenance: "1x ročne kontrola sedimentu na dne",
+        cost: "Existujúca (0 €)"
+      },
+      stream_well: {
+        title: "Studňa pri potoku",
+        badge: "PRIMÁRNY ZDROJ",
+        icon: "ph-waves",
+        desc: "Plytká vŕtaná alebo kopaná studňa v riečnom náplave. Poskytuje stabilný prísun vody aj v suchšom období, no s vyšším rizikom mikrobiológie.",
+        model: "Potočný záchyt / Vŕtaná studňa",
+        spec: "Výdatnosť cca 0.5 - 1.2 l/s",
+        maintenance: "Čistenie sacieho koša 2x ročne",
+        cost: "Existujúca"
+      },
+      rainwater: {
+        title: "Zvod dažďovej vody zo strechy",
+        badge: "SEKUNDÁRNY ZDROJ",
+        icon: "ph-cloud-rain",
+        desc: "Zber dažďovej vody zo strechy chalupy. Voda je mäkká bez minerálov, ale môže obsahovať mechanické nečistoty, peľ a vtáčí trus.",
+        model: "Odkvapový systém + hrubý lapač lístia",
+        spec: "Plocha strechy ~120 m²",
+        maintenance: "Čistenie lapačov po jeseni",
+        cost: "Existujúca"
+      },
+      pump: {
+        title: "Ponorné tlakové čerpadlo",
+        badge: "TLAKOVANIE 230V",
+        icon: "ph-engine",
+        desc: "Silné ponorné viacstupňové čerpadlo s integrovaným tlakovým spínačom. Zásobuje dom aj záhradu tlakom cca 3.5 - 4 bary.",
+        model: "DAB Divertron 1200 / Grundfos SBA 3-45",
+        spec: "230V / 750-900W, Max tlak 4.5 bar, 90 l/min",
+        maintenance: "Kontrola spätného ventilu 1x za 2 roky",
+        cost: "Existujúce (0 €)"
+      },
+      check_valve_tank: {
+        title: "Mosadzná spätná klapka čerpadla",
+        badge: "ARMATÚRA",
+        icon: "ph-arrow-up",
+        desc: "Zabraňuje spätnému rázu a padaniu vodného stĺpca späť do podzemnej nádrže po vypnutí čerpadla. Chráni motor pred rázmi.",
+        model: "ITAP EUROPA 1\" (celokovová, nerez disk)",
+        spec: "PN 25, mosadz CW617N, nerezová pružina",
+        maintenance: "Bezúdržbová, kontrola tesnosti",
+        cost: "cca 17,50 €"
+      },
+      expansion_tank: {
+        title: "Tlaková expanzná nádoba",
+        badge: "TLAKOVÁ OCHRANA",
+        icon: "ph-arrows-out-cardinal",
+        desc: "Vyrovnáva tlakové rázy pri štarte čerpadla a zabraňuje neustálemu cyklovaniu pri malom odbere vody (napr. kvapková závlaha alebo RO).",
+        model: "Aquasystem / Zilmet 24 Litrov",
+        spec: "Predfúkaný tlak dusíka 1.8 bar, membrána EPDM",
+        maintenance: "Kontrola tlaku vzduchu 2x ročne",
+        cost: "cca 38 €"
+      },
+      pressure_reducer: {
+        title: "Redukčný ventil tlaku závlahy",
+        badge: "TLAKOVÁ REGULÁCIA",
+        icon: "ph-gauge",
+        desc: "Kritický prvok pre ochranu kvapkovej závlahy. Znižuje a stabilizuje tlak z 3.8 bar na bezpečných 1.5 bar, čím chráni kvapkovacie labyrinty.",
+        model: "Caleffi 533241 / Honeywell D04FS 1\"",
+        spec: "Výstupný tlak 1.0 – 6.0 bar (nastavené na 1.5 bar)",
+        maintenance: "Preplach sitka 1x za rok",
+        cost: "cca 45 €"
+      },
+      disk_filter: {
+        title: "Diskový lamelový filter",
+        badge: "FILTRÁCIA ZÁVLAHY",
+        icon: "ph-stack",
+        desc: "Na rozdiel od sitiek sa diskové lamely nezalepujú organickým slizom a riasami. Zachytáva častice, ktoré by upchali kvapkovače.",
+        model: "Irritec Rotodisc / Lamelový filter 1\" 120 mesh",
+        spec: "Prietok do 5 m³/h, filtrácia 130 mikrónov",
+        maintenance: "Prepláchnutie rozovretých diskov vodou (0 €)",
+        cost: "cca 18 €"
+      },
+      drip_irrigation: {
+        title: "Kvapková závlaha (Záhrada)",
+        badge: "SPOTREBA VODY",
+        icon: "ph-plant",
+        desc: "Efektívne zavlažovanie záhonov pri koreňoch. Nízky prietok vyžaduje stabilný redukovaný tlak, aby nedošlo k prasknutiu hadíc.",
+        model: "Rain Bird / Toro kvapkové potrubie 16mm",
+        spec: "Prietok 2.3 l/h na kvapkovač pri 1.5 bar",
+        maintenance: "Vypustenie vody pred zimou",
+        cost: "Existujúca"
+      },
+      three_way_valve: {
+        title: "3-cestný prepínací guľový ventil",
+        badge: "BEZPEČNOSTNÝ PREPÍNAČ",
+        icon: "ph-git-fork",
+        desc: "Fyzické mechanické oddelenie obecnej siete a vlastnej nádrže. Pozícia A = Mestský vodovod; Pozícia B = Blackout núdzová nádrž. Bráni spätnému toku.",
+        model: "Giacomini R250D 1\" alebo ITAP 3-cestný",
+        spec: "L-vŕtanie alebo T-vŕtanie, PN 40, mosadz",
+        maintenance: "Preskúšanie chodu páky 2x ročne",
+        cost: "cca 40 €"
+      },
+      city_water: {
+        title: "Mestský vodovod + ITAP Europa",
+        badge: "VEREJNÁ SIEŤ",
+        icon: "ph-buildings",
+        desc: "Prívod pitnej vody z obecného vodovodu. Na vstupe je osadená masívna spätná klapka ITAP Europa zabraňujúca pretlačeniu nádrže do verejnej siete.",
+        model: "Obecná prípojka 1\" + ITAP EUROPA 1\"",
+        spec: "Bežný sieťový tlak 3.0 - 4.5 bar",
+        maintenance: "Kontrola spätného ventilu 1x ročne",
+        cost: "Klapka cca 17,50 €"
+      },
+      atlas_filter: {
+        title: "Trojitý domový filter Atlas DP TRIO",
+        badge: "ÚŽITKOVÁ PREDFILTRÁCIA",
+        icon: "ph-funnel",
+        desc: "Trojstupňová ochrana rozvodov domu pred kalom, sedimentom a zápachom. 1. stupeň: 50µm vinutý, 2. stupeň: 5µm fúkaný PP, 3. stupeň: lisovaný uhlík CB-EC.",
+        model: "Atlas Filtri DP TRIO 10\" 1\" IN/OUT",
+        spec: "Max tlak 8 bar, prietok do 3 000 l/h",
+        maintenance: "Výmena vložiek každé 4 - 6 mesiacov",
+        cost: "cca 115 € (telo + sada vložiek)"
+      },
+      utility_consumers: {
+        title: "Rozvod úžitkovej vody v dome",
+        badge: "DOMÁCI ODBERATELIA",
+        icon: "ph-shower",
+        desc: "Okruh pre splachovanie toalety, sprchovanie a pranie. Voda je číra a bez zápachu vďaka filtru Atlas, no nie je certifikovaná ako pitná.",
+        model: "PPR / PEX rozvody v dome",
+        spec: "WC splachovač, sprchová batéria, bojler 80L",
+        maintenance: "Odvápnenie perlátorov",
+        cost: "Existujúca"
+      },
+      reverse_osmosis: {
+        title: "Kuchynská reverzná osmóza s boosterom",
+        badge: "PITNÁ VODA 99.9%",
+        icon: "ph-shield-check",
+        desc: "Odstraňuje dusičnany, baktérie, vírusy, pesticídy, mikroplasty a ťažké kovy cez 0,0001 µm membránu. Integrovaná 230V booster pumpa zaručuje 4.5 bar.",
+        model: "Aquaphor Morion RO-101S / RO 5-stupňová s boosterom",
+        spec: "Booster pumpa 230V / 30W, RO membrána 75 GPD, 10L zásobník",
+        maintenance: "Predfiltre 2x ročne, membrána každé 3 roky",
+        cost: "cca 320 €"
+      },
+      uv_lamp: {
+        title: "Inline UV lampa / UV LED",
+        badge: "STERILIZÁCIA",
+        icon: "ph-sun",
+        desc: "Posledná mikrobiologická poistka pred výtokovou batériou v kuchyni. Likviduje sekundárny biofilm zo zásobníka vody a chráni pri defekte membrány.",
+        model: "Inline UV LED dióda 230V/12V (alebo výbojková 8W)",
+        spec: "Príkon len 8W, okamžitý štart lúča, nerez komora 304",
+        maintenance: "Výmena UV trubice 1x ročne (LED vydrží 5+ rokov)",
+        cost: "cca 45 €"
+      },
+      pure_water_tap: {
+        title: "Kuchynská batéria čistej vody",
+        badge: "VÝSTUP PITNEJ VODY",
+        icon: "ph-glass-water",
+        desc: "Samostatný nerezový výtok na dreze v kuchyni. Poskytuje dokonale sterilnú, remineralizovanú a bezpečnú pitnú vodu na pitie a varenie.",
+        model: "Nerezový jednocestný keramický kohútik",
+        spec: "Prietok 1.5 - 2.0 l/min zo zásobníka",
+        maintenance: "Čistenie výtokového sitka",
+        cost: "Súčasť RO balenia"
+      },
+      solar_power: {
+        title: "Solárny systém s 230V meničom",
+        badge: "ENERGETICKÉ SRDCE",
+        icon: "ph-lightning",
+        desc: "Fotovoltické panely, akumulátor a sínusový 230V menič napájajúci ponorné čerpadlo, booster čerpadlo osmózy aj UV lampu.",
+        model: "Menič 230V s čistou sínusoidou (napr. Victron / Growatt 2-3 kW)",
+        spec: "Trvalý výkon min 1500W, batéria 2.4 - 4.8 kWh",
+        maintenance: "Kontrola kontaktov a stavu batérie",
+        cost: "Existujúca (Základ systému)"
+      }
+    };
+
+    // Prepínanie režimu systému
+    function setMode(newMode) {
+      systemState.mode = newMode;
+      const btnNorm = document.getElementById('btnModeNormal');
+      const btnBlack = document.getElementById('btnModeBlackout');
+      const banner = document.getElementById('bannerStatus');
+      const valveInd = document.getElementById('valve_indicator');
+
+      if (newMode === 'NORMAL') {
+        btnNorm.className = "px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm";
+        btnBlack.className = "px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all text-slate-400 hover:text-slate-200";
+        banner.className = "absolute top-4 left-4 bg-blue-500/10 border border-blue-500/30 text-blue-300 px-3 py-1.5 rounded-xl text-xs font-mono flex items-center gap-2";
+        banner.innerHTML = '<div class="w-2 h-2 rounded-full bg-blue-400"></div> Režim: NORMÁLNY [Mestská sieť aktívna, solárne čerpadlo v pokoji]';
+        // Ventil ukazuje vertikálne (z vodovodu)
+        valveInd.setAttribute('x2', '340');
+        valveInd.setAttribute('y2', '352');
+      } else {
+        btnBlack.className = "px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm";
+        btnNorm.className = "px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all text-slate-400 hover:text-slate-200";
+        banner.className = "absolute top-4 left-4 bg-amber-500/10 border border-amber-500/30 text-amber-300 px-3 py-1.5 rounded-xl text-xs font-mono flex items-center gap-2";
+        banner.innerHTML = '<div class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></div> Režim: BLACKOUT [Zberná nádrž pod podlahou + Solár 230V]';
+        // Ventil ukazuje horizontálne (z nádrže do domu)
+        valveInd.setAttribute('x2', '362');
+        valveInd.setAttribute('y2', '330');
+      }
+
+      updateSimulation();
+    }
+
+    // Aktualizácia stavu simulácie, potrubných tokov a kalkulačiek
+    function updateSimulation() {
+      systemState.irrigationActive = document.getElementById('chkIrrigation').checked;
+      systemState.utilityActive = document.getElementById('chkUtility').checked;
+      systemState.drinkingActive = document.getElementById('chkDrinking').checked;
+      systemState.uvMode = document.getElementById('selUVMode').value;
+
+      // Animácie prúdenia vody v potrubiach
+      const isBlackout = systemState.mode === 'BLACKOUT';
+      
+      // Čerpadlo a nádrž
+      setFlow('flow_pump_out', isBlackout, 'cyan', 5);
+      setFlow('flow_tank_branch', isBlackout, 'cyan', 5);
+      setFlow('flow_elec_pump', isBlackout, 'yellow', 2, true);
+
+      // Závlaha
+      const irrigOn = isBlackout && systemState.irrigationActive;
+      setFlow('flow_to_irrigation', irrigOn, 'emerald', 4);
+      setFlow('flow_irrig_mid', irrigOn, 'emerald', 4);
+      setFlow('flow_irrig_end', irrigOn, 'emerald', 4);
+
+      // Mestská sieť vs Vetva z nádrže k 3-cestnému
+      setFlow('flow_to_3way', isBlackout, 'cyan', 5);
+      setFlow('flow_city', !isBlackout, 'blue', 5);
+
+      // Vstup do domu (Atlas filter)
+      const houseWaterAvailable = !isBlackout || (isBlackout && (systemState.utilityActive || systemState.drinkingActive));
+      setFlow('flow_from_3way', houseWaterAvailable, isBlackout ? 'cyan' : 'blue', 5);
+      setFlow('flow_utility_main', houseWaterAvailable, isBlackout ? 'cyan' : 'blue', 5);
+
+      // Domáci rozvod (Úžitková)
+      setFlow('flow_to_bathroom', houseWaterAvailable && systemState.utilityActive, 'blue', 4);
+
+      // Kuchynská RO
+      const roOn = houseWaterAvailable && systemState.drinkingActive;
+      setFlow('flow_to_ro', roOn, 'cyan', 4);
+      setFlow('flow_ro_to_uv', roOn, 'cyan', 3);
+      setFlow('flow_uv_to_tap', roOn, 'cyan', 3);
+      setFlow('flow_elec_ro', roOn && isBlackout, 'yellow', 2, true);
+
+      // UV Lampa
+      const uvActive = systemState.uvMode !== 'OFF' && (systemState.uvMode === 'CENTRAL' ? houseWaterAvailable : roOn);
+      setFlow('flow_elec_uv', uvActive && isBlackout, 'yellow', 2, true);
+
+      // Zmena popisu UV
+      const svgUVLabel = document.getElementById('svgUVLabel');
+      if (systemState.uvMode === 'CENTRAL') {
+        svgUVLabel.textContent = "35W Centrál";
+      } else if (systemState.uvMode === 'KITCHEN') {
+        svgUVLabel.textContent = "8W Inline";
+      } else {
+        svgUVLabel.textContent = "VYPNUTÉ";
+      }
+
+      // Prepočet spotreby energie
+      recalculateEnergy(isBlackout, irrigOn, houseWaterAvailable, roOn, uvActive);
+    }
+
+    // Pomocná funkcia pre štýlovanie a animovanie SVG liniek
+    function setFlow(elementId, active, colorType, strokeWidth, isElectric = false) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+
+      const colors = {
+        cyan: '#06b6d4',
+        emerald: '#10b981',
+        blue: '#3b82f6',
+        yellow: '#facc15',
+        inactive: '#334155'
+      };
+
+      if (active) {
+        el.setAttribute('stroke', colors[colorType] || colors.cyan);
+        el.setAttribute('stroke-width', strokeWidth);
+        el.setAttribute('class', isElectric ? 'flow-active-electric' : 'flow-active-water');
+      } else {
+        el.setAttribute('stroke', colors.inactive);
+        el.setAttribute('stroke-width', strokeWidth);
+        el.removeAttribute('class');
+      }
+    }
+
+    // Prepočet energetickej náročnosti pre 230V Inverter
+    function recalculateEnergy(isBlackout, irrigOn, houseWater, roOn, uvActive) {
+      let instantPower = 0;
+      let dailyKWh = 0;
+
+      // Ponorné čerpadlo (750W pri bežiacom motore)
+      let pumpActiveNow = false;
+      let pumpMinutesDaily = 0;
+
+      if (isBlackout) {
+        if (irrigOn) pumpMinutesDaily += 30; // Závlaha beží cca 30 min denne
+        if (houseWater && systemState.utilityActive) pumpMinutesDaily += 25; // Splachovanie, sprcha
+        if (roOn) pumpMinutesDaily += 15; // Dotlakovanie pre RO
+
+        pumpActiveNow = (irrigOn || houseWater || roOn);
+        if (pumpActiveNow) instantPower += 750;
+        dailyKWh += (750 * (pumpMinutesDaily / 60)) / 1000;
+      }
+
+      // Kuchynský RO booster (30W)
+      let roWatts = 0;
+      if (roOn && isBlackout) {
+        roWatts = 30;
+        instantPower += 30;
+        dailyKWh += (30 * 2.5) / 1000; // cca 2.5 hodiny výroby plného 10-12L zásobníka pitnej vody
+      }
+
+      // UV Dezinfekcia
+      let uvWatts = 0;
+      if (uvActive && isBlackout) {
+        if (systemState.uvMode === 'CENTRAL') {
+          uvWatts = 35;
+          instantPower += 35;
+          dailyKWh += (35 * 24) / 1000; // Centrálna lampa beží trvale 24/7 = 0.84 kWh!
+        } else if (systemState.uvMode === 'KITCHEN') {
+          uvWatts = 8;
+          instantPower += 8;
+          dailyKWh += (8 * 3.0) / 1000; // Spínaná UV len počas odberu a plnenia nádržky
+        }
+      }
+
+      // Aktualizácia UI hodnôt
+      document.getElementById('valInstantPower').innerText = instantPower + ' W';
+      document.getElementById('valDailyEnergy').innerText = dailyKWh.toFixed(2) + ' kWh';
+      document.getElementById('svgPowerDisplay').innerText = `Odber: ${instantPower} W`;
+
+      document.getElementById('powerPump').innerText = isBlackout ? (pumpActiveNow ? '750 W (v cykle)' : '0 W (v pokoji)') : '0 W (Mestská sieť)';
+      document.getElementById('powerRO').innerText = roWatts > 0 ? `${roWatts} W (aktívne)` : '0 W (vypnuté)';
+      document.getElementById('powerUV').innerText = uvWatts > 0 ? `${uvWatts} W (${systemState.uvMode})` : '0 W';
+
+      // Odhad výdrže z 2.4 kWh batérie
+      const batteryCapacityKWh = 2.4;
+      const usableRatio = 0.85; // 85% hĺbka vybitia (DoD)
+      const usableKWh = batteryCapacityKWh * usableRatio;
+      
+      let runtimeDays = dailyKWh > 0 ? (usableKWh / dailyKWh) : 99;
+      let barPercent = Math.min(100, Math.max(10, Math.round((runtimeDays / 3.5) * 100)));
+
+      if (runtimeDays >= 90) {
+        document.getElementById('valBatteryRuntime').innerText = 'Neobmedzená (bez odberu)';
+        document.getElementById('energyStatusTag').innerText = 'Bez odberu';
+        document.getElementById('energyStatusTag').className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-slate-500/10 text-slate-400 border border-slate-500/30';
+      } else {
+        document.getElementById('valBatteryRuntime').innerText = `~ ${runtimeDays.toFixed(1)} dňa`;
+        if (runtimeDays < 1.0) {
+          document.getElementById('energyStatusTag').innerText = 'Kritická záťaž!';
+          document.getElementById('energyStatusTag').className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/30 animate-pulse';
+        } else if (runtimeDays < 2.0) {
+          document.getElementById('energyStatusTag').innerText = 'Stredná výdrž';
+          document.getElementById('energyStatusTag').className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30';
+        } else {
+          document.getElementById('energyStatusTag').innerText = 'Optimálna výdrž';
+          document.getElementById('energyStatusTag').className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30';
+        }
+      }
+
+      document.getElementById('barBattery').style.width = barPercent + '%';
+    }
+
+    // Výber a detailné zobrazenie komponentu v bočnom paneli
+    function selectComponent(key) {
+      const comp = componentDB[key];
+      if (!comp) return;
+
+      document.getElementById('compTitle').innerText = comp.title;
+      document.getElementById('compBadge').innerText = comp.badge;
+      document.getElementById('compDescription').innerText = comp.desc;
+      document.getElementById('compModel').innerText = comp.model;
+      document.getElementById('compSpec').innerText = comp.spec;
+      document.getElementById('compMaintenance').innerText = comp.maintenance;
+      document.getElementById('compCost').innerText = comp.cost;
+
+      // Zmena ikony
+      const iconContainer = document.getElementById('compIcon');
+      iconContainer.innerHTML = `<i class="ph-bold ${comp.icon}"></i>`;
+    }
+
+    // Prepínanie pohľadu rozpočtu (Zriaďovacie vs Ročné prevádzkové náklady)
+    function toggleBudgetView() {
+      const boxCapex = document.getElementById('boxCapex');
+      const boxOpex = document.getElementById('boxOpex');
+      const btn = document.getElementById('btnToggleBudget');
+
+      if (boxCapex.classList.contains('hidden')) {
+        boxCapex.classList.remove('hidden');
+        boxOpex.classList.add('hidden');
+        btn.innerText = 'Zobraziť ročné';
+      } else {
+        boxCapex.classList.add('hidden');
+        boxOpex.classList.remove('hidden');
+        btn.innerText = 'Zobraziť zriaďovacie';
+      }
+    }
+
+    // Spustenie pri načítaní stránky
+    window.onload = function() {
+      setMode('BLACKOUT');
+      selectComponent('tank');
+    };
+  </script>
+</body>
+</html>
